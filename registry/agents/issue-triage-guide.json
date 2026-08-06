@@ -1,0 +1,24 @@
+{
+  "id": "issue-triage-guide",
+  "type": "agent",
+  "name": "Issue Triage Guide",
+  "description": "Example agent that summarizes incoming issues, highlights missing reproduction details, and suggests consistent project labels.",
+  "author": {
+    "name": "SkillMarket Example Lab",
+    "url": "https://github.com/THU-MEM/SkillMarket"
+  },
+  "repository": "https://github.com/THU-MEM/SkillMarket/tree/main/examples/issue-triage-guide",
+  "tags": ["community", "github", "triage"],
+  "version": "0.2.1",
+  "license": "Apache-2.0",
+  "updatedAt": "2026-08-02",
+  "isExample": true,
+  "setup": {
+    "instructions": "Add the example instructions to an agent with read-only issue access and replace the sample labels with labels that exist in your repository.",
+    "requirements": ["Repository issue access", "Documented issue labels"]
+  },
+  "usage": {
+    "instructions": "Give the agent a single issue at a time and have a maintainer confirm suggested labels and replies before anything is posted.",
+    "example": "Summarize issue #42, identify information needed to reproduce it, and suggest up to three existing labels."
+  }
+}

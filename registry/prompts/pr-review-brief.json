@@ -1,0 +1,45 @@
+{
+  "id": "pr-review-brief",
+  "type": "prompt",
+  "name": "Pull Request Review Brief",
+  "description": "Example prompt that scopes a code review around intended behavior, risk areas, and evidence while avoiding style-only noise.",
+  "author": {
+    "name": "SkillMarket Example Lab",
+    "url": "https://github.com/THU-MEM/SkillMarket"
+  },
+  "url": "https://github.com/THU-MEM/SkillMarket/blob/main/examples/prompts/pr-review-brief.md",
+  "tags": ["code-review", "quality", "github"],
+  "version": "1.2.0",
+  "license": "Apache-2.0",
+  "updatedAt": "2026-08-01",
+  "isExample": true,
+  "prompt": {
+    "template": "Review CHANGESET against INTENT. Focus on correctness, security, data loss, regressions, and missing tests in RISK_AREAS. Report only actionable findings supported by the diff, with file and line references. Treat PROJECT_RULES as binding and avoid style-only feedback.",
+    "variables": [
+      {
+        "name": "CHANGESET",
+        "description": "The pull request diff or commit range to review.",
+        "required": true
+      },
+      {
+        "name": "INTENT",
+        "description": "The expected behavior and acceptance criteria.",
+        "required": true
+      },
+      {
+        "name": "RISK_AREAS",
+        "description": "Components or failure modes that deserve extra attention.",
+        "required": false
+      },
+      {
+        "name": "PROJECT_RULES",
+        "description": "Repository-specific conventions and review policy.",
+        "required": false
+      }
+    ]
+  },
+  "usage": {
+    "instructions": "Supply the actual diff and acceptance criteria, then verify every reported finding against the checked-out source before posting review comments.",
+    "example": "INTENT: Preserve filters in the URL hash. RISK_AREAS: encoding, back navigation, unknown item ids."
+  }
+}

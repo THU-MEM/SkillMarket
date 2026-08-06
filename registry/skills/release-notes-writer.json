@@ -1,0 +1,24 @@
+{
+  "id": "release-notes-writer",
+  "type": "skill",
+  "name": "Release Notes Writer",
+  "description": "Example skill that turns a reviewed set of commits into concise, audience-aware release notes without inventing changes.",
+  "author": {
+    "name": "SkillMarket Example Lab",
+    "url": "https://github.com/THU-MEM/SkillMarket"
+  },
+  "repository": "https://github.com/THU-MEM/SkillMarket/tree/main/examples/release-notes-writer",
+  "tags": ["documentation", "release", "developer-tools"],
+  "version": "1.1.0",
+  "license": "Apache-2.0",
+  "updatedAt": "2026-08-05",
+  "isExample": true,
+  "installation": {
+    "command": "cp examples/release-notes-writer/SKILL.md .github/skills/release-notes-writer/SKILL.md",
+    "notes": "Adapt the audience and repository conventions in the example skill before using it in a real project."
+  },
+  "usage": {
+    "instructions": "Provide the release range or reviewed commit list, the intended audience, and links that should appear in the final notes.",
+    "example": "Write user-facing release notes for v1.4.0 from the supplied commits. Separate improvements, fixes, and upgrade notes."
+  }
+}
