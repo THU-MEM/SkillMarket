@@ -1,0 +1,25 @@
+{
+  "id": "accessibility-audit",
+  "type": "skill",
+  "name": "Accessibility Audit",
+  "description": "Example skill that reviews a web interface for keyboard access, semantic structure, focus behavior, and contrast risks.",
+  "author": {
+    "name": "SkillMarket Example Lab",
+    "url": "https://github.com/THU-MEM/SkillMarket"
+  },
+  "repository": "https://github.com/THU-MEM/SkillMarket/tree/main/examples/accessibility-audit",
+  "tags": ["accessibility", "frontend", "quality"],
+  "version": "1.0.0",
+  "license": "Apache-2.0",
+  "updatedAt": "2026-08-06",
+  "isExample": true,
+  "featured": true,
+  "installation": {
+    "command": "cp examples/accessibility-audit/SKILL.md .github/skills/accessibility-audit/SKILL.md",
+    "notes": "This catalog entry demonstrates the expected metadata shape; its example source is intentionally kept in this repository."
+  },
+  "usage": {
+    "instructions": "Ask your coding assistant to audit a named page or component and provide the relevant source files and interaction requirements.",
+    "example": "Audit the checkout form for WCAG 2.2 AA keyboard and labeling issues. Prioritize blockers and suggest focused fixes."
+  }
+}

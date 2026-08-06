@@ -1,0 +1,46 @@
+{
+  "id": "architecture-decision",
+  "type": "prompt",
+  "name": "Architecture Decision Record",
+  "description": "Example prompt for drafting a concise architecture decision record from explicit context, constraints, and evaluated options.",
+  "author": {
+    "name": "SkillMarket Example Lab",
+    "url": "https://github.com/THU-MEM/SkillMarket"
+  },
+  "url": "https://github.com/THU-MEM/SkillMarket/blob/main/examples/prompts/architecture-decision.md",
+  "tags": ["architecture", "documentation", "decision-making"],
+  "version": "1.0.0",
+  "license": "Apache-2.0",
+  "updatedAt": "2026-08-03",
+  "isExample": true,
+  "featured": true,
+  "prompt": {
+    "template": "Draft an architecture decision record for DECISION. Use CONTEXT and CONSTRAINTS as facts. Compare OPTIONS fairly, state the selected option and tradeoffs, and list consequences and follow-up actions. Do not invent benchmarks or stakeholder approval.",
+    "variables": [
+      {
+        "name": "DECISION",
+        "description": "The decision that needs to be recorded.",
+        "required": true
+      },
+      {
+        "name": "CONTEXT",
+        "description": "Relevant technical and product context.",
+        "required": true
+      },
+      {
+        "name": "CONSTRAINTS",
+        "description": "Known limits such as cost, compatibility, or timing.",
+        "required": true
+      },
+      {
+        "name": "OPTIONS",
+        "description": "The alternatives that were considered.",
+        "required": true
+      }
+    ]
+  },
+  "usage": {
+    "instructions": "Replace every uppercase variable with reviewed project facts, then ask a decision owner to verify the resulting tradeoffs and status.",
+    "example": "DECISION: Choose the client-side router. CONTEXT: Static GitHub Pages app. CONSTRAINTS: No server rewrites. OPTIONS: BrowserRouter, HashRouter."
+  }
+}

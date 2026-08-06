@@ -1,0 +1,25 @@
+{
+  "id": "dependency-curator",
+  "type": "agent",
+  "name": "Dependency Curator",
+  "description": "Example agent that inventories project dependencies, identifies stale or redundant packages, and proposes low-risk updates.",
+  "author": {
+    "name": "SkillMarket Example Lab",
+    "url": "https://github.com/THU-MEM/SkillMarket"
+  },
+  "repository": "https://github.com/THU-MEM/SkillMarket/tree/main/examples/dependency-curator",
+  "tags": ["dependencies", "maintenance", "security"],
+  "version": "0.3.0",
+  "license": "Apache-2.0",
+  "updatedAt": "2026-08-04",
+  "isExample": true,
+  "featured": true,
+  "setup": {
+    "instructions": "Copy the example agent definition into your assistant configuration, then limit its write permissions to dependency manifests and lockfiles.",
+    "requirements": ["Git repository", "Project package manager", "Read access to dependency manifests"]
+  },
+  "usage": {
+    "instructions": "Run the agent against a clean branch, review each proposed upgrade independently, and execute the repository test suite before merging.",
+    "example": "Review production npm dependencies. Propose patch and minor upgrades only, grouped by risk, and do not change application code."
+  }
+}
