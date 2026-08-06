@@ -1,11 +1,16 @@
 {
   "id": "release-notes-writer",
   "type": "skill",
-  "name": "Release Notes Writer",
-  "description": "Example skill that turns a reviewed set of commits into concise, audience-aware release notes without inventing changes.",
+  "name": "版本说明撰写助手",
+  "description": "一个将已审阅提交整理为简洁版本说明的示例技能，能够根据目标读者调整表达，并严格避免虚构任何变更。",
   "author": {
-    "name": "SkillMarket Example Lab",
+    "name": "SkillMarket 示例实验室",
     "url": "https://github.com/THU-MEM/SkillMarket"
+  },
+  "source": {
+    "primaryFile": "examples/release-notes-writer/SKILL.md",
+    "sourceUrl": "https://github.com/THU-MEM/SkillMarket/blob/main/examples/release-notes-writer/SKILL.md",
+    "rawUrl": "https://raw.githubusercontent.com/THU-MEM/SkillMarket/main/examples/release-notes-writer/SKILL.md"
   },
   "repository": "https://github.com/THU-MEM/SkillMarket/tree/main/examples/release-notes-writer",
   "tags": ["documentation", "release", "developer-tools"],
@@ -13,12 +18,170 @@
   "license": "Apache-2.0",
   "updatedAt": "2026-08-05",
   "isExample": true,
-  "installation": {
-    "command": "cp examples/release-notes-writer/SKILL.md .github/skills/release-notes-writer/SKILL.md",
-    "notes": "Adapt the audience and repository conventions in the example skill before using it in a real project."
-  },
+  "installations": [
+    {
+      "id": "npx-copilot-project",
+      "type": "cli",
+      "label": "npx skills 安装到当前项目",
+      "summary": "使用 Vercel 社区 CLI 将技能安装到当前项目，便于与团队共同版本管理。",
+      "client": "github-copilot",
+      "scope": "project",
+      "platforms": ["windows", "macos", "linux"],
+      "officialStatus": "community",
+      "recommended": true,
+      "command": "npx skills add THU-MEM/SkillMarket --skill release-notes-writer --agent github-copilot --yes",
+      "prerequisites": [
+        {
+          "name": "Node.js",
+          "details": "npx skills 当前要求 Node.js 22.20.0 或更高版本。",
+          "check": "node --version"
+        }
+      ],
+      "steps": [
+        {
+          "title": "进入目标仓库",
+          "description": "在终端中切换到希望使用技能的项目根目录。"
+        },
+        {
+          "title": "执行安装",
+          "description": "指定技能和 GitHub Copilot 客户端，非交互式完成项目级安装。",
+          "command": "npx skills add THU-MEM/SkillMarket --skill release-notes-writer --agent github-copilot --yes",
+          "expected": "项目技能目录中出现 release-notes-writer/SKILL.md。"
+        }
+      ],
+      "verify": {
+        "description": "列出已安装技能并确认 release-notes-writer 可见。",
+        "command": "npx skills list"
+      },
+      "update": {
+        "description": "使用社区 CLI 更新已安装技能。",
+        "command": "npx skills update"
+      },
+      "uninstall": {
+        "description": "使用交互式移除命令删除该技能。",
+        "command": "npx skills remove"
+      },
+      "securityNote": "npx skills 是 Vercel 维护的社区 CLI，并非 GitHub 官方命令；请先审查将被写入项目的文件。",
+      "evidenceUrl": "https://github.com/vercel-labs/skills#readme"
+    },
+    {
+      "id": "gh-skill-interactive",
+      "type": "cli",
+      "label": "GitHub CLI 官方安装",
+      "summary": "先通过 GitHub CLI 预览技能内容，再交互选择目标客户端与安装范围。",
+      "client": "github-copilot",
+      "scope": "interactive",
+      "platforms": ["windows", "macos", "linux"],
+      "officialStatus": "official",
+      "command": "gh skill install THU-MEM/SkillMarket release-notes-writer",
+      "prerequisites": [
+        {
+          "name": "GitHub CLI",
+          "details": "需要 GitHub CLI 2.90 或更高版本；gh skill 当前处于 Public Preview。",
+          "check": "gh --version"
+        }
+      ],
+      "steps": [
+        {
+          "title": "预览技能",
+          "description": "在安装前检查技能主文件、引用资源与潜在脚本。",
+          "command": "gh skill preview THU-MEM/SkillMarket release-notes-writer"
+        },
+        {
+          "title": "执行安装",
+          "description": "运行官方命令，并按照提示确认客户端和安装范围。",
+          "command": "gh skill install THU-MEM/SkillMarket release-notes-writer"
+        }
+      ],
+      "verify": {
+        "description": "确认所选安装范围中存在 release-notes-writer/SKILL.md。"
+      },
+      "update": {
+        "description": "使用 GitHub CLI 更新已安装技能。",
+        "command": "gh skill update"
+      },
+      "securityNote": "GitHub 不验证第三方技能是否安全；请在安装前使用 preview 命令并检查源码。",
+      "evidenceUrl": "https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/add-skills"
+    },
+    {
+      "id": "copilot-cli-url",
+      "type": "cli",
+      "label": "添加到 GitHub Copilot CLI",
+      "summary": "从公开的原始 SKILL.md 地址直接添加到 Copilot CLI 个人技能目录。",
+      "client": "github-copilot-cli",
+      "scope": "user",
+      "platforms": ["windows", "macos", "linux"],
+      "officialStatus": "official",
+      "command": "copilot skill add https://raw.githubusercontent.com/THU-MEM/SkillMarket/main/examples/release-notes-writer/SKILL.md",
+      "prerequisites": [
+        {
+          "name": "GitHub Copilot CLI",
+          "details": "需要已安装 Copilot CLI，并拥有有效的 GitHub Copilot 订阅。",
+          "check": "copilot --version"
+        }
+      ],
+      "steps": [
+        {
+          "title": "添加远程技能",
+          "description": "使用官方 skill add 命令读取并保存原始技能文件。",
+          "command": "copilot skill add https://raw.githubusercontent.com/THU-MEM/SkillMarket/main/examples/release-notes-writer/SKILL.md"
+        },
+        {
+          "title": "重新加载技能",
+          "description": "让当前 Copilot CLI 会话发现刚刚安装的技能。",
+          "command": "/skills reload"
+        }
+      ],
+      "verify": {
+        "description": "在 Copilot CLI 中列出技能。",
+        "command": "/skills list"
+      },
+      "uninstall": {
+        "description": "在 Copilot CLI 中移除对应技能目录。",
+        "command": "/skills remove release-notes-writer"
+      },
+      "securityNote": "通过 URL 安装前请打开原始文件，确认其指令和工具调用符合预期。",
+      "evidenceUrl": "https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/add-skills"
+    },
+    {
+      "id": "manual-claude-project",
+      "type": "manual",
+      "label": "手动安装到 Claude Code 项目",
+      "summary": "将经过审查的 SKILL.md 放入当前项目的 Claude Code 技能目录，不运行安装脚本。",
+      "client": "claude-code",
+      "scope": "project",
+      "platforms": ["windows", "macos", "linux"],
+      "officialStatus": "maintainer",
+      "targetPath": ".claude/skills/release-notes-writer/SKILL.md",
+      "steps": [
+        {
+          "title": "查看原始文件",
+          "description": "打开 SkillMarket 源码中的 SKILL.md，确认内容与许可证。"
+        },
+        {
+          "title": "创建技能目录",
+          "description": "在目标项目根目录创建 .claude/skills/release-notes-writer。"
+        },
+        {
+          "title": "复制技能",
+          "description": "将 SKILL.md 复制到目标目录，并重新启动或开启 Claude Code 会话。"
+        }
+      ],
+      "verify": {
+        "description": "确认 .claude/skills/release-notes-writer/SKILL.md 存在并可被 Claude Code 发现。"
+      },
+      "update": {
+        "description": "重新审查并替换本地 SKILL.md。"
+      },
+      "uninstall": {
+        "description": "删除 .claude/skills/release-notes-writer 目录。"
+      },
+      "securityNote": "手动安装降低了安装器风险，但技能内容仍可能影响模型行为，必须先审查原始指令。",
+      "evidenceUrl": "https://github.com/anthropics/claude-code/tree/main/plugins/plugin-dev/skills/plugin-structure"
+    }
+  ],
   "usage": {
-    "instructions": "Provide the release range or reviewed commit list, the intended audience, and links that should appear in the final notes.",
-    "example": "Write user-facing release notes for v1.4.0 from the supplied commits. Separate improvements, fixes, and upgrade notes."
+    "instructions": "提供发布版本范围或已审阅的提交列表、目标读者，以及最终版本说明中需要保留的链接。",
+    "example": "根据提供的提交为 v1.4.0 撰写面向用户的版本说明，分别整理功能改进、问题修复与升级注意事项。"
   }
 }

@@ -3,6 +3,7 @@
 **An open marketplace for discovering and publishing Skills, Agents, and Prompts.**
 
 [Live site](https://thu-mem.github.io/SkillMarket/) ·
+[Installation guide](docs/USER_GUIDE.md) ·
 [Publish a listing](CONTRIBUTING.md) ·
 [Registry schema](registry/registry.schema.json)
 
@@ -21,7 +22,9 @@ There is no database, account system, tracking counter, or hosted execution serv
 - Type and multi-tag filters, sorting, result totals, and clear empty states
 - Responsive marketplace layout for mobile and desktop
 - Static-hosting-safe hash routes for durable listing detail URLs
-- Complete metadata, installation/setup guidance, prompt variables, and source links
+- Multi-client quick install with scopes, copyable commands, prerequisites, verification, updates,
+  uninstall guidance, security notes, and evidence links
+- Complete metadata, raw source files, setup guidance, prompt variables, and source links
 - Clearly labeled first-party demonstration entries
 - JSON Schema validation, duplicate-ID checks, and registry tests
 - Pull request publishing flow with contribution guide and PR template
@@ -73,6 +76,7 @@ Vite prints the local development URL. The production build keeps all assets und
 │   ├── pull_request_template.md
 │   └── workflows/              # CI and Pages deployment
 ├── examples/                   # Source for clearly labeled demonstration listings
+├── docs/                       # Task-oriented installation and usage guides
 ├── public/                     # Static assets, including the original favicon
 ├── registry/
 │   ├── agents/                 # One agent per JSON file
@@ -90,7 +94,7 @@ Vite prints the local development URL. The production build keeps all assets und
 
 1. Choose `registry/skills`, `registry/agents`, or `registry/prompts`.
 2. Add one JSON file named after a globally unique kebab-case `id`.
-3. Include common metadata and the required type-specific installation or usage information.
+3. Include source metadata and evidence-backed type-specific installation or usage information.
 4. Run `npm run validate:registry` and the project checks.
 5. Open a pull request and complete the listing checklist.
 
@@ -103,13 +107,15 @@ expectations.
 Every entry includes:
 
 - `id`, `type`, `name`, and `description`
-- `author` and at least one public `repository` or `url`
+- `author`, a primary `source` file, and at least one public `repository` or `url`
 - `tags`, semantic `version`, `license`, and ISO `updatedAt`
 - `isExample` so demonstration content cannot be mistaken for a third-party project
 - `usage.instructions` and an optional usage example
 
-Skills add `installation`, agents add `setup`, and prompts add a `prompt` template with declared
-variables. Unknown fields are rejected. The authoritative contract is
+Skills add a validated `installations` array whose methods describe client, scope, platform,
+provenance, prerequisites, steps, verification, update, uninstall, security, and evidence.
+Agents add `setup`, and prompts add a `prompt` template with declared variables. Unknown fields
+are rejected. The authoritative contract is
 [`registry/registry.schema.json`](registry/registry.schema.json).
 
 ## Deployment

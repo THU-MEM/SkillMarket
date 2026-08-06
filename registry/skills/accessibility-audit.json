@@ -1,11 +1,16 @@
 {
   "id": "accessibility-audit",
   "type": "skill",
-  "name": "Accessibility Audit",
-  "description": "Example skill that reviews a web interface for keyboard access, semantic structure, focus behavior, and contrast risks.",
+  "name": "无障碍体验审查",
+  "description": "一个用于审查网页界面的示例技能，重点识别键盘操作、语义结构、焦点行为与文字对比度中的无障碍风险。",
   "author": {
-    "name": "SkillMarket Example Lab",
+    "name": "SkillMarket 示例实验室",
     "url": "https://github.com/THU-MEM/SkillMarket"
+  },
+  "source": {
+    "primaryFile": "examples/accessibility-audit/SKILL.md",
+    "sourceUrl": "https://github.com/THU-MEM/SkillMarket/blob/main/examples/accessibility-audit/SKILL.md",
+    "rawUrl": "https://raw.githubusercontent.com/THU-MEM/SkillMarket/main/examples/accessibility-audit/SKILL.md"
   },
   "repository": "https://github.com/THU-MEM/SkillMarket/tree/main/examples/accessibility-audit",
   "tags": ["accessibility", "frontend", "quality"],
@@ -14,12 +19,209 @@
   "updatedAt": "2026-08-06",
   "isExample": true,
   "featured": true,
-  "installation": {
-    "command": "cp examples/accessibility-audit/SKILL.md .github/skills/accessibility-audit/SKILL.md",
-    "notes": "This catalog entry demonstrates the expected metadata shape; its example source is intentionally kept in this repository."
-  },
+  "installations": [
+    {
+      "id": "npx-copilot-project",
+      "type": "cli",
+      "label": "npx skills 安装到当前项目",
+      "summary": "使用 Vercel 社区 CLI 将技能安装到当前项目的 GitHub Copilot 技能目录，适合快速体验。",
+      "client": "github-copilot",
+      "scope": "project",
+      "platforms": ["windows", "macos", "linux"],
+      "officialStatus": "community",
+      "recommended": true,
+      "command": "npx skills add THU-MEM/SkillMarket --skill accessibility-audit --agent github-copilot --yes",
+      "prerequisites": [
+        {
+          "name": "Node.js",
+          "details": "npx skills 当前要求 Node.js 22.20.0 或更高版本。",
+          "check": "node --version"
+        }
+      ],
+      "steps": [
+        {
+          "title": "进入目标仓库",
+          "description": "在终端中切换到希望使用此技能的项目根目录。"
+        },
+        {
+          "title": "运行安装命令",
+          "description": "CLI 会发现指定技能，并写入 GitHub Copilot 支持的项目级技能目录。",
+          "command": "npx skills add THU-MEM/SkillMarket --skill accessibility-audit --agent github-copilot --yes",
+          "expected": "项目中出现技能目录，并包含 SKILL.md。"
+        }
+      ],
+      "verify": {
+        "description": "运行列表命令，或确认项目中的 .agents/skills 目录已出现 accessibility-audit。",
+        "command": "npx skills list"
+      },
+      "update": {
+        "description": "使用社区 CLI 检查并更新已安装技能。",
+        "command": "npx skills update"
+      },
+      "uninstall": {
+        "description": "使用交互式移除命令选择并删除该技能。",
+        "command": "npx skills remove"
+      },
+      "securityNote": "npx skills 是 Vercel 维护的社区 CLI，并非 GitHub 官方命令。运行前请先查看技能源码与安装目标。",
+      "evidenceUrl": "https://github.com/vercel-labs/skills#readme"
+    },
+    {
+      "id": "gh-skill-interactive",
+      "type": "cli",
+      "label": "GitHub CLI 官方安装",
+      "summary": "使用处于 Public Preview 的 GitHub CLI skill 命令预览并交互选择安装范围。",
+      "client": "github-copilot",
+      "scope": "interactive",
+      "platforms": ["windows", "macos", "linux"],
+      "officialStatus": "official",
+      "command": "gh skill install THU-MEM/SkillMarket accessibility-audit",
+      "prerequisites": [
+        {
+          "name": "GitHub CLI",
+          "details": "需要 GitHub CLI 2.90 或更高版本；gh skill 当前处于 Public Preview。",
+          "check": "gh --version"
+        }
+      ],
+      "steps": [
+        {
+          "title": "安装前预览",
+          "description": "先查看技能将写入的内容，确认来源与文件安全性。",
+          "command": "gh skill preview THU-MEM/SkillMarket accessibility-audit"
+        },
+        {
+          "title": "交互式安装",
+          "description": "执行安装并按提示选择客户端与项目级或用户级范围。",
+          "command": "gh skill install THU-MEM/SkillMarket accessibility-audit"
+        }
+      ],
+      "verify": {
+        "description": "确认所选范围的技能目录中存在 accessibility-audit/SKILL.md。"
+      },
+      "update": {
+        "description": "使用 GitHub CLI 更新已经安装的技能。",
+        "command": "gh skill update"
+      },
+      "securityNote": "GitHub 官方文档提醒第三方技能可能包含提示词注入或恶意脚本；安装前必须预览并审查源码。",
+      "evidenceUrl": "https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/add-skills"
+    },
+    {
+      "id": "copilot-cli-url",
+      "type": "cli",
+      "label": "添加到 GitHub Copilot CLI",
+      "summary": "使用 Copilot CLI 官方 skill add 命令从公开原始文件地址添加技能。",
+      "client": "github-copilot-cli",
+      "scope": "user",
+      "platforms": ["windows", "macos", "linux"],
+      "officialStatus": "official",
+      "command": "copilot skill add https://raw.githubusercontent.com/THU-MEM/SkillMarket/main/examples/accessibility-audit/SKILL.md",
+      "prerequisites": [
+        {
+          "name": "GitHub Copilot CLI",
+          "details": "需要已安装 Copilot CLI，并拥有有效的 GitHub Copilot 订阅。",
+          "check": "copilot --version"
+        }
+      ],
+      "steps": [
+        {
+          "title": "添加技能",
+          "description": "Copilot CLI 会从 URL 读取技能并保存到个人技能目录。",
+          "command": "copilot skill add https://raw.githubusercontent.com/THU-MEM/SkillMarket/main/examples/accessibility-audit/SKILL.md"
+        },
+        {
+          "title": "重新加载",
+          "description": "在 Copilot CLI 中重新加载技能，使当前会话发现新内容。",
+          "command": "/skills reload"
+        }
+      ],
+      "verify": {
+        "description": "在 Copilot CLI 中列出技能并查看详细信息。",
+        "command": "/skills list"
+      },
+      "uninstall": {
+        "description": "在 Copilot CLI 中按技能目录名称移除。",
+        "command": "/skills remove accessibility-audit"
+      },
+      "securityNote": "通过 URL 安装前请打开原始文件进行审查；Copilot CLI 不会替你验证第三方技能的安全性。",
+      "evidenceUrl": "https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/add-skills"
+    },
+    {
+      "id": "npx-claude-user",
+      "type": "cli",
+      "label": "安装到 Claude Code 用户目录",
+      "summary": "通过 npx skills 将技能安装到当前用户的 Claude Code 技能目录，供多个项目复用。",
+      "client": "claude-code",
+      "scope": "user",
+      "platforms": ["windows", "macos", "linux"],
+      "officialStatus": "community",
+      "command": "npx skills add THU-MEM/SkillMarket --skill accessibility-audit --agent claude-code --global --yes",
+      "prerequisites": [
+        {
+          "name": "Claude Code",
+          "details": "需要可用的 Claude Code 环境与 Node.js 22.20.0 或更高版本。",
+          "check": "claude --version"
+        }
+      ],
+      "steps": [
+        {
+          "title": "运行全局安装",
+          "description": "指定 claude-code 客户端与 global 范围，CLI 会写入用户技能目录。",
+          "command": "npx skills add THU-MEM/SkillMarket --skill accessibility-audit --agent claude-code --global --yes",
+          "expected": "~/.claude/skills/accessibility-audit/SKILL.md 可用。"
+        }
+      ],
+      "verify": {
+        "description": "确认 ~/.claude/skills/accessibility-audit/SKILL.md 已创建。"
+      },
+      "update": {
+        "description": "使用 npx skills 更新已安装技能。",
+        "command": "npx skills update"
+      },
+      "uninstall": {
+        "description": "使用 npx skills 交互移除该技能。",
+        "command": "npx skills remove"
+      },
+      "securityNote": "这是社区 CLI 安装路径。建议安装前检查原始 SKILL.md，并确认全局范围符合预期。",
+      "evidenceUrl": "https://github.com/vercel-labs/skills#readme"
+    },
+    {
+      "id": "manual-project",
+      "type": "manual",
+      "label": "手动安装到项目",
+      "summary": "不运行第三方安装器，直接审查并复制 SKILL.md 到项目级技能目录。",
+      "client": "universal",
+      "scope": "project",
+      "platforms": ["windows", "macos", "linux"],
+      "officialStatus": "maintainer",
+      "targetPath": ".github/skills/accessibility-audit/SKILL.md",
+      "steps": [
+        {
+          "title": "审查原始内容",
+          "description": "先打开 SkillMarket 仓库中的 SKILL.md，检查指令、脚本引用与权限要求。"
+        },
+        {
+          "title": "创建目标目录",
+          "description": "在项目根目录创建 .github/skills/accessibility-audit。"
+        },
+        {
+          "title": "复制主文件",
+          "description": "将原始 SKILL.md 复制到目标目录，并保留文件名。"
+        }
+      ],
+      "verify": {
+        "description": "确认 .github/skills/accessibility-audit/SKILL.md 存在且 YAML frontmatter 完整。"
+      },
+      "update": {
+        "description": "重新下载并审查最新原始文件，再替换项目中的 SKILL.md。"
+      },
+      "uninstall": {
+        "description": "删除项目中的 .github/skills/accessibility-audit 目录。"
+      },
+      "securityNote": "手动安装不会执行第三方命令，但仍需审查 SKILL.md 中可能引用的脚本、网络资源和工具权限。",
+      "evidenceUrl": "https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/add-skills"
+    }
+  ],
   "usage": {
-    "instructions": "Ask your coding assistant to audit a named page or component and provide the relevant source files and interaction requirements.",
-    "example": "Audit the checkout form for WCAG 2.2 AA keyboard and labeling issues. Prioritize blockers and suggest focused fixes."
+    "instructions": "向编码助手指定需要审查的页面或组件，同时提供相关源文件、预期交互方式和目标无障碍等级。",
+    "example": "审查结算表单是否存在 WCAG 2.2 AA 键盘操作和标签问题，优先报告阻断性问题并提出聚焦的修复建议。"
   }
 }

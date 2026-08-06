@@ -1,11 +1,16 @@
 {
   "id": "pr-review-brief",
   "type": "prompt",
-  "name": "Pull Request Review Brief",
-  "description": "Example prompt that scopes a code review around intended behavior, risk areas, and evidence while avoiding style-only noise.",
+  "name": "Pull Request 审查简报",
+  "description": "一个围绕预期行为、风险区域与证据开展代码审查的示例提示词，专注可执行问题，避免只涉及风格的噪声反馈。",
   "author": {
-    "name": "SkillMarket Example Lab",
+    "name": "SkillMarket 示例实验室",
     "url": "https://github.com/THU-MEM/SkillMarket"
+  },
+  "source": {
+    "primaryFile": "examples/prompts/pr-review-brief.md",
+    "sourceUrl": "https://github.com/THU-MEM/SkillMarket/blob/main/examples/prompts/pr-review-brief.md",
+    "rawUrl": "https://raw.githubusercontent.com/THU-MEM/SkillMarket/main/examples/prompts/pr-review-brief.md"
   },
   "url": "https://github.com/THU-MEM/SkillMarket/blob/main/examples/prompts/pr-review-brief.md",
   "tags": ["code-review", "quality", "github"],
@@ -14,32 +19,32 @@
   "updatedAt": "2026-08-01",
   "isExample": true,
   "prompt": {
-    "template": "Review CHANGESET against INTENT. Focus on correctness, security, data loss, regressions, and missing tests in RISK_AREAS. Report only actionable findings supported by the diff, with file and line references. Treat PROJECT_RULES as binding and avoid style-only feedback.",
+    "template": "依据 INTENT 审查 CHANGESET。重点关注 RISK_AREAS 中的正确性、安全性、数据丢失、功能回归和测试缺失。只报告有差异证据支持、可以执行的发现，并附文件与行号。严格遵循 PROJECT_RULES，避免只涉及代码风格的反馈。",
     "variables": [
       {
         "name": "CHANGESET",
-        "description": "The pull request diff or commit range to review.",
+        "description": "需要审查的 Pull Request 差异或提交范围。",
         "required": true
       },
       {
         "name": "INTENT",
-        "description": "The expected behavior and acceptance criteria.",
+        "description": "预期行为与对应的验收标准。",
         "required": true
       },
       {
         "name": "RISK_AREAS",
-        "description": "Components or failure modes that deserve extra attention.",
+        "description": "需要特别关注的组件或失败模式。",
         "required": false
       },
       {
         "name": "PROJECT_RULES",
-        "description": "Repository-specific conventions and review policy.",
+        "description": "仓库特有的约定与审查规则。",
         "required": false
       }
     ]
   },
   "usage": {
-    "instructions": "Supply the actual diff and acceptance criteria, then verify every reported finding against the checked-out source before posting review comments.",
-    "example": "INTENT: Preserve filters in the URL hash. RISK_AREAS: encoding, back navigation, unknown item ids."
+    "instructions": "提供真实代码差异与验收标准，并在发布审查意见前，对照已检出的源码逐项确认每个发现。",
+    "example": "INTENT：在 URL 哈希中保留筛选条件。RISK_AREAS：编码、返回导航、未知条目 ID。"
   }
 }
