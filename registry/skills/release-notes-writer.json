@@ -1,10 +1,10 @@
 {
   "id": "release-notes-writer",
   "type": "skill",
-  "name": "Release Notes Writer",
-  "description": "Example skill that turns a reviewed set of commits into concise, audience-aware release notes without inventing changes.",
+  "name": "版本说明撰写助手",
+  "description": "一个将已审阅提交整理为简洁版本说明的示例技能，能够根据目标读者调整表达，并严格避免虚构任何变更。",
   "author": {
-    "name": "SkillMarket Example Lab",
+    "name": "SkillMarket 示例实验室",
     "url": "https://github.com/THU-MEM/SkillMarket"
   },
   "repository": "https://github.com/THU-MEM/SkillMarket/tree/main/examples/release-notes-writer",
@@ -15,10 +15,10 @@
   "isExample": true,
   "installation": {
     "command": "cp examples/release-notes-writer/SKILL.md .github/skills/release-notes-writer/SKILL.md",
-    "notes": "Adapt the audience and repository conventions in the example skill before using it in a real project."
+    "notes": "在真实项目中使用前，请先根据目标读者和仓库规范调整示例技能。"
   },
   "usage": {
-    "instructions": "Provide the release range or reviewed commit list, the intended audience, and links that should appear in the final notes.",
-    "example": "Write user-facing release notes for v1.4.0 from the supplied commits. Separate improvements, fixes, and upgrade notes."
+    "instructions": "提供发布版本范围或已审阅的提交列表、目标读者，以及最终版本说明中需要保留的链接。",
+    "example": "根据提供的提交为 v1.4.0 撰写面向用户的版本说明，分别整理功能改进、问题修复与升级注意事项。"
   }
 }

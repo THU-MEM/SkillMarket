@@ -1,10 +1,10 @@
 {
   "id": "dependency-curator",
   "type": "agent",
-  "name": "Dependency Curator",
-  "description": "Example agent that inventories project dependencies, identifies stale or redundant packages, and proposes low-risk updates.",
+  "name": "依赖治理智能体",
+  "description": "一个用于盘点项目依赖的示例智能体，能够识别过期或冗余的软件包，并基于兼容性证据提出低风险更新方案。",
   "author": {
-    "name": "SkillMarket Example Lab",
+    "name": "SkillMarket 示例实验室",
     "url": "https://github.com/THU-MEM/SkillMarket"
   },
   "repository": "https://github.com/THU-MEM/SkillMarket/tree/main/examples/dependency-curator",
@@ -15,11 +15,11 @@
   "isExample": true,
   "featured": true,
   "setup": {
-    "instructions": "Copy the example agent definition into your assistant configuration, then limit its write permissions to dependency manifests and lockfiles.",
-    "requirements": ["Git repository", "Project package manager", "Read access to dependency manifests"]
+    "instructions": "将示例智能体定义复制到助手配置中，并把它的写入权限严格限制在依赖清单与锁文件范围内。",
+    "requirements": ["Git 代码仓库", "项目使用的包管理器", "依赖清单读取权限"]
   },
   "usage": {
-    "instructions": "Run the agent against a clean branch, review each proposed upgrade independently, and execute the repository test suite before merging.",
-    "example": "Review production npm dependencies. Propose patch and minor upgrades only, grouped by risk, and do not change application code."
+    "instructions": "在干净的独立分支中运行智能体，逐项审阅每个升级建议，并在合并前执行仓库已有的完整测试套件。",
+    "example": "审查生产环境 npm 依赖，仅按风险分组提出补丁版本和次版本升级，不要修改应用代码。"
   }
 }

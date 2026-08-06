@@ -1,10 +1,10 @@
 {
   "id": "architecture-decision",
   "type": "prompt",
-  "name": "Architecture Decision Record",
-  "description": "Example prompt for drafting a concise architecture decision record from explicit context, constraints, and evaluated options.",
+  "name": "架构决策记录",
+  "description": "一个用于起草简洁架构决策记录的示例提示词，能够基于明确的背景、约束条件与备选方案形成可追溯结论。",
   "author": {
-    "name": "SkillMarket Example Lab",
+    "name": "SkillMarket 示例实验室",
     "url": "https://github.com/THU-MEM/SkillMarket"
   },
   "url": "https://github.com/THU-MEM/SkillMarket/blob/main/examples/prompts/architecture-decision.md",
@@ -15,32 +15,32 @@
   "isExample": true,
   "featured": true,
   "prompt": {
-    "template": "Draft an architecture decision record for DECISION. Use CONTEXT and CONSTRAINTS as facts. Compare OPTIONS fairly, state the selected option and tradeoffs, and list consequences and follow-up actions. Do not invent benchmarks or stakeholder approval.",
+    "template": "为 DECISION 起草一份架构决策记录。将 CONTEXT 与 CONSTRAINTS 作为事实依据，公平比较 OPTIONS，说明最终选择及其权衡，并列出影响与后续行动。不得虚构性能数据或利益相关者的认可。",
     "variables": [
       {
         "name": "DECISION",
-        "description": "The decision that needs to be recorded.",
+        "description": "需要被正式记录的架构决策。",
         "required": true
       },
       {
         "name": "CONTEXT",
-        "description": "Relevant technical and product context.",
+        "description": "与决策相关的技术和产品背景。",
         "required": true
       },
       {
         "name": "CONSTRAINTS",
-        "description": "Known limits such as cost, compatibility, or timing.",
+        "description": "成本、兼容性或时间等已知约束。",
         "required": true
       },
       {
         "name": "OPTIONS",
-        "description": "The alternatives that were considered.",
+        "description": "本次决策中经过评估的备选方案。",
         "required": true
       }
     ]
   },
   "usage": {
-    "instructions": "Replace every uppercase variable with reviewed project facts, then ask a decision owner to verify the resulting tradeoffs and status.",
-    "example": "DECISION: Choose the client-side router. CONTEXT: Static GitHub Pages app. CONSTRAINTS: No server rewrites. OPTIONS: BrowserRouter, HashRouter."
+    "instructions": "用已经审阅的项目事实替换每个大写变量，然后由决策负责人核对最终权衡、影响与决策状态。",
+    "example": "DECISION：选择客户端路由。CONTEXT：静态 GitHub Pages 应用。CONSTRAINTS：不支持服务端重写。OPTIONS：BrowserRouter、HashRouter。"
   }
 }

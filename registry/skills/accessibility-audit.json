@@ -1,10 +1,10 @@
 {
   "id": "accessibility-audit",
   "type": "skill",
-  "name": "Accessibility Audit",
-  "description": "Example skill that reviews a web interface for keyboard access, semantic structure, focus behavior, and contrast risks.",
+  "name": "无障碍体验审查",
+  "description": "一个用于审查网页界面的示例技能，重点识别键盘操作、语义结构、焦点行为与文字对比度中的无障碍风险。",
   "author": {
-    "name": "SkillMarket Example Lab",
+    "name": "SkillMarket 示例实验室",
     "url": "https://github.com/THU-MEM/SkillMarket"
   },
   "repository": "https://github.com/THU-MEM/SkillMarket/tree/main/examples/accessibility-audit",
@@ -16,10 +16,10 @@
   "featured": true,
   "installation": {
     "command": "cp examples/accessibility-audit/SKILL.md .github/skills/accessibility-audit/SKILL.md",
-    "notes": "This catalog entry demonstrates the expected metadata shape; its example source is intentionally kept in this repository."
+    "notes": "此目录条目用于展示标准元数据结构，示例源码特意保存在 SkillMarket 仓库中。"
   },
   "usage": {
-    "instructions": "Ask your coding assistant to audit a named page or component and provide the relevant source files and interaction requirements.",
-    "example": "Audit the checkout form for WCAG 2.2 AA keyboard and labeling issues. Prioritize blockers and suggest focused fixes."
+    "instructions": "向编码助手指定需要审查的页面或组件，同时提供相关源文件、预期交互方式和目标无障碍等级。",
+    "example": "审查结算表单是否存在 WCAG 2.2 AA 键盘操作和标签问题，优先报告阻断性问题并提出聚焦的修复建议。"
   }
 }

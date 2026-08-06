@@ -1,10 +1,10 @@
 {
   "id": "issue-triage-guide",
   "type": "agent",
-  "name": "Issue Triage Guide",
-  "description": "Example agent that summarizes incoming issues, highlights missing reproduction details, and suggests consistent project labels.",
+  "name": "Issue 分诊智能体",
+  "description": "一个协助维护者整理新 Issue 的示例智能体，能够提炼问题、指出缺失的复现信息，并建议一致的项目标签。",
   "author": {
-    "name": "SkillMarket Example Lab",
+    "name": "SkillMarket 示例实验室",
     "url": "https://github.com/THU-MEM/SkillMarket"
   },
   "repository": "https://github.com/THU-MEM/SkillMarket/tree/main/examples/issue-triage-guide",
@@ -14,11 +14,11 @@
   "updatedAt": "2026-08-02",
   "isExample": true,
   "setup": {
-    "instructions": "Add the example instructions to an agent with read-only issue access and replace the sample labels with labels that exist in your repository.",
-    "requirements": ["Repository issue access", "Documented issue labels"]
+    "instructions": "将示例指令添加到仅具 Issue 只读权限的智能体，并把示例标签替换为你的仓库中真实存在的标签。",
+    "requirements": ["仓库 Issue 读取权限", "已有说明的 Issue 标签"]
   },
   "usage": {
-    "instructions": "Give the agent a single issue at a time and have a maintainer confirm suggested labels and replies before anything is posted.",
-    "example": "Summarize issue #42, identify information needed to reproduce it, and suggest up to three existing labels."
+    "instructions": "每次只向智能体提供一个 Issue，所有建议标签与回复都必须由维护者确认后才能正式发布。",
+    "example": "总结 Issue #42，列出复现问题仍需补充的信息，并从已有标签中推荐最多三个。"
   }
 }
