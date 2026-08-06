@@ -7,6 +7,11 @@
     "name": "SkillMarket 示例实验室",
     "url": "https://github.com/THU-MEM/SkillMarket"
   },
+  "source": {
+    "primaryFile": "examples/issue-triage-guide/AGENT.md",
+    "sourceUrl": "https://github.com/THU-MEM/SkillMarket/blob/main/examples/issue-triage-guide/AGENT.md",
+    "rawUrl": "https://raw.githubusercontent.com/THU-MEM/SkillMarket/main/examples/issue-triage-guide/AGENT.md"
+  },
   "repository": "https://github.com/THU-MEM/SkillMarket/tree/main/examples/issue-triage-guide",
   "tags": ["community", "github", "triage"],
   "version": "0.2.1",

@@ -7,6 +7,11 @@
     "name": "SkillMarket 示例实验室",
     "url": "https://github.com/THU-MEM/SkillMarket"
   },
+  "source": {
+    "primaryFile": "examples/prompts/architecture-decision.md",
+    "sourceUrl": "https://github.com/THU-MEM/SkillMarket/blob/main/examples/prompts/architecture-decision.md",
+    "rawUrl": "https://raw.githubusercontent.com/THU-MEM/SkillMarket/main/examples/prompts/architecture-decision.md"
+  },
   "url": "https://github.com/THU-MEM/SkillMarket/blob/main/examples/prompts/architecture-decision.md",
   "tags": ["architecture", "documentation", "decision-making"],
   "version": "1.0.0",

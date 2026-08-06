@@ -7,6 +7,11 @@
     "name": "SkillMarket 示例实验室",
     "url": "https://github.com/THU-MEM/SkillMarket"
   },
+  "source": {
+    "primaryFile": "examples/dependency-curator/AGENT.md",
+    "sourceUrl": "https://github.com/THU-MEM/SkillMarket/blob/main/examples/dependency-curator/AGENT.md",
+    "rawUrl": "https://raw.githubusercontent.com/THU-MEM/SkillMarket/main/examples/dependency-curator/AGENT.md"
+  },
   "repository": "https://github.com/THU-MEM/SkillMarket/tree/main/examples/dependency-curator",
   "tags": ["dependencies", "maintenance", "security"],
   "version": "0.3.0",

@@ -1,3 +1,10 @@
+---
+name: release-notes-writer
+description: Turn a reviewed commit range into concise, audience-aware release notes without inventing changes.
+license: Apache-2.0
+compatibility: GitHub Copilot, GitHub Copilot CLI, Claude Code, and other Agent Skills clients
+---
+
 # Release Notes Writer
 
 ## Purpose

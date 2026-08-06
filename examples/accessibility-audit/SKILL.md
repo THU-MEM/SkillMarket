@@ -1,3 +1,10 @@
+---
+name: accessibility-audit
+description: Review web interfaces for keyboard, semantic, focus, labeling, and contrast barriers.
+license: Apache-2.0
+compatibility: GitHub Copilot, GitHub Copilot CLI, Claude Code, and other Agent Skills clients
+---
+
 # Accessibility Audit
 
 ## Purpose

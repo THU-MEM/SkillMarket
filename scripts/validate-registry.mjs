@@ -66,6 +66,22 @@ export async function validateRegistry(directory = registryRoot) {
         errors.push(`${relative}: filename must match id "${entry.id}.json"`)
       }
     }
+
+    if (Array.isArray(entry.installations)) {
+      const methodIds = new Set()
+      for (const method of entry.installations) {
+        if (!method?.id) continue
+        if (methodIds.has(method.id)) {
+          errors.push(`${relative}: duplicate installation id "${method.id}"`)
+        }
+        methodIds.add(method.id)
+      }
+
+      const recommendedCount = entry.installations.filter((method) => method?.recommended).length
+      if (recommendedCount !== 1) {
+        errors.push(`${relative}: skills must define exactly one recommended installation method`)
+      }
+    }
   }
 
   return { count: loaded.length, errors }
