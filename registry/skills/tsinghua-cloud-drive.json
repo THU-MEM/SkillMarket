@@ -1,0 +1,1527 @@
+{
+  "id": "tsinghua-cloud-drive",
+  "type": "skill",
+  "name": "清华云盘",
+  "description": "在授权资料库中搜索、上传下载和整理文件，支持文本读写与目录管理。",
+  "author": {
+    "name": "THU-MEM",
+    "url": "https://github.com/THU-MEM/SkillMarket"
+  },
+  "source": {
+    "primaryFile": "examples/tsinghua-cloud-drive/SKILL.md",
+    "sourceUrl": "https://github.com/THU-MEM/SkillMarket/blob/main/examples/tsinghua-cloud-drive/SKILL.md",
+    "rawUrl": "https://raw.githubusercontent.com/THU-MEM/SkillMarket/main/examples/tsinghua-cloud-drive/SKILL.md"
+  },
+  "repository": "https://github.com/THU-MEM/SkillMarket/tree/main/examples/tsinghua-cloud-drive",
+  "tags": [
+    "cloud-storage",
+    "files",
+    "automation"
+  ],
+  "version": "2.0.0",
+  "license": "Apache-2.0",
+  "updatedAt": "2026-09-28",
+  "isExample": false,
+  "featured": true,
+  "installations": [
+    {
+      "id": "claude-code-project-desktop",
+      "type": "cli",
+      "label": "Claude Code · 当前项目",
+      "summary": "复制完整技能目录；另需 Python 3.9+、依赖包和你自己的资料库凭据。",
+      "client": "claude-code",
+      "scope": "project",
+      "platforms": [
+        "macos",
+        "linux"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": true,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill tsinghua-cloud-drive --agent claude-code --scope project",
+      "targetPath": ".claude/skills/tsinghua-cloud-drive",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22+",
+          "details": "目录安装器仅复制文件，不执行云盘脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "Python 3.9+",
+          "details": "建议在 Python 虚拟环境中安装依赖，使用该环境运行技能。",
+          "check": "python3 --version"
+        },
+        {
+          "name": "资料库凭据",
+          "details": "在 Agent 运行环境设置 TSINGHUA_CLOUD_TOKEN 和 TSINGHUA_CLOUD_REPO_ID；或通过 --config 使用包外私密配置。不要把凭据放进技能目录或公开仓库。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "复制完整技能",
+          "description": "克隆源码并审查后执行上方安装命令；已有克隆先更新源码，再执行第二行。"
+        },
+        {
+          "title": "安装 Python 依赖",
+          "description": "在准备运行此技能的 Python 环境中执行。",
+          "command": "python3 -m pip install -r .skillmarket-install/examples/tsinghua-cloud-drive/requirements.txt"
+        },
+        {
+          "title": "配置与验证",
+          "description": "使用自己的资料库凭据，先运行只读 list 命令；完整操作说明见 SKILL.md。"
+        }
+      ],
+      "verify": {
+        "description": "检查 .claude/skills/tsinghua-cloud-drive 的 SKILL.md、requirements.txt 和 scripts/drive.py；先在同一 Python 环境运行 --help，配置凭据后执行 list /。"
+      },
+      "update": {
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
+      },
+      "uninstall": {
+        "description": "仅删除 .claude/skills/tsinghua-cloud-drive，保留其他技能。"
+      },
+      "securityNote": "安装不执行脚本、不携带任何凭据。默认不覆盖；删除及覆盖需明确授权，超时先对账，不自动重试变更。",
+      "evidenceUrl": "https://code.claude.com/docs/en/skills"
+    },
+    {
+      "id": "claude-code-project-windows",
+      "type": "cli",
+      "label": "Claude Code · 当前项目",
+      "summary": "复制完整技能目录；另需 Python 3.9+、依赖包和你自己的资料库凭据。",
+      "client": "claude-code",
+      "scope": "project",
+      "platforms": [
+        "windows"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill tsinghua-cloud-drive --agent claude-code --scope project",
+      "targetPath": ".claude/skills/tsinghua-cloud-drive",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22+",
+          "details": "目录安装器仅复制文件，不执行云盘脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "Python 3.9+",
+          "details": "建议在 Python 虚拟环境中安装依赖，使用该环境运行技能。",
+          "check": "py -3 --version"
+        },
+        {
+          "name": "资料库凭据",
+          "details": "在 Agent 运行环境设置 TSINGHUA_CLOUD_TOKEN 和 TSINGHUA_CLOUD_REPO_ID；或通过 --config 使用包外私密配置。不要把凭据放进技能目录或公开仓库。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "复制完整技能",
+          "description": "克隆源码并审查后执行上方安装命令；已有克隆先更新源码，再执行第二行。"
+        },
+        {
+          "title": "安装 Python 依赖",
+          "description": "在准备运行此技能的 Python 环境中执行。",
+          "command": "py -3 -m pip install -r .skillmarket-install/examples/tsinghua-cloud-drive/requirements.txt"
+        },
+        {
+          "title": "配置与验证",
+          "description": "使用自己的资料库凭据，先运行只读 list 命令；完整操作说明见 SKILL.md。"
+        }
+      ],
+      "verify": {
+        "description": "检查 .claude/skills/tsinghua-cloud-drive 的 SKILL.md、requirements.txt 和 scripts/drive.py；先在同一 Python 环境运行 --help，配置凭据后执行 list /。"
+      },
+      "update": {
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
+      },
+      "uninstall": {
+        "description": "仅删除 .claude/skills/tsinghua-cloud-drive，保留其他技能。"
+      },
+      "securityNote": "安装不执行脚本、不携带任何凭据。默认不覆盖；删除及覆盖需明确授权，超时先对账，不自动重试变更。",
+      "evidenceUrl": "https://code.claude.com/docs/en/skills"
+    },
+    {
+      "id": "claude-code-user-desktop",
+      "type": "cli",
+      "label": "Claude Code · 当前用户",
+      "summary": "复制完整技能目录；另需 Python 3.9+、依赖包和你自己的资料库凭据。",
+      "client": "claude-code",
+      "scope": "user",
+      "platforms": [
+        "macos",
+        "linux"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill tsinghua-cloud-drive --agent claude-code --scope user",
+      "targetPath": "~/.claude/skills/tsinghua-cloud-drive",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22+",
+          "details": "目录安装器仅复制文件，不执行云盘脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "Python 3.9+",
+          "details": "建议在 Python 虚拟环境中安装依赖，使用该环境运行技能。",
+          "check": "python3 --version"
+        },
+        {
+          "name": "资料库凭据",
+          "details": "在 Agent 运行环境设置 TSINGHUA_CLOUD_TOKEN 和 TSINGHUA_CLOUD_REPO_ID；或通过 --config 使用包外私密配置。不要把凭据放进技能目录或公开仓库。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "复制完整技能",
+          "description": "克隆源码并审查后执行上方安装命令；已有克隆先更新源码，再执行第二行。"
+        },
+        {
+          "title": "安装 Python 依赖",
+          "description": "在准备运行此技能的 Python 环境中执行。",
+          "command": "python3 -m pip install -r .skillmarket-install/examples/tsinghua-cloud-drive/requirements.txt"
+        },
+        {
+          "title": "配置与验证",
+          "description": "使用自己的资料库凭据，先运行只读 list 命令；完整操作说明见 SKILL.md。"
+        }
+      ],
+      "verify": {
+        "description": "检查 ~/.claude/skills/tsinghua-cloud-drive 的 SKILL.md、requirements.txt 和 scripts/drive.py；先在同一 Python 环境运行 --help，配置凭据后执行 list /。"
+      },
+      "update": {
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
+      },
+      "uninstall": {
+        "description": "仅删除 ~/.claude/skills/tsinghua-cloud-drive，保留其他技能。"
+      },
+      "securityNote": "安装不执行脚本、不携带任何凭据。默认不覆盖；删除及覆盖需明确授权，超时先对账，不自动重试变更。",
+      "evidenceUrl": "https://code.claude.com/docs/en/skills"
+    },
+    {
+      "id": "claude-code-user-windows",
+      "type": "cli",
+      "label": "Claude Code · 当前用户",
+      "summary": "复制完整技能目录；另需 Python 3.9+、依赖包和你自己的资料库凭据。",
+      "client": "claude-code",
+      "scope": "user",
+      "platforms": [
+        "windows"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill tsinghua-cloud-drive --agent claude-code --scope user",
+      "targetPath": "~/.claude/skills/tsinghua-cloud-drive",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22+",
+          "details": "目录安装器仅复制文件，不执行云盘脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "Python 3.9+",
+          "details": "建议在 Python 虚拟环境中安装依赖，使用该环境运行技能。",
+          "check": "py -3 --version"
+        },
+        {
+          "name": "资料库凭据",
+          "details": "在 Agent 运行环境设置 TSINGHUA_CLOUD_TOKEN 和 TSINGHUA_CLOUD_REPO_ID；或通过 --config 使用包外私密配置。不要把凭据放进技能目录或公开仓库。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "复制完整技能",
+          "description": "克隆源码并审查后执行上方安装命令；已有克隆先更新源码，再执行第二行。"
+        },
+        {
+          "title": "安装 Python 依赖",
+          "description": "在准备运行此技能的 Python 环境中执行。",
+          "command": "py -3 -m pip install -r .skillmarket-install/examples/tsinghua-cloud-drive/requirements.txt"
+        },
+        {
+          "title": "配置与验证",
+          "description": "使用自己的资料库凭据，先运行只读 list 命令；完整操作说明见 SKILL.md。"
+        }
+      ],
+      "verify": {
+        "description": "检查 ~/.claude/skills/tsinghua-cloud-drive 的 SKILL.md、requirements.txt 和 scripts/drive.py；先在同一 Python 环境运行 --help，配置凭据后执行 list /。"
+      },
+      "update": {
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
+      },
+      "uninstall": {
+        "description": "仅删除 ~/.claude/skills/tsinghua-cloud-drive，保留其他技能。"
+      },
+      "securityNote": "安装不执行脚本、不携带任何凭据。默认不覆盖；删除及覆盖需明确授权，超时先对账，不自动重试变更。",
+      "evidenceUrl": "https://code.claude.com/docs/en/skills"
+    },
+    {
+      "id": "codex-project-desktop",
+      "type": "cli",
+      "label": "Codex · 当前项目",
+      "summary": "复制完整技能目录；另需 Python 3.9+、依赖包和你自己的资料库凭据。",
+      "client": "codex",
+      "scope": "project",
+      "platforms": [
+        "macos",
+        "linux"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill tsinghua-cloud-drive --agent codex --scope project",
+      "targetPath": ".agents/skills/tsinghua-cloud-drive",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22+",
+          "details": "目录安装器仅复制文件，不执行云盘脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "Python 3.9+",
+          "details": "建议在 Python 虚拟环境中安装依赖，使用该环境运行技能。",
+          "check": "python3 --version"
+        },
+        {
+          "name": "资料库凭据",
+          "details": "在 Agent 运行环境设置 TSINGHUA_CLOUD_TOKEN 和 TSINGHUA_CLOUD_REPO_ID；或通过 --config 使用包外私密配置。不要把凭据放进技能目录或公开仓库。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "复制完整技能",
+          "description": "克隆源码并审查后执行上方安装命令；已有克隆先更新源码，再执行第二行。"
+        },
+        {
+          "title": "安装 Python 依赖",
+          "description": "在准备运行此技能的 Python 环境中执行。",
+          "command": "python3 -m pip install -r .skillmarket-install/examples/tsinghua-cloud-drive/requirements.txt"
+        },
+        {
+          "title": "配置与验证",
+          "description": "使用自己的资料库凭据，先运行只读 list 命令；完整操作说明见 SKILL.md。"
+        }
+      ],
+      "verify": {
+        "description": "检查 .agents/skills/tsinghua-cloud-drive 的 SKILL.md、requirements.txt 和 scripts/drive.py；先在同一 Python 环境运行 --help，配置凭据后执行 list /。"
+      },
+      "update": {
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
+      },
+      "uninstall": {
+        "description": "仅删除 .agents/skills/tsinghua-cloud-drive，保留其他技能。"
+      },
+      "securityNote": "安装不执行脚本、不携带任何凭据。默认不覆盖；删除及覆盖需明确授权，超时先对账，不自动重试变更。",
+      "evidenceUrl": "https://developers.openai.com/codex/skills"
+    },
+    {
+      "id": "codex-project-windows",
+      "type": "cli",
+      "label": "Codex · 当前项目",
+      "summary": "复制完整技能目录；另需 Python 3.9+、依赖包和你自己的资料库凭据。",
+      "client": "codex",
+      "scope": "project",
+      "platforms": [
+        "windows"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill tsinghua-cloud-drive --agent codex --scope project",
+      "targetPath": ".agents/skills/tsinghua-cloud-drive",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22+",
+          "details": "目录安装器仅复制文件，不执行云盘脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "Python 3.9+",
+          "details": "建议在 Python 虚拟环境中安装依赖，使用该环境运行技能。",
+          "check": "py -3 --version"
+        },
+        {
+          "name": "资料库凭据",
+          "details": "在 Agent 运行环境设置 TSINGHUA_CLOUD_TOKEN 和 TSINGHUA_CLOUD_REPO_ID；或通过 --config 使用包外私密配置。不要把凭据放进技能目录或公开仓库。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "复制完整技能",
+          "description": "克隆源码并审查后执行上方安装命令；已有克隆先更新源码，再执行第二行。"
+        },
+        {
+          "title": "安装 Python 依赖",
+          "description": "在准备运行此技能的 Python 环境中执行。",
+          "command": "py -3 -m pip install -r .skillmarket-install/examples/tsinghua-cloud-drive/requirements.txt"
+        },
+        {
+          "title": "配置与验证",
+          "description": "使用自己的资料库凭据，先运行只读 list 命令；完整操作说明见 SKILL.md。"
+        }
+      ],
+      "verify": {
+        "description": "检查 .agents/skills/tsinghua-cloud-drive 的 SKILL.md、requirements.txt 和 scripts/drive.py；先在同一 Python 环境运行 --help，配置凭据后执行 list /。"
+      },
+      "update": {
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
+      },
+      "uninstall": {
+        "description": "仅删除 .agents/skills/tsinghua-cloud-drive，保留其他技能。"
+      },
+      "securityNote": "安装不执行脚本、不携带任何凭据。默认不覆盖；删除及覆盖需明确授权，超时先对账，不自动重试变更。",
+      "evidenceUrl": "https://developers.openai.com/codex/skills"
+    },
+    {
+      "id": "codex-user-desktop",
+      "type": "cli",
+      "label": "Codex · 当前用户",
+      "summary": "复制完整技能目录；另需 Python 3.9+、依赖包和你自己的资料库凭据。",
+      "client": "codex",
+      "scope": "user",
+      "platforms": [
+        "macos",
+        "linux"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill tsinghua-cloud-drive --agent codex --scope user",
+      "targetPath": "~/.agents/skills/tsinghua-cloud-drive",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22+",
+          "details": "目录安装器仅复制文件，不执行云盘脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "Python 3.9+",
+          "details": "建议在 Python 虚拟环境中安装依赖，使用该环境运行技能。",
+          "check": "python3 --version"
+        },
+        {
+          "name": "资料库凭据",
+          "details": "在 Agent 运行环境设置 TSINGHUA_CLOUD_TOKEN 和 TSINGHUA_CLOUD_REPO_ID；或通过 --config 使用包外私密配置。不要把凭据放进技能目录或公开仓库。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "复制完整技能",
+          "description": "克隆源码并审查后执行上方安装命令；已有克隆先更新源码，再执行第二行。"
+        },
+        {
+          "title": "安装 Python 依赖",
+          "description": "在准备运行此技能的 Python 环境中执行。",
+          "command": "python3 -m pip install -r .skillmarket-install/examples/tsinghua-cloud-drive/requirements.txt"
+        },
+        {
+          "title": "配置与验证",
+          "description": "使用自己的资料库凭据，先运行只读 list 命令；完整操作说明见 SKILL.md。"
+        }
+      ],
+      "verify": {
+        "description": "检查 ~/.agents/skills/tsinghua-cloud-drive 的 SKILL.md、requirements.txt 和 scripts/drive.py；先在同一 Python 环境运行 --help，配置凭据后执行 list /。"
+      },
+      "update": {
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
+      },
+      "uninstall": {
+        "description": "仅删除 ~/.agents/skills/tsinghua-cloud-drive，保留其他技能。"
+      },
+      "securityNote": "安装不执行脚本、不携带任何凭据。默认不覆盖；删除及覆盖需明确授权，超时先对账，不自动重试变更。",
+      "evidenceUrl": "https://developers.openai.com/codex/skills"
+    },
+    {
+      "id": "codex-user-windows",
+      "type": "cli",
+      "label": "Codex · 当前用户",
+      "summary": "复制完整技能目录；另需 Python 3.9+、依赖包和你自己的资料库凭据。",
+      "client": "codex",
+      "scope": "user",
+      "platforms": [
+        "windows"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill tsinghua-cloud-drive --agent codex --scope user",
+      "targetPath": "~/.agents/skills/tsinghua-cloud-drive",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22+",
+          "details": "目录安装器仅复制文件，不执行云盘脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "Python 3.9+",
+          "details": "建议在 Python 虚拟环境中安装依赖，使用该环境运行技能。",
+          "check": "py -3 --version"
+        },
+        {
+          "name": "资料库凭据",
+          "details": "在 Agent 运行环境设置 TSINGHUA_CLOUD_TOKEN 和 TSINGHUA_CLOUD_REPO_ID；或通过 --config 使用包外私密配置。不要把凭据放进技能目录或公开仓库。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "复制完整技能",
+          "description": "克隆源码并审查后执行上方安装命令；已有克隆先更新源码，再执行第二行。"
+        },
+        {
+          "title": "安装 Python 依赖",
+          "description": "在准备运行此技能的 Python 环境中执行。",
+          "command": "py -3 -m pip install -r .skillmarket-install/examples/tsinghua-cloud-drive/requirements.txt"
+        },
+        {
+          "title": "配置与验证",
+          "description": "使用自己的资料库凭据，先运行只读 list 命令；完整操作说明见 SKILL.md。"
+        }
+      ],
+      "verify": {
+        "description": "检查 ~/.agents/skills/tsinghua-cloud-drive 的 SKILL.md、requirements.txt 和 scripts/drive.py；先在同一 Python 环境运行 --help，配置凭据后执行 list /。"
+      },
+      "update": {
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
+      },
+      "uninstall": {
+        "description": "仅删除 ~/.agents/skills/tsinghua-cloud-drive，保留其他技能。"
+      },
+      "securityNote": "安装不执行脚本、不携带任何凭据。默认不覆盖；删除及覆盖需明确授权，超时先对账，不自动重试变更。",
+      "evidenceUrl": "https://developers.openai.com/codex/skills"
+    },
+    {
+      "id": "cursor-project-desktop",
+      "type": "cli",
+      "label": "Cursor · 当前项目",
+      "summary": "复制完整技能目录；另需 Python 3.9+、依赖包和你自己的资料库凭据。",
+      "client": "cursor",
+      "scope": "project",
+      "platforms": [
+        "macos",
+        "linux"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill tsinghua-cloud-drive --agent cursor --scope project",
+      "targetPath": ".cursor/skills/tsinghua-cloud-drive",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22+",
+          "details": "目录安装器仅复制文件，不执行云盘脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "Python 3.9+",
+          "details": "建议在 Python 虚拟环境中安装依赖，使用该环境运行技能。",
+          "check": "python3 --version"
+        },
+        {
+          "name": "资料库凭据",
+          "details": "在 Agent 运行环境设置 TSINGHUA_CLOUD_TOKEN 和 TSINGHUA_CLOUD_REPO_ID；或通过 --config 使用包外私密配置。不要把凭据放进技能目录或公开仓库。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "复制完整技能",
+          "description": "克隆源码并审查后执行上方安装命令；已有克隆先更新源码，再执行第二行。"
+        },
+        {
+          "title": "安装 Python 依赖",
+          "description": "在准备运行此技能的 Python 环境中执行。",
+          "command": "python3 -m pip install -r .skillmarket-install/examples/tsinghua-cloud-drive/requirements.txt"
+        },
+        {
+          "title": "配置与验证",
+          "description": "使用自己的资料库凭据，先运行只读 list 命令；完整操作说明见 SKILL.md。"
+        }
+      ],
+      "verify": {
+        "description": "检查 .cursor/skills/tsinghua-cloud-drive 的 SKILL.md、requirements.txt 和 scripts/drive.py；先在同一 Python 环境运行 --help，配置凭据后执行 list /。"
+      },
+      "update": {
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
+      },
+      "uninstall": {
+        "description": "仅删除 .cursor/skills/tsinghua-cloud-drive，保留其他技能。"
+      },
+      "securityNote": "安装不执行脚本、不携带任何凭据。默认不覆盖；删除及覆盖需明确授权，超时先对账，不自动重试变更。",
+      "evidenceUrl": "https://cursor.com/docs/context/skills"
+    },
+    {
+      "id": "cursor-project-windows",
+      "type": "cli",
+      "label": "Cursor · 当前项目",
+      "summary": "复制完整技能目录；另需 Python 3.9+、依赖包和你自己的资料库凭据。",
+      "client": "cursor",
+      "scope": "project",
+      "platforms": [
+        "windows"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill tsinghua-cloud-drive --agent cursor --scope project",
+      "targetPath": ".cursor/skills/tsinghua-cloud-drive",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22+",
+          "details": "目录安装器仅复制文件，不执行云盘脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "Python 3.9+",
+          "details": "建议在 Python 虚拟环境中安装依赖，使用该环境运行技能。",
+          "check": "py -3 --version"
+        },
+        {
+          "name": "资料库凭据",
+          "details": "在 Agent 运行环境设置 TSINGHUA_CLOUD_TOKEN 和 TSINGHUA_CLOUD_REPO_ID；或通过 --config 使用包外私密配置。不要把凭据放进技能目录或公开仓库。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "复制完整技能",
+          "description": "克隆源码并审查后执行上方安装命令；已有克隆先更新源码，再执行第二行。"
+        },
+        {
+          "title": "安装 Python 依赖",
+          "description": "在准备运行此技能的 Python 环境中执行。",
+          "command": "py -3 -m pip install -r .skillmarket-install/examples/tsinghua-cloud-drive/requirements.txt"
+        },
+        {
+          "title": "配置与验证",
+          "description": "使用自己的资料库凭据，先运行只读 list 命令；完整操作说明见 SKILL.md。"
+        }
+      ],
+      "verify": {
+        "description": "检查 .cursor/skills/tsinghua-cloud-drive 的 SKILL.md、requirements.txt 和 scripts/drive.py；先在同一 Python 环境运行 --help，配置凭据后执行 list /。"
+      },
+      "update": {
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
+      },
+      "uninstall": {
+        "description": "仅删除 .cursor/skills/tsinghua-cloud-drive，保留其他技能。"
+      },
+      "securityNote": "安装不执行脚本、不携带任何凭据。默认不覆盖；删除及覆盖需明确授权，超时先对账，不自动重试变更。",
+      "evidenceUrl": "https://cursor.com/docs/context/skills"
+    },
+    {
+      "id": "cursor-user-desktop",
+      "type": "cli",
+      "label": "Cursor · 当前用户",
+      "summary": "复制完整技能目录；另需 Python 3.9+、依赖包和你自己的资料库凭据。",
+      "client": "cursor",
+      "scope": "user",
+      "platforms": [
+        "macos",
+        "linux"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill tsinghua-cloud-drive --agent cursor --scope user",
+      "targetPath": "~/.cursor/skills/tsinghua-cloud-drive",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22+",
+          "details": "目录安装器仅复制文件，不执行云盘脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "Python 3.9+",
+          "details": "建议在 Python 虚拟环境中安装依赖，使用该环境运行技能。",
+          "check": "python3 --version"
+        },
+        {
+          "name": "资料库凭据",
+          "details": "在 Agent 运行环境设置 TSINGHUA_CLOUD_TOKEN 和 TSINGHUA_CLOUD_REPO_ID；或通过 --config 使用包外私密配置。不要把凭据放进技能目录或公开仓库。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "复制完整技能",
+          "description": "克隆源码并审查后执行上方安装命令；已有克隆先更新源码，再执行第二行。"
+        },
+        {
+          "title": "安装 Python 依赖",
+          "description": "在准备运行此技能的 Python 环境中执行。",
+          "command": "python3 -m pip install -r .skillmarket-install/examples/tsinghua-cloud-drive/requirements.txt"
+        },
+        {
+          "title": "配置与验证",
+          "description": "使用自己的资料库凭据，先运行只读 list 命令；完整操作说明见 SKILL.md。"
+        }
+      ],
+      "verify": {
+        "description": "检查 ~/.cursor/skills/tsinghua-cloud-drive 的 SKILL.md、requirements.txt 和 scripts/drive.py；先在同一 Python 环境运行 --help，配置凭据后执行 list /。"
+      },
+      "update": {
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
+      },
+      "uninstall": {
+        "description": "仅删除 ~/.cursor/skills/tsinghua-cloud-drive，保留其他技能。"
+      },
+      "securityNote": "安装不执行脚本、不携带任何凭据。默认不覆盖；删除及覆盖需明确授权，超时先对账，不自动重试变更。",
+      "evidenceUrl": "https://cursor.com/docs/context/skills"
+    },
+    {
+      "id": "cursor-user-windows",
+      "type": "cli",
+      "label": "Cursor · 当前用户",
+      "summary": "复制完整技能目录；另需 Python 3.9+、依赖包和你自己的资料库凭据。",
+      "client": "cursor",
+      "scope": "user",
+      "platforms": [
+        "windows"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill tsinghua-cloud-drive --agent cursor --scope user",
+      "targetPath": "~/.cursor/skills/tsinghua-cloud-drive",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22+",
+          "details": "目录安装器仅复制文件，不执行云盘脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "Python 3.9+",
+          "details": "建议在 Python 虚拟环境中安装依赖，使用该环境运行技能。",
+          "check": "py -3 --version"
+        },
+        {
+          "name": "资料库凭据",
+          "details": "在 Agent 运行环境设置 TSINGHUA_CLOUD_TOKEN 和 TSINGHUA_CLOUD_REPO_ID；或通过 --config 使用包外私密配置。不要把凭据放进技能目录或公开仓库。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "复制完整技能",
+          "description": "克隆源码并审查后执行上方安装命令；已有克隆先更新源码，再执行第二行。"
+        },
+        {
+          "title": "安装 Python 依赖",
+          "description": "在准备运行此技能的 Python 环境中执行。",
+          "command": "py -3 -m pip install -r .skillmarket-install/examples/tsinghua-cloud-drive/requirements.txt"
+        },
+        {
+          "title": "配置与验证",
+          "description": "使用自己的资料库凭据，先运行只读 list 命令；完整操作说明见 SKILL.md。"
+        }
+      ],
+      "verify": {
+        "description": "检查 ~/.cursor/skills/tsinghua-cloud-drive 的 SKILL.md、requirements.txt 和 scripts/drive.py；先在同一 Python 环境运行 --help，配置凭据后执行 list /。"
+      },
+      "update": {
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
+      },
+      "uninstall": {
+        "description": "仅删除 ~/.cursor/skills/tsinghua-cloud-drive，保留其他技能。"
+      },
+      "securityNote": "安装不执行脚本、不携带任何凭据。默认不覆盖；删除及覆盖需明确授权，超时先对账，不自动重试变更。",
+      "evidenceUrl": "https://cursor.com/docs/context/skills"
+    },
+    {
+      "id": "opencode-project-desktop",
+      "type": "cli",
+      "label": "OpenCode · 当前项目",
+      "summary": "复制完整技能目录；另需 Python 3.9+、依赖包和你自己的资料库凭据。",
+      "client": "opencode",
+      "scope": "project",
+      "platforms": [
+        "macos",
+        "linux"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill tsinghua-cloud-drive --agent opencode --scope project",
+      "targetPath": ".opencode/skills/tsinghua-cloud-drive",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22+",
+          "details": "目录安装器仅复制文件，不执行云盘脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "Python 3.9+",
+          "details": "建议在 Python 虚拟环境中安装依赖，使用该环境运行技能。",
+          "check": "python3 --version"
+        },
+        {
+          "name": "资料库凭据",
+          "details": "在 Agent 运行环境设置 TSINGHUA_CLOUD_TOKEN 和 TSINGHUA_CLOUD_REPO_ID；或通过 --config 使用包外私密配置。不要把凭据放进技能目录或公开仓库。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "复制完整技能",
+          "description": "克隆源码并审查后执行上方安装命令；已有克隆先更新源码，再执行第二行。"
+        },
+        {
+          "title": "安装 Python 依赖",
+          "description": "在准备运行此技能的 Python 环境中执行。",
+          "command": "python3 -m pip install -r .skillmarket-install/examples/tsinghua-cloud-drive/requirements.txt"
+        },
+        {
+          "title": "配置与验证",
+          "description": "使用自己的资料库凭据，先运行只读 list 命令；完整操作说明见 SKILL.md。"
+        }
+      ],
+      "verify": {
+        "description": "检查 .opencode/skills/tsinghua-cloud-drive 的 SKILL.md、requirements.txt 和 scripts/drive.py；先在同一 Python 环境运行 --help，配置凭据后执行 list /。"
+      },
+      "update": {
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
+      },
+      "uninstall": {
+        "description": "仅删除 .opencode/skills/tsinghua-cloud-drive，保留其他技能。"
+      },
+      "securityNote": "安装不执行脚本、不携带任何凭据。默认不覆盖；删除及覆盖需明确授权，超时先对账，不自动重试变更。",
+      "evidenceUrl": "https://opencode.ai/docs/skills/"
+    },
+    {
+      "id": "opencode-project-windows",
+      "type": "cli",
+      "label": "OpenCode · 当前项目",
+      "summary": "复制完整技能目录；另需 Python 3.9+、依赖包和你自己的资料库凭据。",
+      "client": "opencode",
+      "scope": "project",
+      "platforms": [
+        "windows"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill tsinghua-cloud-drive --agent opencode --scope project",
+      "targetPath": ".opencode/skills/tsinghua-cloud-drive",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22+",
+          "details": "目录安装器仅复制文件，不执行云盘脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "Python 3.9+",
+          "details": "建议在 Python 虚拟环境中安装依赖，使用该环境运行技能。",
+          "check": "py -3 --version"
+        },
+        {
+          "name": "资料库凭据",
+          "details": "在 Agent 运行环境设置 TSINGHUA_CLOUD_TOKEN 和 TSINGHUA_CLOUD_REPO_ID；或通过 --config 使用包外私密配置。不要把凭据放进技能目录或公开仓库。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "复制完整技能",
+          "description": "克隆源码并审查后执行上方安装命令；已有克隆先更新源码，再执行第二行。"
+        },
+        {
+          "title": "安装 Python 依赖",
+          "description": "在准备运行此技能的 Python 环境中执行。",
+          "command": "py -3 -m pip install -r .skillmarket-install/examples/tsinghua-cloud-drive/requirements.txt"
+        },
+        {
+          "title": "配置与验证",
+          "description": "使用自己的资料库凭据，先运行只读 list 命令；完整操作说明见 SKILL.md。"
+        }
+      ],
+      "verify": {
+        "description": "检查 .opencode/skills/tsinghua-cloud-drive 的 SKILL.md、requirements.txt 和 scripts/drive.py；先在同一 Python 环境运行 --help，配置凭据后执行 list /。"
+      },
+      "update": {
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
+      },
+      "uninstall": {
+        "description": "仅删除 .opencode/skills/tsinghua-cloud-drive，保留其他技能。"
+      },
+      "securityNote": "安装不执行脚本、不携带任何凭据。默认不覆盖；删除及覆盖需明确授权，超时先对账，不自动重试变更。",
+      "evidenceUrl": "https://opencode.ai/docs/skills/"
+    },
+    {
+      "id": "opencode-user-desktop",
+      "type": "cli",
+      "label": "OpenCode · 当前用户",
+      "summary": "复制完整技能目录；另需 Python 3.9+、依赖包和你自己的资料库凭据。",
+      "client": "opencode",
+      "scope": "user",
+      "platforms": [
+        "macos",
+        "linux"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill tsinghua-cloud-drive --agent opencode --scope user",
+      "targetPath": "${XDG_CONFIG_HOME:-~/.config}/opencode/skills/tsinghua-cloud-drive",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22+",
+          "details": "目录安装器仅复制文件，不执行云盘脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "Python 3.9+",
+          "details": "建议在 Python 虚拟环境中安装依赖，使用该环境运行技能。",
+          "check": "python3 --version"
+        },
+        {
+          "name": "资料库凭据",
+          "details": "在 Agent 运行环境设置 TSINGHUA_CLOUD_TOKEN 和 TSINGHUA_CLOUD_REPO_ID；或通过 --config 使用包外私密配置。不要把凭据放进技能目录或公开仓库。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "复制完整技能",
+          "description": "克隆源码并审查后执行上方安装命令；已有克隆先更新源码，再执行第二行。"
+        },
+        {
+          "title": "安装 Python 依赖",
+          "description": "在准备运行此技能的 Python 环境中执行。",
+          "command": "python3 -m pip install -r .skillmarket-install/examples/tsinghua-cloud-drive/requirements.txt"
+        },
+        {
+          "title": "配置与验证",
+          "description": "使用自己的资料库凭据，先运行只读 list 命令；完整操作说明见 SKILL.md。"
+        }
+      ],
+      "verify": {
+        "description": "检查 ${XDG_CONFIG_HOME:-~/.config}/opencode/skills/tsinghua-cloud-drive 的 SKILL.md、requirements.txt 和 scripts/drive.py；先在同一 Python 环境运行 --help，配置凭据后执行 list /。"
+      },
+      "update": {
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
+      },
+      "uninstall": {
+        "description": "仅删除 ${XDG_CONFIG_HOME:-~/.config}/opencode/skills/tsinghua-cloud-drive，保留其他技能。"
+      },
+      "securityNote": "安装不执行脚本、不携带任何凭据。默认不覆盖；删除及覆盖需明确授权，超时先对账，不自动重试变更。",
+      "evidenceUrl": "https://opencode.ai/docs/skills/"
+    },
+    {
+      "id": "opencode-user-windows",
+      "type": "cli",
+      "label": "OpenCode · 当前用户",
+      "summary": "复制完整技能目录；另需 Python 3.9+、依赖包和你自己的资料库凭据。",
+      "client": "opencode",
+      "scope": "user",
+      "platforms": [
+        "windows"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill tsinghua-cloud-drive --agent opencode --scope user",
+      "targetPath": "${XDG_CONFIG_HOME:-~/.config}/opencode/skills/tsinghua-cloud-drive",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22+",
+          "details": "目录安装器仅复制文件，不执行云盘脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "Python 3.9+",
+          "details": "建议在 Python 虚拟环境中安装依赖，使用该环境运行技能。",
+          "check": "py -3 --version"
+        },
+        {
+          "name": "资料库凭据",
+          "details": "在 Agent 运行环境设置 TSINGHUA_CLOUD_TOKEN 和 TSINGHUA_CLOUD_REPO_ID；或通过 --config 使用包外私密配置。不要把凭据放进技能目录或公开仓库。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "复制完整技能",
+          "description": "克隆源码并审查后执行上方安装命令；已有克隆先更新源码，再执行第二行。"
+        },
+        {
+          "title": "安装 Python 依赖",
+          "description": "在准备运行此技能的 Python 环境中执行。",
+          "command": "py -3 -m pip install -r .skillmarket-install/examples/tsinghua-cloud-drive/requirements.txt"
+        },
+        {
+          "title": "配置与验证",
+          "description": "使用自己的资料库凭据，先运行只读 list 命令；完整操作说明见 SKILL.md。"
+        }
+      ],
+      "verify": {
+        "description": "检查 ${XDG_CONFIG_HOME:-~/.config}/opencode/skills/tsinghua-cloud-drive 的 SKILL.md、requirements.txt 和 scripts/drive.py；先在同一 Python 环境运行 --help，配置凭据后执行 list /。"
+      },
+      "update": {
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
+      },
+      "uninstall": {
+        "description": "仅删除 ${XDG_CONFIG_HOME:-~/.config}/opencode/skills/tsinghua-cloud-drive，保留其他技能。"
+      },
+      "securityNote": "安装不执行脚本、不携带任何凭据。默认不覆盖；删除及覆盖需明确授权，超时先对账，不自动重试变更。",
+      "evidenceUrl": "https://opencode.ai/docs/skills/"
+    },
+    {
+      "id": "github-copilot-project-desktop",
+      "type": "cli",
+      "label": "GitHub Copilot（VS Code） · 当前项目",
+      "summary": "复制完整技能目录；另需 Python 3.9+、依赖包和你自己的资料库凭据。",
+      "client": "github-copilot",
+      "scope": "project",
+      "platforms": [
+        "macos",
+        "linux"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill tsinghua-cloud-drive --agent github-copilot --scope project",
+      "targetPath": ".github/skills/tsinghua-cloud-drive",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22+",
+          "details": "目录安装器仅复制文件，不执行云盘脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "Python 3.9+",
+          "details": "建议在 Python 虚拟环境中安装依赖，使用该环境运行技能。",
+          "check": "python3 --version"
+        },
+        {
+          "name": "资料库凭据",
+          "details": "在 Agent 运行环境设置 TSINGHUA_CLOUD_TOKEN 和 TSINGHUA_CLOUD_REPO_ID；或通过 --config 使用包外私密配置。不要把凭据放进技能目录或公开仓库。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "复制完整技能",
+          "description": "克隆源码并审查后执行上方安装命令；已有克隆先更新源码，再执行第二行。"
+        },
+        {
+          "title": "安装 Python 依赖",
+          "description": "在准备运行此技能的 Python 环境中执行。",
+          "command": "python3 -m pip install -r .skillmarket-install/examples/tsinghua-cloud-drive/requirements.txt"
+        },
+        {
+          "title": "配置与验证",
+          "description": "使用自己的资料库凭据，先运行只读 list 命令；完整操作说明见 SKILL.md。"
+        }
+      ],
+      "verify": {
+        "description": "检查 .github/skills/tsinghua-cloud-drive 的 SKILL.md、requirements.txt 和 scripts/drive.py；先在同一 Python 环境运行 --help，配置凭据后执行 list /。"
+      },
+      "update": {
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
+      },
+      "uninstall": {
+        "description": "仅删除 .github/skills/tsinghua-cloud-drive，保留其他技能。"
+      },
+      "securityNote": "安装不执行脚本、不携带任何凭据。默认不覆盖；删除及覆盖需明确授权，超时先对账，不自动重试变更。",
+      "evidenceUrl": "https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/add-skills"
+    },
+    {
+      "id": "github-copilot-project-windows",
+      "type": "cli",
+      "label": "GitHub Copilot（VS Code） · 当前项目",
+      "summary": "复制完整技能目录；另需 Python 3.9+、依赖包和你自己的资料库凭据。",
+      "client": "github-copilot",
+      "scope": "project",
+      "platforms": [
+        "windows"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill tsinghua-cloud-drive --agent github-copilot --scope project",
+      "targetPath": ".github/skills/tsinghua-cloud-drive",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22+",
+          "details": "目录安装器仅复制文件，不执行云盘脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "Python 3.9+",
+          "details": "建议在 Python 虚拟环境中安装依赖，使用该环境运行技能。",
+          "check": "py -3 --version"
+        },
+        {
+          "name": "资料库凭据",
+          "details": "在 Agent 运行环境设置 TSINGHUA_CLOUD_TOKEN 和 TSINGHUA_CLOUD_REPO_ID；或通过 --config 使用包外私密配置。不要把凭据放进技能目录或公开仓库。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "复制完整技能",
+          "description": "克隆源码并审查后执行上方安装命令；已有克隆先更新源码，再执行第二行。"
+        },
+        {
+          "title": "安装 Python 依赖",
+          "description": "在准备运行此技能的 Python 环境中执行。",
+          "command": "py -3 -m pip install -r .skillmarket-install/examples/tsinghua-cloud-drive/requirements.txt"
+        },
+        {
+          "title": "配置与验证",
+          "description": "使用自己的资料库凭据，先运行只读 list 命令；完整操作说明见 SKILL.md。"
+        }
+      ],
+      "verify": {
+        "description": "检查 .github/skills/tsinghua-cloud-drive 的 SKILL.md、requirements.txt 和 scripts/drive.py；先在同一 Python 环境运行 --help，配置凭据后执行 list /。"
+      },
+      "update": {
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
+      },
+      "uninstall": {
+        "description": "仅删除 .github/skills/tsinghua-cloud-drive，保留其他技能。"
+      },
+      "securityNote": "安装不执行脚本、不携带任何凭据。默认不覆盖；删除及覆盖需明确授权，超时先对账，不自动重试变更。",
+      "evidenceUrl": "https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/add-skills"
+    },
+    {
+      "id": "github-copilot-user-desktop",
+      "type": "cli",
+      "label": "GitHub Copilot（VS Code） · 当前用户",
+      "summary": "复制完整技能目录；另需 Python 3.9+、依赖包和你自己的资料库凭据。",
+      "client": "github-copilot",
+      "scope": "user",
+      "platforms": [
+        "macos",
+        "linux"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill tsinghua-cloud-drive --agent github-copilot --scope user",
+      "targetPath": "~/.copilot/skills/tsinghua-cloud-drive",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22+",
+          "details": "目录安装器仅复制文件，不执行云盘脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "Python 3.9+",
+          "details": "建议在 Python 虚拟环境中安装依赖，使用该环境运行技能。",
+          "check": "python3 --version"
+        },
+        {
+          "name": "资料库凭据",
+          "details": "在 Agent 运行环境设置 TSINGHUA_CLOUD_TOKEN 和 TSINGHUA_CLOUD_REPO_ID；或通过 --config 使用包外私密配置。不要把凭据放进技能目录或公开仓库。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "复制完整技能",
+          "description": "克隆源码并审查后执行上方安装命令；已有克隆先更新源码，再执行第二行。"
+        },
+        {
+          "title": "安装 Python 依赖",
+          "description": "在准备运行此技能的 Python 环境中执行。",
+          "command": "python3 -m pip install -r .skillmarket-install/examples/tsinghua-cloud-drive/requirements.txt"
+        },
+        {
+          "title": "配置与验证",
+          "description": "使用自己的资料库凭据，先运行只读 list 命令；完整操作说明见 SKILL.md。"
+        }
+      ],
+      "verify": {
+        "description": "检查 ~/.copilot/skills/tsinghua-cloud-drive 的 SKILL.md、requirements.txt 和 scripts/drive.py；先在同一 Python 环境运行 --help，配置凭据后执行 list /。"
+      },
+      "update": {
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
+      },
+      "uninstall": {
+        "description": "仅删除 ~/.copilot/skills/tsinghua-cloud-drive，保留其他技能。"
+      },
+      "securityNote": "安装不执行脚本、不携带任何凭据。默认不覆盖；删除及覆盖需明确授权，超时先对账，不自动重试变更。",
+      "evidenceUrl": "https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/add-skills"
+    },
+    {
+      "id": "github-copilot-user-windows",
+      "type": "cli",
+      "label": "GitHub Copilot（VS Code） · 当前用户",
+      "summary": "复制完整技能目录；另需 Python 3.9+、依赖包和你自己的资料库凭据。",
+      "client": "github-copilot",
+      "scope": "user",
+      "platforms": [
+        "windows"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill tsinghua-cloud-drive --agent github-copilot --scope user",
+      "targetPath": "~/.copilot/skills/tsinghua-cloud-drive",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22+",
+          "details": "目录安装器仅复制文件，不执行云盘脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "Python 3.9+",
+          "details": "建议在 Python 虚拟环境中安装依赖，使用该环境运行技能。",
+          "check": "py -3 --version"
+        },
+        {
+          "name": "资料库凭据",
+          "details": "在 Agent 运行环境设置 TSINGHUA_CLOUD_TOKEN 和 TSINGHUA_CLOUD_REPO_ID；或通过 --config 使用包外私密配置。不要把凭据放进技能目录或公开仓库。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "复制完整技能",
+          "description": "克隆源码并审查后执行上方安装命令；已有克隆先更新源码，再执行第二行。"
+        },
+        {
+          "title": "安装 Python 依赖",
+          "description": "在准备运行此技能的 Python 环境中执行。",
+          "command": "py -3 -m pip install -r .skillmarket-install/examples/tsinghua-cloud-drive/requirements.txt"
+        },
+        {
+          "title": "配置与验证",
+          "description": "使用自己的资料库凭据，先运行只读 list 命令；完整操作说明见 SKILL.md。"
+        }
+      ],
+      "verify": {
+        "description": "检查 ~/.copilot/skills/tsinghua-cloud-drive 的 SKILL.md、requirements.txt 和 scripts/drive.py；先在同一 Python 环境运行 --help，配置凭据后执行 list /。"
+      },
+      "update": {
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
+      },
+      "uninstall": {
+        "description": "仅删除 ~/.copilot/skills/tsinghua-cloud-drive，保留其他技能。"
+      },
+      "securityNote": "安装不执行脚本、不携带任何凭据。默认不覆盖；删除及覆盖需明确授权，超时先对账，不自动重试变更。",
+      "evidenceUrl": "https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/add-skills"
+    },
+    {
+      "id": "github-copilot-cli-project-desktop",
+      "type": "cli",
+      "label": "GitHub Copilot CLI · 当前项目",
+      "summary": "复制完整技能目录；另需 Python 3.9+、依赖包和你自己的资料库凭据。",
+      "client": "github-copilot-cli",
+      "scope": "project",
+      "platforms": [
+        "macos",
+        "linux"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill tsinghua-cloud-drive --agent github-copilot-cli --scope project",
+      "targetPath": ".github/skills/tsinghua-cloud-drive",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22+",
+          "details": "目录安装器仅复制文件，不执行云盘脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "Python 3.9+",
+          "details": "建议在 Python 虚拟环境中安装依赖，使用该环境运行技能。",
+          "check": "python3 --version"
+        },
+        {
+          "name": "资料库凭据",
+          "details": "在 Agent 运行环境设置 TSINGHUA_CLOUD_TOKEN 和 TSINGHUA_CLOUD_REPO_ID；或通过 --config 使用包外私密配置。不要把凭据放进技能目录或公开仓库。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "复制完整技能",
+          "description": "克隆源码并审查后执行上方安装命令；已有克隆先更新源码，再执行第二行。"
+        },
+        {
+          "title": "安装 Python 依赖",
+          "description": "在准备运行此技能的 Python 环境中执行。",
+          "command": "python3 -m pip install -r .skillmarket-install/examples/tsinghua-cloud-drive/requirements.txt"
+        },
+        {
+          "title": "配置与验证",
+          "description": "使用自己的资料库凭据，先运行只读 list 命令；完整操作说明见 SKILL.md。"
+        }
+      ],
+      "verify": {
+        "description": "检查 .github/skills/tsinghua-cloud-drive 的 SKILL.md、requirements.txt 和 scripts/drive.py；先在同一 Python 环境运行 --help，配置凭据后执行 list /。"
+      },
+      "update": {
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
+      },
+      "uninstall": {
+        "description": "仅删除 .github/skills/tsinghua-cloud-drive，保留其他技能。"
+      },
+      "securityNote": "安装不执行脚本、不携带任何凭据。默认不覆盖；删除及覆盖需明确授权，超时先对账，不自动重试变更。",
+      "evidenceUrl": "https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/add-skills"
+    },
+    {
+      "id": "github-copilot-cli-project-windows",
+      "type": "cli",
+      "label": "GitHub Copilot CLI · 当前项目",
+      "summary": "复制完整技能目录；另需 Python 3.9+、依赖包和你自己的资料库凭据。",
+      "client": "github-copilot-cli",
+      "scope": "project",
+      "platforms": [
+        "windows"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill tsinghua-cloud-drive --agent github-copilot-cli --scope project",
+      "targetPath": ".github/skills/tsinghua-cloud-drive",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22+",
+          "details": "目录安装器仅复制文件，不执行云盘脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "Python 3.9+",
+          "details": "建议在 Python 虚拟环境中安装依赖，使用该环境运行技能。",
+          "check": "py -3 --version"
+        },
+        {
+          "name": "资料库凭据",
+          "details": "在 Agent 运行环境设置 TSINGHUA_CLOUD_TOKEN 和 TSINGHUA_CLOUD_REPO_ID；或通过 --config 使用包外私密配置。不要把凭据放进技能目录或公开仓库。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "复制完整技能",
+          "description": "克隆源码并审查后执行上方安装命令；已有克隆先更新源码，再执行第二行。"
+        },
+        {
+          "title": "安装 Python 依赖",
+          "description": "在准备运行此技能的 Python 环境中执行。",
+          "command": "py -3 -m pip install -r .skillmarket-install/examples/tsinghua-cloud-drive/requirements.txt"
+        },
+        {
+          "title": "配置与验证",
+          "description": "使用自己的资料库凭据，先运行只读 list 命令；完整操作说明见 SKILL.md。"
+        }
+      ],
+      "verify": {
+        "description": "检查 .github/skills/tsinghua-cloud-drive 的 SKILL.md、requirements.txt 和 scripts/drive.py；先在同一 Python 环境运行 --help，配置凭据后执行 list /。"
+      },
+      "update": {
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
+      },
+      "uninstall": {
+        "description": "仅删除 .github/skills/tsinghua-cloud-drive，保留其他技能。"
+      },
+      "securityNote": "安装不执行脚本、不携带任何凭据。默认不覆盖；删除及覆盖需明确授权，超时先对账，不自动重试变更。",
+      "evidenceUrl": "https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/add-skills"
+    },
+    {
+      "id": "github-copilot-cli-user-desktop",
+      "type": "cli",
+      "label": "GitHub Copilot CLI · 当前用户",
+      "summary": "复制完整技能目录；另需 Python 3.9+、依赖包和你自己的资料库凭据。",
+      "client": "github-copilot-cli",
+      "scope": "user",
+      "platforms": [
+        "macos",
+        "linux"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill tsinghua-cloud-drive --agent github-copilot-cli --scope user",
+      "targetPath": "~/.copilot/skills/tsinghua-cloud-drive",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22+",
+          "details": "目录安装器仅复制文件，不执行云盘脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "Python 3.9+",
+          "details": "建议在 Python 虚拟环境中安装依赖，使用该环境运行技能。",
+          "check": "python3 --version"
+        },
+        {
+          "name": "资料库凭据",
+          "details": "在 Agent 运行环境设置 TSINGHUA_CLOUD_TOKEN 和 TSINGHUA_CLOUD_REPO_ID；或通过 --config 使用包外私密配置。不要把凭据放进技能目录或公开仓库。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "复制完整技能",
+          "description": "克隆源码并审查后执行上方安装命令；已有克隆先更新源码，再执行第二行。"
+        },
+        {
+          "title": "安装 Python 依赖",
+          "description": "在准备运行此技能的 Python 环境中执行。",
+          "command": "python3 -m pip install -r .skillmarket-install/examples/tsinghua-cloud-drive/requirements.txt"
+        },
+        {
+          "title": "配置与验证",
+          "description": "使用自己的资料库凭据，先运行只读 list 命令；完整操作说明见 SKILL.md。"
+        }
+      ],
+      "verify": {
+        "description": "检查 ~/.copilot/skills/tsinghua-cloud-drive 的 SKILL.md、requirements.txt 和 scripts/drive.py；先在同一 Python 环境运行 --help，配置凭据后执行 list /。"
+      },
+      "update": {
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
+      },
+      "uninstall": {
+        "description": "仅删除 ~/.copilot/skills/tsinghua-cloud-drive，保留其他技能。"
+      },
+      "securityNote": "安装不执行脚本、不携带任何凭据。默认不覆盖；删除及覆盖需明确授权，超时先对账，不自动重试变更。",
+      "evidenceUrl": "https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/add-skills"
+    },
+    {
+      "id": "github-copilot-cli-user-windows",
+      "type": "cli",
+      "label": "GitHub Copilot CLI · 当前用户",
+      "summary": "复制完整技能目录；另需 Python 3.9+、依赖包和你自己的资料库凭据。",
+      "client": "github-copilot-cli",
+      "scope": "user",
+      "platforms": [
+        "windows"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill tsinghua-cloud-drive --agent github-copilot-cli --scope user",
+      "targetPath": "~/.copilot/skills/tsinghua-cloud-drive",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22+",
+          "details": "目录安装器仅复制文件，不执行云盘脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "Python 3.9+",
+          "details": "建议在 Python 虚拟环境中安装依赖，使用该环境运行技能。",
+          "check": "py -3 --version"
+        },
+        {
+          "name": "资料库凭据",
+          "details": "在 Agent 运行环境设置 TSINGHUA_CLOUD_TOKEN 和 TSINGHUA_CLOUD_REPO_ID；或通过 --config 使用包外私密配置。不要把凭据放进技能目录或公开仓库。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "复制完整技能",
+          "description": "克隆源码并审查后执行上方安装命令；已有克隆先更新源码，再执行第二行。"
+        },
+        {
+          "title": "安装 Python 依赖",
+          "description": "在准备运行此技能的 Python 环境中执行。",
+          "command": "py -3 -m pip install -r .skillmarket-install/examples/tsinghua-cloud-drive/requirements.txt"
+        },
+        {
+          "title": "配置与验证",
+          "description": "使用自己的资料库凭据，先运行只读 list 命令；完整操作说明见 SKILL.md。"
+        }
+      ],
+      "verify": {
+        "description": "检查 ~/.copilot/skills/tsinghua-cloud-drive 的 SKILL.md、requirements.txt 和 scripts/drive.py；先在同一 Python 环境运行 --help，配置凭据后执行 list /。"
+      },
+      "update": {
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
+      },
+      "uninstall": {
+        "description": "仅删除 ~/.copilot/skills/tsinghua-cloud-drive，保留其他技能。"
+      },
+      "securityNote": "安装不执行脚本、不携带任何凭据。默认不覆盖；删除及覆盖需明确授权，超时先对账，不自动重试变更。",
+      "evidenceUrl": "https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/add-skills"
+    },
+    {
+      "id": "hermes-user-desktop",
+      "type": "cli",
+      "label": "Hermes · 当前用户",
+      "summary": "复制完整技能目录；另需 Python 3.9+、依赖包和你自己的资料库凭据。",
+      "client": "hermes",
+      "scope": "user",
+      "platforms": [
+        "macos",
+        "linux"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill tsinghua-cloud-drive --agent hermes --scope user",
+      "targetPath": "${HERMES_HOME:-~/.hermes}/skills/tsinghua-cloud-drive",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22+",
+          "details": "目录安装器仅复制文件，不执行云盘脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "Python 3.9+",
+          "details": "建议在 Python 虚拟环境中安装依赖，使用该环境运行技能。",
+          "check": "python3 --version"
+        },
+        {
+          "name": "资料库凭据",
+          "details": "在 Agent 运行环境设置 TSINGHUA_CLOUD_TOKEN 和 TSINGHUA_CLOUD_REPO_ID；或通过 --config 使用包外私密配置。不要把凭据放进技能目录或公开仓库。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "复制完整技能",
+          "description": "克隆源码并审查后执行上方安装命令；已有克隆先更新源码，再执行第二行。"
+        },
+        {
+          "title": "安装 Python 依赖",
+          "description": "在准备运行此技能的 Python 环境中执行。",
+          "command": "python3 -m pip install -r .skillmarket-install/examples/tsinghua-cloud-drive/requirements.txt"
+        },
+        {
+          "title": "配置与验证",
+          "description": "使用自己的资料库凭据，先运行只读 list 命令；完整操作说明见 SKILL.md。"
+        }
+      ],
+      "verify": {
+        "description": "检查 ${HERMES_HOME:-~/.hermes}/skills/tsinghua-cloud-drive 的 SKILL.md、requirements.txt 和 scripts/drive.py；先在同一 Python 环境运行 --help，配置凭据后执行 list /。"
+      },
+      "update": {
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
+      },
+      "uninstall": {
+        "description": "仅删除 ${HERMES_HOME:-~/.hermes}/skills/tsinghua-cloud-drive，保留其他技能。"
+      },
+      "securityNote": "安装不执行脚本、不携带任何凭据。默认不覆盖；删除及覆盖需明确授权，超时先对账，不自动重试变更。",
+      "evidenceUrl": "https://hermes-agent.nousresearch.com/docs/user-guide/features/skills"
+    },
+    {
+      "id": "hermes-user-windows",
+      "type": "cli",
+      "label": "Hermes · 当前用户",
+      "summary": "复制完整技能目录；另需 Python 3.9+、依赖包和你自己的资料库凭据。",
+      "client": "hermes",
+      "scope": "user",
+      "platforms": [
+        "windows"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill tsinghua-cloud-drive --agent hermes --scope user",
+      "targetPath": "${HERMES_HOME:-~/.hermes}/skills/tsinghua-cloud-drive",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22+",
+          "details": "目录安装器仅复制文件，不执行云盘脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "Python 3.9+",
+          "details": "建议在 Python 虚拟环境中安装依赖，使用该环境运行技能。",
+          "check": "py -3 --version"
+        },
+        {
+          "name": "资料库凭据",
+          "details": "在 Agent 运行环境设置 TSINGHUA_CLOUD_TOKEN 和 TSINGHUA_CLOUD_REPO_ID；或通过 --config 使用包外私密配置。不要把凭据放进技能目录或公开仓库。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "复制完整技能",
+          "description": "克隆源码并审查后执行上方安装命令；已有克隆先更新源码，再执行第二行。"
+        },
+        {
+          "title": "安装 Python 依赖",
+          "description": "在准备运行此技能的 Python 环境中执行。",
+          "command": "py -3 -m pip install -r .skillmarket-install/examples/tsinghua-cloud-drive/requirements.txt"
+        },
+        {
+          "title": "配置与验证",
+          "description": "使用自己的资料库凭据，先运行只读 list 命令；完整操作说明见 SKILL.md。"
+        }
+      ],
+      "verify": {
+        "description": "检查 ${HERMES_HOME:-~/.hermes}/skills/tsinghua-cloud-drive 的 SKILL.md、requirements.txt 和 scripts/drive.py；先在同一 Python 环境运行 --help，配置凭据后执行 list /。"
+      },
+      "update": {
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
+      },
+      "uninstall": {
+        "description": "仅删除 ${HERMES_HOME:-~/.hermes}/skills/tsinghua-cloud-drive，保留其他技能。"
+      },
+      "securityNote": "安装不执行脚本、不携带任何凭据。默认不覆盖；删除及覆盖需明确授权，超时先对账，不自动重试变更。",
+      "evidenceUrl": "https://hermes-agent.nousresearch.com/docs/user-guide/features/skills"
+    }
+  ],
+  "usage": {
+    "instructions": "安装后，在运行 Agent 的环境中设置 TSINGHUA_CLOUD_TOKEN 与 TSINGHUA_CLOUD_REPO_ID，或使用包外私密配置。仅操作已授权资料库；删除和覆盖须明确确认。单文件须小于 10GB，暂不支持分片及断点续传。",
+    "example": "列出清华云盘 /课程资料 中的文件，并递归查找名称包含“项目管理”的文件；只读查询，不修改或删除文件。"
+  }
+}

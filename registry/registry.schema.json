@@ -211,7 +211,7 @@
             "installations": {
               "type": "array",
               "minItems": 1,
-              "maxItems": 20,
+              "maxItems": 32,
               "items": { "$ref": "#/$defs/installation" }
             }
           }

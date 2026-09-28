@@ -1,9 +1,15 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { HeroUIProvider, Button, Card, Chip } from '@heroui/react'
+import { readTheme, saveTheme, applyTheme } from './theme'
+import type { Theme } from './theme'
 import { entries, entryById, tags } from './registry'
 import Icon from './Icon'
 import SkipLink from './components/SkipLink'
 import { clientLabels, displayTag, filterEntries, platformMethods } from './components/catalog'
 import type { Platform, Sort } from './components/catalog'
+import { catalogHash, readCatalogState } from './components/catalogState'
+import type { CatalogState } from './components/catalogState'
+import CatalogOverview from './components/CatalogOverview'
 import type { EntryType, Installation, InstallScope, RegistryEntry, SkillEntry } from './types'
 
 const REPO = 'https://github.com/THU-MEM/SkillMarket'
@@ -27,51 +33,71 @@ function readRoute(): Route {
 function useRoute() {
   const [route, setRoute] = useState(readRoute)
   useEffect(() => {
-    const change = () => { setRoute(readRoute()); window.scrollTo({ top: 0, behavior: 'instant' }) }
+    let previousPath = window.location.hash.split('?')[0]
+    const change = () => {
+      setRoute(readRoute())
+      const path = window.location.hash.split('?')[0]
+      if (path !== previousPath) window.scrollTo({ top: 0, behavior: 'instant' })
+      previousPath = path
+    }
     window.addEventListener('hashchange', change)
     return () => window.removeEventListener('hashchange', change)
   }, [])
   return route
 }
-function Header({ page }: { page: Route['page'] }) {
+function Header({ page, theme, toggleTheme }: { page: Route['page']; theme: Theme; toggleTheme: () => void }) {
   return <header className="site-header"><div className="shell header-inner">
     <a className="brand" href="#/" aria-label="SkillMarket 首页"><span className="brand-mark"><Icon name="skill" size={22} /></span><span>SkillMarket<small>THU–MEM</small></span></a>
     <nav aria-label="主导航">
       <a className="nav-explore" href="#/" aria-current={page === 'home' ? 'page' : undefined}>探索</a>
       <a href="#/guides" aria-current={page === 'guides' ? 'page' : undefined}><Icon name="book" /><span>安装指南</span></a>
       <a className="icon-button" href={REPO} aria-label="GitHub 仓库" title="GitHub 仓库"><Icon name="github" /></a>
-      <a className="button primary" href="#/submit"><Icon name="plus" /><span>发布</span></a>
+      <Button isIconOnly variant="light" className="theme-toggle" aria-label={theme === 'light' ? '切换到深色主题' : '切换到明亮主题'} onPress={toggleTheme}><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">{theme === 'light' ? <path d="M21 13a9 9 0 0 1-10-10 9 9 0 1 0 10 10Z" /> : <><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l2 2m10 10 2 2M5 19l2-2M17 7l2-2"/></>}</svg></Button>
+      <Button as="a" color="primary" href="#/submit" className="publish-button" startContent={<Icon name="plus" />}><span>发布</span></Button>
     </nav>
   </div></header>
 }
-function EntryCard({ entry }: { entry: RegistryEntry }) {
-  return <article className="entry-card"><a href={`#/item/${encodeURIComponent(entry.id)}`} className="entry-link">
+function EntryCard({ entry, state }: { entry: RegistryEntry; state: CatalogState }) {
+  return <Card as="article" shadow="sm" className="entry-card"><a href={catalogHash(state, `item/${encodeURIComponent(entry.id)}`)} className="entry-link">
     <span className="entry-symbol" title={typeLabels[entry.type]}><Icon name={entry.type} size={24} /><span className="visually-hidden">{typeLabels[entry.type]}</span></span>
-    <div className="entry-body"><div className="entry-title"><h2>{entry.name}</h2>{entry.isExample && <span className="badge">示例</span>}</div>
+    <div className="entry-body"><div className="entry-title"><h2>{entry.name}</h2>{entry.isExample && <Chip size="sm" variant="flat" className="example-chip">示例</Chip>}</div>
       <p>{entry.description}</p>
       <div className="entry-bottom"><div className="tag-list">{entry.tags.slice(0, 3).map(tag => <span key={tag}>{displayTag(tag)}</span>)}</div><span className="entry-version">v{entry.version}</span></div>
-    </div><Icon name="arrow" />
-  </a></article>
+      <span className="entry-action">{entry.type === 'skill' ? '查看安装' : '使用说明'}<Icon name="arrow" size={15} /></span>
+    </div>
+  </a><a className="entry-source icon-button" href={entry.source.sourceUrl} aria-label={`查看 ${entry.id} 的 GitHub 源码`} title="查看 GitHub 源码"><Icon name="github" size={18} /></a></Card>
 }
 function Catalog() {
-  const [query, setQuery] = useState('')
-  const [type, setType] = useState<EntryType | 'all'>('all')
-  const [selectedTags, setSelectedTags] = useState<string[]>([])
-  const [sort, setSort] = useState<Sort>('newest')
+  const [state, setState] = useState(() => readCatalogState(typeof window === 'undefined' ? '' : window.location.hash, tags))
+  const { query, type, selectedTags, sort } = state
+  useEffect(() => {
+    const restore = () => setState(readCatalogState(window.location.hash, tags))
+    window.addEventListener('hashchange', restore)
+    return () => window.removeEventListener('hashchange', restore)
+  }, [])
+  const update = (patch: Partial<CatalogState>) => {
+    const next = { ...state, ...patch }
+    setState(next)
+    window.location.hash = catalogHash(next)
+  }
+  const setQuery = (query: string) => update({ query })
+  const setType = (type: EntryType | 'all') => update({ type })
+  const setSort = (sort: Sort) => update({ sort })
   const results = useMemo(() => filterEntries(entries, query, type, selectedTags, sort), [query, type, selectedTags, sort])
-  const reset = () => { setQuery(''); setType('all'); setSelectedTags([]); setSort('newest') }
-  const toggleTag = (tag: string) => setSelectedTags(current => current.includes(tag) ? current.filter(t => t !== tag) : [...current, tag])
+  const reset = () => update({ query: '', type: 'all', selectedTags: [], sort: 'newest' })
+  const toggleTag = (tag: string) => update({ selectedTags: selectedTags.includes(tag) ? selectedTags.filter(t => t !== tag) : [...selectedTags, tag] })
   const filtered = query || type !== 'all' || selectedTags.length > 0
   return <main id="main-content" className="shell catalog-page">
-    <div className="page-heading"><div><span className="eyebrow">THE OPEN CATALOG</span><h1>发现，复用。</h1><p>技能、智能体与提示词，一个开放目录。</p></div><span className="collection-note">THU–MEM / COMMUNITY</span></div>
+    <div className="page-heading"><div><span className="eyebrow">EXPLORE / 开放能力目录</span><h1>让好方法，成为你的能力。</h1><p>发现可复用的技能、智能体与提示词，从这里开始。</p></div><a className="inline-link" href="#/guides">第一次使用？<Icon name="arrow" size={16}/></a></div>
+    <div className="explore-layout"><aside className="filter-rail"><span className="rail-label">浏览目录</span>
+    <div className="type-tabs" role="group" aria-label="类型">{(['all', 'skill', 'agent', 'prompt'] as const).map(t => <Button variant={type === t ? 'flat' : 'light'} color={type === t ? 'primary' : 'default'} type="button" key={t} aria-pressed={type === t} onPress={() => setType(t)}><Icon name={t === 'all' ? 'filter' : t} size={18} /><span>{t === 'all' ? '全部内容' : typeLabels[t]}</span><small>{t === 'all' ? entries.length : entries.filter(e => e.type === t).length}</small></Button>)}</div>
+    <details className="tag-filter" open><summary><Icon name="filter" size={16}/>标签筛选</summary><div className="tag-options">{tags.map(tag => <Button size="sm" variant="flat" type="button" key={tag} aria-pressed={selectedTags.includes(tag)} onPress={() => toggleTag(tag)}>{displayTag(tag)}</Button>)}</div></details><div className="rail-note"><Icon name="book" size={20}/><strong>先了解，再安装</strong><p>查看源码与安装范围，让每一次复用都有据可循。</p><a href="#/guides">阅读安装指南 →</a></div></aside><section className="catalog-content" aria-label="开放目录">
     <div className="search-row"><label className="search-box"><Icon name="search" /><span className="visually-hidden">搜索内容</span><input type="search" value={query} onChange={e => setQuery(e.target.value)} placeholder="搜索名称、作者或标签…" />{query && <button className="icon-button" type="button" onClick={() => setQuery('')} aria-label="清空搜索" title="清空搜索"><Icon name="close" /></button>}</label></div>
-    <div className="catalog-toolbar"><div className="type-tabs" role="group" aria-label="类型">
-      {(['all', 'skill', 'agent', 'prompt'] as const).map(t => <button type="button" key={t} aria-pressed={type === t} onClick={() => setType(t)}>{t !== 'all' && <Icon name={t} size={17} />}{t === 'all' ? '全部' : typeLabels[t]}<small>{t === 'all' ? entries.length : entries.filter(e => e.type === t).length}</small></button>)}
-    </div><label className="sort-select"><span className="visually-hidden">排序</span><select aria-label="排序" value={sort} onChange={e => setSort(e.target.value as Sort)}><option value="newest">最近更新</option><option value="oldest">最早更新</option><option value="name">名称 A–Z</option></select></label></div>
-    <div className="filter-line"><details className="tag-filter"><summary><Icon name="filter" size={17} />标签筛选{selectedTags.length > 0 && <span className="badge">{selectedTags.length}</span>}</summary><div className="tag-options">{tags.map(tag => <button type="button" key={tag} aria-pressed={selectedTags.includes(tag)} onClick={() => toggleTag(tag)}>{displayTag(tag)}</button>)}</div></details><p aria-live="polite">{results.length} 个结果</p>{filtered && <button className="text-button" onClick={reset}>清空筛选</button>}</div>
+    <CatalogOverview entries={entries} type={type} onType={setType} />
+    <div className="catalog-toolbar"><div><h2>{filtered ? '筛选结果' : '探索全部内容'}</h2><p aria-live="polite">{results.length} 个结果</p></div>{filtered && <Button size="sm" variant="light" color="primary" onPress={reset}>清空筛选</Button>}<label className="sort-select"><span className="visually-hidden">排序</span><select aria-label="排序" value={sort} onChange={e => setSort(e.target.value as Sort)}><option value="newest">最近更新</option><option value="oldest">最早更新</option><option value="name">名称 A–Z</option></select></label></div>
     {selectedTags.length > 0 && <div className="active-tags">{selectedTags.map(tag => <button key={tag} onClick={() => toggleTag(tag)} aria-label={`移除${displayTag(tag)}筛选`}>{displayTag(tag)}<Icon name="close" size={14} /></button>)}</div>}
-    {results.length ? <div className="entry-grid">{results.map(entry => <EntryCard key={entry.id} entry={entry} />)}</div> : <div className="empty-state"><Icon name="search" size={32} /><h2>没有匹配的内容</h2><p>换个关键词，或清空筛选。</p><button className="button" onClick={reset}>清空筛选</button></div>}
-  </main>
+    {results.length ? <div className="entry-grid">{results.map(entry => <EntryCard key={entry.id} entry={entry} state={state} />)}</div> : <div className="empty-state"><Icon name="search" size={32} /><h2>没有匹配的内容</h2><p>换个关键词，或清空筛选。</p><button className="button" onClick={reset}>清空筛选</button></div>}
+    </section></div></main>
 }
 function CopyButton({ value, label = '复制命令' }: { value: string; label?: string }) {
   const [status, setStatus] = useState<'idle' | 'copied' | 'error'>('idle')
@@ -141,11 +167,12 @@ function Missing() { return <main id="main-content" className="shell empty-state
 function DetailPage({ id, client }: { id: string; client?: string }) {
   const entry = entryById.get(id)
   if (!entry) return <Missing />
-  return <main id="main-content" className="shell detail-page"><a className="back-link" href="#/"><Icon name="back" size={17} />全部内容</a>
+  const returnHash = catalogHash(readCatalogState(typeof window === 'undefined' ? '' : window.location.hash, tags))
+  return <main id="main-content" className="shell detail-page"><a className="back-link" href={returnHash}><Icon name="back" size={17} />返回目录</a>
     <header className="detail-heading"><div className="detail-title"><span className="entry-symbol"><Icon name={entry.type} size={27} /></span><div><div className="eyebrow">{typeLabels[entry.type]}{entry.isExample && <span className="badge">官方示例</span>}</div><h1>{entry.name}</h1></div></div><p>{entry.description}</p>
       <div className="metadata"><span>{entry.author.url ? <a href={entry.author.url}>{entry.author.name}</a> : entry.author.name}</span><span>v{entry.version}</span><span>{entry.license}</span><time dateTime={entry.updatedAt}>{entry.updatedAt}</time></div>
     </header><div className="detail-layout"><article className="detail-content">
-      {entry.type === 'skill' && <InstallGuide key={`${entry.id}:${client ?? ""}`} entry={entry} client={client} />}
+      {entry.type === 'skill' && <><p className="detail-orientation">选择 Agent、范围与系统，再查看安装命令。前置条件在下方分步说明中。</p><InstallGuide key={`${entry.id}:${client ?? ""}`} entry={entry} client={client} /></>}
       {entry.type === 'prompt' && <section className="content-section"><h2>提示词模板</h2><Command value={entry.prompt.template} context="提示词 · 对话窗口" label="复制提示词模板" /><dl className="variables">{entry.prompt.variables.map(v => <div key={v.name}><dt><code>{v.name}</code><small>{v.required ? '必填' : '选填'}</small></dt><dd>{v.description}</dd></div>)}</dl></section>}
       {entry.type === 'agent' && <section className="content-section"><h2>配置</h2><p>{entry.setup.instructions}</p><ul>{entry.setup.requirements.map(r => <li key={r}>{r}</li>)}</ul></section>}
       <section className="content-section"><h2>使用</h2><p>{entry.usage.instructions}</p>{entry.usage.example && <Command value={entry.usage.example} context="使用示例" label="复制使用示例" />}</section>
@@ -162,8 +189,12 @@ function SubmitPage() {
 }
 export default function App() {
   const route = useRoute()
+  const [theme, setTheme] = useState<Theme>(readTheme)
+  const [themeWarning, setThemeWarning] = useState(false)
+  useEffect(() => { applyTheme(theme) }, [theme])
+  const toggleTheme = () => { const next = theme === 'light' ? 'dark' : 'light'; setTheme(next); setThemeWarning(!saveTheme(next)) }
   useEffect(() => {
     document.title = `${route.page === 'detail' ? entryById.get(route.id)?.name ?? '内容未找到' : route.page === 'guides' ? '安装指南' : route.page === 'submit' ? '发布内容' : route.page === 'missing' ? '内容未找到' : '开放目录'} · SkillMarket`
   }, [route])
-  return <><SkipLink /><Header page={route.page} />{route.page === 'detail' ? <DetailPage key={`${route.id}:${route.client ?? ""}`} id={route.id} client={route.client} /> : route.page === 'guides' ? <GuidesPage /> : route.page === 'submit' ? <SubmitPage /> : route.page === 'missing' ? <Missing /> : <Catalog />}</>
+  return <HeroUIProvider><SkipLink /><Header page={route.page} theme={theme} toggleTheme={toggleTheme} />{themeWarning && <p className="theme-warning" role="status">主题已切换，但当前浏览器无法保存偏好。</p>}{route.page === 'detail' ? <DetailPage key={`${route.id}:${route.client ?? ""}`} id={route.id} client={route.client} /> : route.page === 'guides' ? <GuidesPage /> : route.page === 'submit' ? <SubmitPage /> : route.page === 'missing' ? <Missing /> : <Catalog />}</HeroUIProvider>
 }

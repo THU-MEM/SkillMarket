@@ -23,6 +23,20 @@ node .skillmarket-install/scripts/install-skill.mjs --skill release-notes-writer
 
 ## 选择客户端与范围
 
+### 清华云盘技能
+
+将安装命令中的 ID 换为 `tsinghua-cloud-drive`。该技能不是占位示例，包含完整脚本；目录复制完成后，还需在准备运行技能的 Python 3.9+ 环境中安装依赖：
+
+```sh
+python3 -m pip install -r .skillmarket-install/examples/tsinghua-cloud-drive/requirements.txt
+```
+
+Windows 使用 `py -3` 替代 `python3`；建议在虚拟环境中运行。网站详情会按平台显示对应命令。
+
+在 Agent 运行环境设置自己的 `TSINGHUA_CLOUD_TOKEN` 和 `TSINGHUA_CLOUD_REPO_ID`，或通过 `--config` 指定包外私密 JSON；不要把凭据放进技能目录或公开仓库。先用 `--help` 检查运行环境，再用 `list /` 做只读验证。完整规则见 [SKILL.md](../examples/tsinghua-cloud-drive/SKILL.md)。
+
+### 安装目录
+
 替换 `--agent` 和 `--scope`；以下目录均再追加 `<skill-id>/`：
 
 | `--agent` | `--scope project` | `--scope user` |

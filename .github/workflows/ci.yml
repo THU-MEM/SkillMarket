@@ -25,6 +25,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Test cloud skill without credentials or network calls
+        run: |
+          python -m pip install -r examples/tsinghua-cloud-drive/requirements.txt
+          python -B -m unittest discover -s tests/cloud-drive -v
+
       - name: Validate registry
         run: npm run validate:registry
 
@@ -49,4 +57,4 @@ jobs:
         with:
           node-version: 22
       - name: Test dependency-free installer
-        run: node --test tests/install-skill.test.mjs
+        run: node --test tests/install-skill.test.mjs tests/cloud-skill.test.mjs

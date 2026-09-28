@@ -32,6 +32,31 @@ test('catalog presents each real entry once, with direct search and no marketing
   assert.doesNotMatch(html, /<footer/)
 })
 
+test('overview uses whole-catalog counts even when filtered, with sampled history and explicit card actions', () => {
+  for (const hash of ['#/', '#/?type=prompt&search=missing']) {
+    const html = render(hash)
+    assert.ok(html.includes('全目录概览'), 'show an honest whole-catalog overview')
+    assert.ok(html.includes(`aria-label="全目录 ${registry.length} 个资源"`))
+    assert.ok(html.includes('历史采样，非安装量或活跃量'))
+    assert.ok(!html.includes('discovery-note'))
+  }
+  const html = render('#/')
+  assert.ok(html.includes('查看安装'))
+  assert.ok(html.includes('使用说明'))
+  assert.ok(html.includes('aria-label="查看 accessibility-audit 的 GitHub 源码"'))
+  assert.ok(render('#/item/accessibility-audit').includes('选择 Agent、范围与系统'))
+})
+
+test('hash filters restore results and detail return preserves the catalog query', () => {
+  const html = render('#/?search=无障碍&type=skill&tags=accessibility&sort=name')
+  assert.match(html, /value="无障碍"/)
+  assert.match(html, /href="#\/item\/accessibility-audit\?search=/)
+  assert.doesNotMatch(html, /class="entry-title"><h2>Issue Triage/)
+  const detail = render('#/item/accessibility-audit?search=test&type=skill&tags=accessibility&sort=name&client=codex')
+  assert.match(detail, /class="back-link" href="#\/\?search=test&amp;type=skill&amp;tags=accessibility&amp;sort=name"/)
+  assert.match(detail, /value="codex" selected=""/)
+})
+
 test('skill details have platform selection and collapsed supporting instructions', () => {
   const entry = registry.find(e => e.type === 'skill')
   const html = render(`#/item/${entry.id}`)
@@ -92,6 +117,9 @@ test('keyboard skip action prevents hash routing and focuses current main conten
   context.module.exports.SkipLink().props.onClick({ preventDefault: () => calls.push('prevent') })
   assert.equal(main.tabIndex, -1)
   assert.deepEqual(calls, ['prevent', 'focus', 'scroll'])
+  // Restore SSR environment: the partial document stub is only for the skip action.
+  // React Aria correctly treats a present document as a real browser DOM.
+  delete context.document
   assert.match(render('#/'), /class="skip-link"/)
 })
 

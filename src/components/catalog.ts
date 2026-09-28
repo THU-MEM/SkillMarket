@@ -1,5 +1,6 @@
 import type { EntryType, Installation, RegistryEntry } from '../types'
 export const tagLabels: Record<string, string> = {
+  'cloud-storage': '云存储', files: '文件管理', automation: '自动化',
   accessibility: '无障碍', architecture: '架构', community: '社区', 'code-review': '代码审查',
   'decision-making': '决策', dependencies: '依赖管理', 'developer-tools': '开发工具', documentation: '文档',
   frontend: '前端', github: 'GitHub', maintenance: '维护', quality: '质量', release: '发布', security: '安全', triage: '问题分诊',

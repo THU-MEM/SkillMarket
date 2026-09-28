@@ -9,6 +9,8 @@
 - 按名称、类型和标签查找内容。
 - 在技能详情页选择 Agent、安装范围和平台，复制对应命令。
 - 安装前查看源码；示例条目均明确标记，不代表第三方项目。
+- 清华紫 HeroUI 界面，支持明暗切换；搜索和筛选可通过 URL 保留与分享。
+- 顶部展示目录实际数量及历史采样，不代表安装量、下载量或活跃量。
 
 ## 安装技能
 
@@ -33,6 +35,8 @@ npm run check   # 目录校验、测试、Lint、类型检查与生产构建
 ```
 
 技术栈：React、TypeScript、Vite。内容来自 `registry/` 下的 JSON，无数据库、登录系统或托管执行服务。安装器使用 Node.js 标准库，不需要 `npm install`。
+
+清华云盘技能另需 Python 3.9+。离线回归：在 Python 虚拟环境安装 `examples/tsinghua-cloud-drive/requirements.txt` 后，运行 `python -B -m unittest discover -s tests/cloud-drive -v`，不使用真实凭据或云盘文件。
 
 ## 发布
 

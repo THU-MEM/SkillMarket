@@ -22,11 +22,17 @@
     "check": "npm run validate:registry && npm run test && npm run lint && npm run typecheck && npm run build"
   },
   "dependencies": {
+    "@heroui/react": "2.8.5",
+    "@heroui/theme": "2.4.23",
+    "framer-motion": "12.23.24",
+    "motion-dom": "12.23.23",
+    "motion-utils": "12.23.6",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.32.0",
+    "@tailwindcss/vite": "^4.3.3",
     "@types/node": "^24.2.0",
     "@types/react": "^19.1.9",
     "@types/react-dom": "^19.1.7",
@@ -37,6 +43,7 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.3.0",
+    "tailwindcss": "^4.3.3",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.39.0",
     "vite": "^7.1.2"
