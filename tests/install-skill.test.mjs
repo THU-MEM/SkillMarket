@@ -3,7 +3,7 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { fileURLToPath, pathToFileURL } from 'node:url'
 import { spawnSync } from 'node:child_process'
 
 const repo = fileURLToPath(new URL('../', import.meta.url))
@@ -130,9 +130,9 @@ test('concurrent installers reserve destination exclusively', async t => {
 })
 test('rename failure removes only this transaction and its staging', async t => {
   const s = await sandbox(t)
-  const hook = path.join(s.root, 'fail-rename.mjs')
+  const hook = path.join(s.root, 'fail rename#qa.mjs')
   await fs.writeFile(hook, "import fs from 'node:fs/promises'; fs.rename = async () => { throw Error('injected rename failure') }")
-  const r = spawnSync(process.execPath, ['--import', hook, script, '--skill', 'accessibility-audit', '--agent', 'codex', '--scope', 'project'], { cwd: s.project, env: s.env, encoding: 'utf8' })
+  const r = spawnSync(process.execPath, ['--import', pathToFileURL(hook).href, script, '--skill', 'accessibility-audit', '--agent', 'codex', '--scope', 'project'], { cwd: s.project, env: s.env, encoding: 'utf8' })
   assert.notEqual(r.status, 0); assert.match(r.stderr, /injected rename failure/)
   assert.deepEqual(await fs.readdir(path.join(s.project, '.agents/skills')), [])
 })
