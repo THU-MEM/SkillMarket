@@ -2,7 +2,7 @@
   "id": "dependency-curator",
   "type": "agent",
   "name": "依赖治理智能体",
-  "description": "一个用于盘点项目依赖的示例智能体，能够识别过期或冗余的软件包，并基于兼容性证据提出低风险更新方案。",
+  "description": "盘点过期或冗余依赖，依据兼容性证据建议低风险更新。",
   "author": {
     "name": "SkillMarket 示例实验室",
     "url": "https://github.com/THU-MEM/SkillMarket"

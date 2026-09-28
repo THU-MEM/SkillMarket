@@ -2,7 +2,7 @@
   "id": "accessibility-audit",
   "type": "skill",
   "name": "无障碍体验审查",
-  "description": "一个用于审查网页界面的示例技能，重点识别键盘操作、语义结构、焦点行为与文字对比度中的无障碍风险。",
+  "description": "检查网页键盘操作、语义、焦点与对比度的无障碍风险。",
   "author": {
     "name": "SkillMarket 示例实验室",
     "url": "https://github.com/THU-MEM/SkillMarket"
@@ -13,7 +13,11 @@
     "rawUrl": "https://raw.githubusercontent.com/THU-MEM/SkillMarket/main/examples/accessibility-audit/SKILL.md"
   },
   "repository": "https://github.com/THU-MEM/SkillMarket/tree/main/examples/accessibility-audit",
-  "tags": ["accessibility", "frontend", "quality"],
+  "tags": [
+    "accessibility",
+    "frontend",
+    "quality"
+  ],
   "version": "1.0.0",
   "license": "Apache-2.0",
   "updatedAt": "2026-08-06",
@@ -21,203 +25,537 @@
   "featured": true,
   "installations": [
     {
-      "id": "npx-copilot-project",
+      "id": "claude-code-project",
       "type": "cli",
-      "label": "npx skills 安装到当前项目",
-      "summary": "使用 Vercel 社区 CLI 将技能安装到当前项目的 GitHub Copilot 技能目录，适合快速体验。",
-      "client": "github-copilot",
+      "label": "Claude Code · 当前项目",
+      "summary": "Git + Node.js 22+；在目标项目根执行，源码仓库只需克隆一次。",
+      "client": "claude-code",
       "scope": "project",
-      "platforms": ["windows", "macos", "linux"],
-      "officialStatus": "community",
+      "platforms": [
+        "windows",
+        "macos",
+        "linux"
+      ],
+      "officialStatus": "maintainer",
       "recommended": true,
-      "command": "npx skills add THU-MEM/SkillMarket --skill accessibility-audit --agent github-copilot --yes",
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill accessibility-audit --agent claude-code --scope project",
+      "targetPath": ".claude/skills/accessibility-audit",
       "prerequisites": [
         {
-          "name": "Node.js",
-          "details": "npx skills 当前要求 Node.js 22.20.0 或更高版本。",
-          "check": "node --version"
+          "name": "Git + Node.js 22+",
+          "details": "无需 npm 依赖或 Agent 登录；使用技能仍需对应客户端。",
+          "check": "git --version\nnode --version"
         }
       ],
       "steps": [
         {
-          "title": "进入目标仓库",
-          "description": "在终端中切换到希望使用此技能的项目根目录。"
-        },
-        {
-          "title": "运行安装命令",
-          "description": "CLI 会发现指定技能，并写入 GitHub Copilot 支持的项目级技能目录。",
-          "command": "npx skills add THU-MEM/SkillMarket --skill accessibility-audit --agent github-copilot --yes",
-          "expected": "项目中出现技能目录，并包含 SKILL.md。"
+          "title": "审查并安装",
+          "description": "克隆一次，审查 examples/accessibility-audit 整目录后运行第二行；已有克隆时跳过第一行。"
         }
       ],
       "verify": {
-        "description": "运行列表命令，或确认项目中的 .agents/skills 目录已出现 accessibility-audit。",
-        "command": "npx skills list"
+        "description": "检查 .claude/skills/accessibility-audit/SKILL.md 和全部附属文件，再重开客户端查看技能。"
       },
       "update": {
-        "description": "使用社区 CLI 检查并更新已安装技能。",
-        "command": "npx skills update"
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
       },
       "uninstall": {
-        "description": "使用交互式移除命令选择并删除该技能。",
-        "command": "npx skills remove"
+        "description": "仅删除 .claude/skills/accessibility-audit，保留其他技能。"
       },
-      "securityNote": "npx skills 是 Vercel 维护的社区 CLI，并非 GitHub 官方命令。运行前请先查看技能源码与安装目标。",
-      "evidenceUrl": "https://github.com/vercel-labs/skills#readme"
+      "securityNote": "整目录复制，不执行其中脚本；拒绝软链接、凭据文件和已有目标，安装不代表已由 Agent 验证。",
+      "evidenceUrl": "https://code.claude.com/docs/en/skills"
     },
     {
-      "id": "gh-skill-interactive",
+      "id": "claude-code-user",
       "type": "cli",
-      "label": "GitHub CLI 官方安装",
-      "summary": "使用处于 Public Preview 的 GitHub CLI skill 命令预览并交互选择安装范围。",
-      "client": "github-copilot",
-      "scope": "interactive",
-      "platforms": ["windows", "macos", "linux"],
-      "officialStatus": "official",
-      "command": "gh skill install THU-MEM/SkillMarket accessibility-audit",
+      "label": "Claude Code · 当前用户",
+      "summary": "Git + Node.js 22+；在目标项目根执行，源码仓库只需克隆一次。",
+      "client": "claude-code",
+      "scope": "user",
+      "platforms": [
+        "windows",
+        "macos",
+        "linux"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill accessibility-audit --agent claude-code --scope user",
+      "targetPath": "~/.claude/skills/accessibility-audit",
       "prerequisites": [
         {
-          "name": "GitHub CLI",
-          "details": "需要 GitHub CLI 2.90 或更高版本；gh skill 当前处于 Public Preview。",
-          "check": "gh --version"
+          "name": "Git + Node.js 22+",
+          "details": "无需 npm 依赖或 Agent 登录；使用技能仍需对应客户端。",
+          "check": "git --version\nnode --version"
         }
       ],
       "steps": [
         {
-          "title": "安装前预览",
-          "description": "先查看技能将写入的内容，确认来源与文件安全性。",
-          "command": "gh skill preview THU-MEM/SkillMarket accessibility-audit"
-        },
-        {
-          "title": "交互式安装",
-          "description": "执行安装并按提示选择客户端与项目级或用户级范围。",
-          "command": "gh skill install THU-MEM/SkillMarket accessibility-audit"
+          "title": "审查并安装",
+          "description": "克隆一次，审查 examples/accessibility-audit 整目录后运行第二行；已有克隆时跳过第一行。"
         }
       ],
       "verify": {
-        "description": "确认所选范围的技能目录中存在 accessibility-audit/SKILL.md。"
+        "description": "检查 ~/.claude/skills/accessibility-audit/SKILL.md 和全部附属文件，再重开客户端查看技能。"
       },
       "update": {
-        "description": "使用 GitHub CLI 更新已经安装的技能。",
-        "command": "gh skill update"
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
       },
-      "securityNote": "GitHub 官方文档提醒第三方技能可能包含提示词注入或恶意脚本；安装前必须预览并审查源码。",
+      "uninstall": {
+        "description": "仅删除 ~/.claude/skills/accessibility-audit，保留其他技能。"
+      },
+      "securityNote": "整目录复制，不执行其中脚本；拒绝软链接、凭据文件和已有目标，安装不代表已由 Agent 验证。",
+      "evidenceUrl": "https://code.claude.com/docs/en/skills"
+    },
+    {
+      "id": "codex-project",
+      "type": "cli",
+      "label": "Codex · 当前项目",
+      "summary": "Git + Node.js 22+；在目标项目根执行，源码仓库只需克隆一次。",
+      "client": "codex",
+      "scope": "project",
+      "platforms": [
+        "windows",
+        "macos",
+        "linux"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill accessibility-audit --agent codex --scope project",
+      "targetPath": ".agents/skills/accessibility-audit",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22+",
+          "details": "无需 npm 依赖或 Agent 登录；使用技能仍需对应客户端。",
+          "check": "git --version\nnode --version"
+        }
+      ],
+      "steps": [
+        {
+          "title": "审查并安装",
+          "description": "克隆一次，审查 examples/accessibility-audit 整目录后运行第二行；已有克隆时跳过第一行。"
+        }
+      ],
+      "verify": {
+        "description": "检查 .agents/skills/accessibility-audit/SKILL.md 和全部附属文件，再重开客户端查看技能。"
+      },
+      "update": {
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
+      },
+      "uninstall": {
+        "description": "仅删除 .agents/skills/accessibility-audit，保留其他技能。"
+      },
+      "securityNote": "整目录复制，不执行其中脚本；拒绝软链接、凭据文件和已有目标，安装不代表已由 Agent 验证。",
+      "evidenceUrl": "https://developers.openai.com/codex/skills"
+    },
+    {
+      "id": "codex-user",
+      "type": "cli",
+      "label": "Codex · 当前用户",
+      "summary": "Git + Node.js 22+；在目标项目根执行，源码仓库只需克隆一次。",
+      "client": "codex",
+      "scope": "user",
+      "platforms": [
+        "windows",
+        "macos",
+        "linux"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill accessibility-audit --agent codex --scope user",
+      "targetPath": "~/.agents/skills/accessibility-audit",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22+",
+          "details": "无需 npm 依赖或 Agent 登录；使用技能仍需对应客户端。",
+          "check": "git --version\nnode --version"
+        }
+      ],
+      "steps": [
+        {
+          "title": "审查并安装",
+          "description": "克隆一次，审查 examples/accessibility-audit 整目录后运行第二行；已有克隆时跳过第一行。"
+        }
+      ],
+      "verify": {
+        "description": "检查 ~/.agents/skills/accessibility-audit/SKILL.md 和全部附属文件，再重开客户端查看技能。"
+      },
+      "update": {
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
+      },
+      "uninstall": {
+        "description": "仅删除 ~/.agents/skills/accessibility-audit，保留其他技能。"
+      },
+      "securityNote": "整目录复制，不执行其中脚本；拒绝软链接、凭据文件和已有目标，安装不代表已由 Agent 验证。",
+      "evidenceUrl": "https://developers.openai.com/codex/skills"
+    },
+    {
+      "id": "cursor-project",
+      "type": "cli",
+      "label": "Cursor · 当前项目",
+      "summary": "Git + Node.js 22+；在目标项目根执行，源码仓库只需克隆一次。",
+      "client": "cursor",
+      "scope": "project",
+      "platforms": [
+        "windows",
+        "macos",
+        "linux"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill accessibility-audit --agent cursor --scope project",
+      "targetPath": ".cursor/skills/accessibility-audit",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22+",
+          "details": "无需 npm 依赖或 Agent 登录；使用技能仍需对应客户端。",
+          "check": "git --version\nnode --version"
+        }
+      ],
+      "steps": [
+        {
+          "title": "审查并安装",
+          "description": "克隆一次，审查 examples/accessibility-audit 整目录后运行第二行；已有克隆时跳过第一行。"
+        }
+      ],
+      "verify": {
+        "description": "检查 .cursor/skills/accessibility-audit/SKILL.md 和全部附属文件，再重开客户端查看技能。"
+      },
+      "update": {
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
+      },
+      "uninstall": {
+        "description": "仅删除 .cursor/skills/accessibility-audit，保留其他技能。"
+      },
+      "securityNote": "整目录复制，不执行其中脚本；拒绝软链接、凭据文件和已有目标，安装不代表已由 Agent 验证。",
+      "evidenceUrl": "https://cursor.com/docs/context/skills"
+    },
+    {
+      "id": "cursor-user",
+      "type": "cli",
+      "label": "Cursor · 当前用户",
+      "summary": "Git + Node.js 22+；在目标项目根执行，源码仓库只需克隆一次。",
+      "client": "cursor",
+      "scope": "user",
+      "platforms": [
+        "windows",
+        "macos",
+        "linux"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill accessibility-audit --agent cursor --scope user",
+      "targetPath": "~/.cursor/skills/accessibility-audit",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22+",
+          "details": "无需 npm 依赖或 Agent 登录；使用技能仍需对应客户端。",
+          "check": "git --version\nnode --version"
+        }
+      ],
+      "steps": [
+        {
+          "title": "审查并安装",
+          "description": "克隆一次，审查 examples/accessibility-audit 整目录后运行第二行；已有克隆时跳过第一行。"
+        }
+      ],
+      "verify": {
+        "description": "检查 ~/.cursor/skills/accessibility-audit/SKILL.md 和全部附属文件，再重开客户端查看技能。"
+      },
+      "update": {
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
+      },
+      "uninstall": {
+        "description": "仅删除 ~/.cursor/skills/accessibility-audit，保留其他技能。"
+      },
+      "securityNote": "整目录复制，不执行其中脚本；拒绝软链接、凭据文件和已有目标，安装不代表已由 Agent 验证。",
+      "evidenceUrl": "https://cursor.com/docs/context/skills"
+    },
+    {
+      "id": "opencode-project",
+      "type": "cli",
+      "label": "OpenCode · 当前项目",
+      "summary": "Git + Node.js 22+；在目标项目根执行，源码仓库只需克隆一次。",
+      "client": "opencode",
+      "scope": "project",
+      "platforms": [
+        "windows",
+        "macos",
+        "linux"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill accessibility-audit --agent opencode --scope project",
+      "targetPath": ".opencode/skills/accessibility-audit",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22+",
+          "details": "无需 npm 依赖或 Agent 登录；使用技能仍需对应客户端。",
+          "check": "git --version\nnode --version"
+        }
+      ],
+      "steps": [
+        {
+          "title": "审查并安装",
+          "description": "克隆一次，审查 examples/accessibility-audit 整目录后运行第二行；已有克隆时跳过第一行。"
+        }
+      ],
+      "verify": {
+        "description": "检查 .opencode/skills/accessibility-audit/SKILL.md 和全部附属文件，再重开客户端查看技能。"
+      },
+      "update": {
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
+      },
+      "uninstall": {
+        "description": "仅删除 .opencode/skills/accessibility-audit，保留其他技能。"
+      },
+      "securityNote": "整目录复制，不执行其中脚本；拒绝软链接、凭据文件和已有目标，安装不代表已由 Agent 验证。",
+      "evidenceUrl": "https://opencode.ai/docs/skills/"
+    },
+    {
+      "id": "opencode-user",
+      "type": "cli",
+      "label": "OpenCode · 当前用户",
+      "summary": "Git + Node.js 22+；在目标项目根执行，源码仓库只需克隆一次。",
+      "client": "opencode",
+      "scope": "user",
+      "platforms": [
+        "windows",
+        "macos",
+        "linux"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill accessibility-audit --agent opencode --scope user",
+      "targetPath": "${XDG_CONFIG_HOME:-~/.config}/opencode/skills/accessibility-audit",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22+",
+          "details": "无需 npm 依赖或 Agent 登录；使用技能仍需对应客户端。",
+          "check": "git --version\nnode --version"
+        }
+      ],
+      "steps": [
+        {
+          "title": "审查并安装",
+          "description": "克隆一次，审查 examples/accessibility-audit 整目录后运行第二行；已有克隆时跳过第一行。"
+        }
+      ],
+      "verify": {
+        "description": "检查 ${XDG_CONFIG_HOME:-~/.config}/opencode/skills/accessibility-audit/SKILL.md 和全部附属文件，再重开客户端查看技能。"
+      },
+      "update": {
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
+      },
+      "uninstall": {
+        "description": "仅删除 ${XDG_CONFIG_HOME:-~/.config}/opencode/skills/accessibility-audit，保留其他技能。"
+      },
+      "securityNote": "整目录复制，不执行其中脚本；拒绝软链接、凭据文件和已有目标，安装不代表已由 Agent 验证。",
+      "evidenceUrl": "https://opencode.ai/docs/skills/"
+    },
+    {
+      "id": "github-copilot-project",
+      "type": "cli",
+      "label": "GitHub Copilot（VS Code） · 当前项目",
+      "summary": "Git + Node.js 22+；在目标项目根执行，源码仓库只需克隆一次。",
+      "client": "github-copilot",
+      "scope": "project",
+      "platforms": [
+        "windows",
+        "macos",
+        "linux"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill accessibility-audit --agent github-copilot --scope project",
+      "targetPath": ".github/skills/accessibility-audit",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22+",
+          "details": "无需 npm 依赖或 Agent 登录；使用技能仍需对应客户端。",
+          "check": "git --version\nnode --version"
+        }
+      ],
+      "steps": [
+        {
+          "title": "审查并安装",
+          "description": "克隆一次，审查 examples/accessibility-audit 整目录后运行第二行；已有克隆时跳过第一行。"
+        }
+      ],
+      "verify": {
+        "description": "检查 .github/skills/accessibility-audit/SKILL.md 和全部附属文件，再重开客户端查看技能。"
+      },
+      "update": {
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
+      },
+      "uninstall": {
+        "description": "仅删除 .github/skills/accessibility-audit，保留其他技能。"
+      },
+      "securityNote": "整目录复制，不执行其中脚本；拒绝软链接、凭据文件和已有目标，安装不代表已由 Agent 验证。",
       "evidenceUrl": "https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/add-skills"
     },
     {
-      "id": "copilot-cli-url",
+      "id": "github-copilot-user",
       "type": "cli",
-      "label": "添加到 GitHub Copilot CLI",
-      "summary": "使用 Copilot CLI 官方 skill add 命令从公开原始文件地址添加技能。",
-      "client": "github-copilot-cli",
+      "label": "GitHub Copilot（VS Code） · 当前用户",
+      "summary": "Git + Node.js 22+；在目标项目根执行，源码仓库只需克隆一次。",
+      "client": "github-copilot",
       "scope": "user",
-      "platforms": ["windows", "macos", "linux"],
-      "officialStatus": "official",
-      "command": "copilot skill add https://raw.githubusercontent.com/THU-MEM/SkillMarket/main/examples/accessibility-audit/SKILL.md",
+      "platforms": [
+        "windows",
+        "macos",
+        "linux"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill accessibility-audit --agent github-copilot --scope user",
+      "targetPath": "~/.copilot/skills/accessibility-audit",
       "prerequisites": [
         {
-          "name": "GitHub Copilot CLI",
-          "details": "需要已安装 Copilot CLI，并拥有有效的 GitHub Copilot 订阅。",
-          "check": "copilot --version"
+          "name": "Git + Node.js 22+",
+          "details": "无需 npm 依赖或 Agent 登录；使用技能仍需对应客户端。",
+          "check": "git --version\nnode --version"
         }
       ],
       "steps": [
         {
-          "title": "添加技能",
-          "description": "Copilot CLI 会从 URL 读取技能并保存到个人技能目录。",
-          "command": "copilot skill add https://raw.githubusercontent.com/THU-MEM/SkillMarket/main/examples/accessibility-audit/SKILL.md"
-        },
-        {
-          "title": "重新加载",
-          "description": "在 Copilot CLI 中重新加载技能，使当前会话发现新内容。",
-          "command": "/skills reload"
+          "title": "审查并安装",
+          "description": "克隆一次，审查 examples/accessibility-audit 整目录后运行第二行；已有克隆时跳过第一行。"
         }
       ],
       "verify": {
-        "description": "在 Copilot CLI 中列出技能并查看详细信息。",
-        "command": "/skills list"
+        "description": "检查 ~/.copilot/skills/accessibility-audit/SKILL.md 和全部附属文件，再重开客户端查看技能。"
+      },
+      "update": {
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
       },
       "uninstall": {
-        "description": "在 Copilot CLI 中按技能目录名称移除。",
-        "command": "/skills remove accessibility-audit"
+        "description": "仅删除 ~/.copilot/skills/accessibility-audit，保留其他技能。"
       },
-      "securityNote": "通过 URL 安装前请打开原始文件进行审查；Copilot CLI 不会替你验证第三方技能的安全性。",
+      "securityNote": "整目录复制，不执行其中脚本；拒绝软链接、凭据文件和已有目标，安装不代表已由 Agent 验证。",
+      "evidenceUrl": "https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/add-skills"
+    },
+    {
+      "id": "github-copilot-cli-project",
+      "type": "cli",
+      "label": "GitHub Copilot CLI · 当前项目",
+      "summary": "Git + Node.js 22+；在目标项目根执行，源码仓库只需克隆一次。",
+      "client": "github-copilot-cli",
+      "scope": "project",
+      "platforms": [
+        "windows",
+        "macos",
+        "linux"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill accessibility-audit --agent github-copilot-cli --scope project",
+      "targetPath": ".github/skills/accessibility-audit",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22+",
+          "details": "无需 npm 依赖或 Agent 登录；使用技能仍需对应客户端。",
+          "check": "git --version\nnode --version"
+        }
+      ],
+      "steps": [
+        {
+          "title": "审查并安装",
+          "description": "克隆一次，审查 examples/accessibility-audit 整目录后运行第二行；已有克隆时跳过第一行。"
+        }
+      ],
+      "verify": {
+        "description": "检查 .github/skills/accessibility-audit/SKILL.md 和全部附属文件，再重开客户端查看技能。"
+      },
+      "update": {
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
+      },
+      "uninstall": {
+        "description": "仅删除 .github/skills/accessibility-audit，保留其他技能。"
+      },
+      "securityNote": "整目录复制，不执行其中脚本；拒绝软链接、凭据文件和已有目标，安装不代表已由 Agent 验证。",
       "evidenceUrl": "https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/add-skills"
     },
     {
-      "id": "npx-claude-user",
+      "id": "github-copilot-cli-user",
       "type": "cli",
-      "label": "安装到 Claude Code 用户目录",
-      "summary": "通过 npx skills 将技能安装到当前用户的 Claude Code 技能目录，供多个项目复用。",
-      "client": "claude-code",
+      "label": "GitHub Copilot CLI · 当前用户",
+      "summary": "Git + Node.js 22+；在目标项目根执行，源码仓库只需克隆一次。",
+      "client": "github-copilot-cli",
       "scope": "user",
-      "platforms": ["windows", "macos", "linux"],
-      "officialStatus": "community",
-      "command": "npx skills add THU-MEM/SkillMarket --skill accessibility-audit --agent claude-code --global --yes",
+      "platforms": [
+        "windows",
+        "macos",
+        "linux"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill accessibility-audit --agent github-copilot-cli --scope user",
+      "targetPath": "~/.copilot/skills/accessibility-audit",
       "prerequisites": [
         {
-          "name": "Claude Code",
-          "details": "需要可用的 Claude Code 环境与 Node.js 22.20.0 或更高版本。",
-          "check": "claude --version"
+          "name": "Git + Node.js 22+",
+          "details": "无需 npm 依赖或 Agent 登录；使用技能仍需对应客户端。",
+          "check": "git --version\nnode --version"
         }
       ],
       "steps": [
         {
-          "title": "运行全局安装",
-          "description": "指定 claude-code 客户端与 global 范围，CLI 会写入用户技能目录。",
-          "command": "npx skills add THU-MEM/SkillMarket --skill accessibility-audit --agent claude-code --global --yes",
-          "expected": "~/.claude/skills/accessibility-audit/SKILL.md 可用。"
+          "title": "审查并安装",
+          "description": "克隆一次，审查 examples/accessibility-audit 整目录后运行第二行；已有克隆时跳过第一行。"
         }
       ],
       "verify": {
-        "description": "确认 ~/.claude/skills/accessibility-audit/SKILL.md 已创建。"
+        "description": "检查 ~/.copilot/skills/accessibility-audit/SKILL.md 和全部附属文件，再重开客户端查看技能。"
       },
       "update": {
-        "description": "使用 npx skills 更新已安装技能。",
-        "command": "npx skills update"
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
       },
       "uninstall": {
-        "description": "使用 npx skills 交互移除该技能。",
-        "command": "npx skills remove"
+        "description": "仅删除 ~/.copilot/skills/accessibility-audit，保留其他技能。"
       },
-      "securityNote": "这是社区 CLI 安装路径。建议安装前检查原始 SKILL.md，并确认全局范围符合预期。",
-      "evidenceUrl": "https://github.com/vercel-labs/skills#readme"
+      "securityNote": "整目录复制，不执行其中脚本；拒绝软链接、凭据文件和已有目标，安装不代表已由 Agent 验证。",
+      "evidenceUrl": "https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/add-skills"
     },
     {
-      "id": "manual-project",
-      "type": "manual",
-      "label": "手动安装到项目",
-      "summary": "不运行第三方安装器，直接审查并复制 SKILL.md 到项目级技能目录。",
-      "client": "universal",
-      "scope": "project",
-      "platforms": ["windows", "macos", "linux"],
+      "id": "hermes-user",
+      "type": "cli",
+      "label": "Hermes · 当前用户",
+      "summary": "Git + Node.js 22+；在目标项目根执行，源码仓库只需克隆一次。",
+      "client": "hermes",
+      "scope": "user",
+      "platforms": [
+        "windows",
+        "macos",
+        "linux"
+      ],
       "officialStatus": "maintainer",
-      "targetPath": ".github/skills/accessibility-audit/SKILL.md",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill accessibility-audit --agent hermes --scope user",
+      "targetPath": "${HERMES_HOME:-~/.hermes}/skills/accessibility-audit",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22+",
+          "details": "无需 npm 依赖或 Agent 登录；使用技能仍需对应客户端。",
+          "check": "git --version\nnode --version"
+        }
+      ],
       "steps": [
         {
-          "title": "审查原始内容",
-          "description": "先打开 SkillMarket 仓库中的 SKILL.md，检查指令、脚本引用与权限要求。"
-        },
-        {
-          "title": "创建目标目录",
-          "description": "在项目根目录创建 .github/skills/accessibility-audit。"
-        },
-        {
-          "title": "复制主文件",
-          "description": "将原始 SKILL.md 复制到目标目录，并保留文件名。"
+          "title": "审查并安装",
+          "description": "克隆一次，审查 examples/accessibility-audit 整目录后运行第二行；已有克隆时跳过第一行。"
         }
       ],
       "verify": {
-        "description": "确认 .github/skills/accessibility-audit/SKILL.md 存在且 YAML frontmatter 完整。"
+        "description": "检查 ${HERMES_HOME:-~/.hermes}/skills/accessibility-audit/SKILL.md 和全部附属文件，再重开客户端查看技能。"
       },
       "update": {
-        "description": "重新下载并审查最新原始文件，再替换项目中的 SKILL.md。"
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
       },
       "uninstall": {
-        "description": "删除项目中的 .github/skills/accessibility-audit 目录。"
+        "description": "仅删除 ${HERMES_HOME:-~/.hermes}/skills/accessibility-audit，保留其他技能。"
       },
-      "securityNote": "手动安装不会执行第三方命令，但仍需审查 SKILL.md 中可能引用的脚本、网络资源和工具权限。",
-      "evidenceUrl": "https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/add-skills"
+      "securityNote": "整目录复制，不执行其中脚本；拒绝软链接、凭据文件和已有目标，安装不代表已由 Agent 验证。 只使用当前 HERMES_HOME（未设时 ~/.hermes），不解析 sticky profile。",
+      "evidenceUrl": "https://hermes-agent.nousresearch.com/docs/user-guide/features/skills"
     }
   ],
   "usage": {

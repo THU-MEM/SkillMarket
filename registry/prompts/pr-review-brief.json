@@ -2,7 +2,7 @@
   "id": "pr-review-brief",
   "type": "prompt",
   "name": "Pull Request 审查简报",
-  "description": "一个围绕预期行为、风险区域与证据开展代码审查的示例提示词，专注可执行问题，避免只涉及风格的噪声反馈。",
+  "description": "围绕预期行为、风险与证据审查代码，聚焦可执行问题。",
   "author": {
     "name": "SkillMarket 示例实验室",
     "url": "https://github.com/THU-MEM/SkillMarket"

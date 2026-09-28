@@ -20,6 +20,10 @@ export type InstallClient =
   | 'github-copilot'
   | 'github-copilot-cli'
   | 'claude-code'
+  | 'codex'
+  | 'cursor'
+  | 'opencode'
+  | 'hermes'
   | 'universal'
 
 export type InstallScope = 'project' | 'user' | 'interactive'

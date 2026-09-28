@@ -2,7 +2,7 @@
   "id": "release-notes-writer",
   "type": "skill",
   "name": "版本说明撰写助手",
-  "description": "一个将已审阅提交整理为简洁版本说明的示例技能，能够根据目标读者调整表达，并严格避免虚构任何变更。",
+  "description": "将已审阅提交整理为适合目标读者的版本说明，不虚构变更。",
   "author": {
     "name": "SkillMarket 示例实验室",
     "url": "https://github.com/THU-MEM/SkillMarket"
@@ -13,171 +13,548 @@
     "rawUrl": "https://raw.githubusercontent.com/THU-MEM/SkillMarket/main/examples/release-notes-writer/SKILL.md"
   },
   "repository": "https://github.com/THU-MEM/SkillMarket/tree/main/examples/release-notes-writer",
-  "tags": ["documentation", "release", "developer-tools"],
+  "tags": [
+    "documentation",
+    "release",
+    "developer-tools"
+  ],
   "version": "1.1.0",
   "license": "Apache-2.0",
   "updatedAt": "2026-08-05",
   "isExample": true,
   "installations": [
     {
-      "id": "npx-copilot-project",
+      "id": "claude-code-project",
       "type": "cli",
-      "label": "npx skills 安装到当前项目",
-      "summary": "使用 Vercel 社区 CLI 将技能安装到当前项目，便于与团队共同版本管理。",
-      "client": "github-copilot",
+      "label": "Claude Code · 当前项目",
+      "summary": "Git + Node.js 22+；在目标项目根执行，源码仓库只需克隆一次。",
+      "client": "claude-code",
       "scope": "project",
-      "platforms": ["windows", "macos", "linux"],
-      "officialStatus": "community",
+      "platforms": [
+        "windows",
+        "macos",
+        "linux"
+      ],
+      "officialStatus": "maintainer",
       "recommended": true,
-      "command": "npx skills add THU-MEM/SkillMarket --skill release-notes-writer --agent github-copilot --yes",
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill release-notes-writer --agent claude-code --scope project",
+      "targetPath": ".claude/skills/release-notes-writer",
       "prerequisites": [
         {
-          "name": "Node.js",
-          "details": "npx skills 当前要求 Node.js 22.20.0 或更高版本。",
-          "check": "node --version"
+          "name": "Git + Node.js 22+",
+          "details": "无需 npm 依赖或 Agent 登录；使用技能仍需对应客户端。",
+          "check": "git --version\nnode --version"
         }
       ],
       "steps": [
         {
-          "title": "进入目标仓库",
-          "description": "在终端中切换到希望使用技能的项目根目录。"
-        },
-        {
-          "title": "执行安装",
-          "description": "指定技能和 GitHub Copilot 客户端，非交互式完成项目级安装。",
-          "command": "npx skills add THU-MEM/SkillMarket --skill release-notes-writer --agent github-copilot --yes",
-          "expected": "项目技能目录中出现 release-notes-writer/SKILL.md。"
+          "title": "审查并安装",
+          "description": "克隆一次，审查 examples/release-notes-writer 整目录后运行第二行；已有克隆时跳过第一行。"
         }
       ],
       "verify": {
-        "description": "列出已安装技能并确认 release-notes-writer 可见。",
-        "command": "npx skills list"
+        "description": "检查 .claude/skills/release-notes-writer/SKILL.md 和全部附属文件，再重开客户端查看技能。"
       },
       "update": {
-        "description": "使用社区 CLI 更新已安装技能。",
-        "command": "npx skills update"
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
       },
       "uninstall": {
-        "description": "使用交互式移除命令删除该技能。",
-        "command": "npx skills remove"
+        "description": "仅删除 .claude/skills/release-notes-writer，保留其他技能。"
       },
-      "securityNote": "npx skills 是 Vercel 维护的社区 CLI，并非 GitHub 官方命令；请先审查将被写入项目的文件。",
-      "evidenceUrl": "https://github.com/vercel-labs/skills#readme"
+      "securityNote": "整目录复制，不执行其中脚本；拒绝软链接、凭据文件和已有目标，安装不代表已由 Agent 验证。",
+      "evidenceUrl": "https://code.claude.com/docs/en/skills"
     },
     {
-      "id": "gh-skill-interactive",
+      "id": "claude-code-user",
       "type": "cli",
-      "label": "GitHub CLI 官方安装",
-      "summary": "先通过 GitHub CLI 预览技能内容，再交互选择目标客户端与安装范围。",
-      "client": "github-copilot",
-      "scope": "interactive",
-      "platforms": ["windows", "macos", "linux"],
-      "officialStatus": "official",
-      "command": "gh skill install THU-MEM/SkillMarket release-notes-writer",
+      "label": "Claude Code · 当前用户",
+      "summary": "Git + Node.js 22+；在目标项目根执行，源码仓库只需克隆一次。",
+      "client": "claude-code",
+      "scope": "user",
+      "platforms": [
+        "windows",
+        "macos",
+        "linux"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill release-notes-writer --agent claude-code --scope user",
+      "targetPath": "~/.claude/skills/release-notes-writer",
       "prerequisites": [
         {
-          "name": "GitHub CLI",
-          "details": "需要 GitHub CLI 2.90 或更高版本；gh skill 当前处于 Public Preview。",
-          "check": "gh --version"
+          "name": "Git + Node.js 22+",
+          "details": "无需 npm 依赖或 Agent 登录；使用技能仍需对应客户端。",
+          "check": "git --version\nnode --version"
         }
       ],
       "steps": [
         {
-          "title": "预览技能",
-          "description": "在安装前检查技能主文件、引用资源与潜在脚本。",
-          "command": "gh skill preview THU-MEM/SkillMarket release-notes-writer"
-        },
-        {
-          "title": "执行安装",
-          "description": "运行官方命令，并按照提示确认客户端和安装范围。",
-          "command": "gh skill install THU-MEM/SkillMarket release-notes-writer"
+          "title": "审查并安装",
+          "description": "克隆一次，审查 examples/release-notes-writer 整目录后运行第二行；已有克隆时跳过第一行。"
         }
       ],
       "verify": {
-        "description": "确认所选安装范围中存在 release-notes-writer/SKILL.md。"
+        "description": "检查 ~/.claude/skills/release-notes-writer/SKILL.md 和全部附属文件，再重开客户端查看技能。"
       },
       "update": {
-        "description": "使用 GitHub CLI 更新已安装技能。",
-        "command": "gh skill update"
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
       },
-      "securityNote": "GitHub 不验证第三方技能是否安全；请在安装前使用 preview 命令并检查源码。",
+      "uninstall": {
+        "description": "仅删除 ~/.claude/skills/release-notes-writer，保留其他技能。"
+      },
+      "securityNote": "整目录复制，不执行其中脚本；拒绝软链接、凭据文件和已有目标，安装不代表已由 Agent 验证。",
+      "evidenceUrl": "https://code.claude.com/docs/en/skills"
+    },
+    {
+      "id": "codex-project",
+      "type": "cli",
+      "label": "Codex · 当前项目",
+      "summary": "Git + Node.js 22+；在目标项目根执行，源码仓库只需克隆一次。",
+      "client": "codex",
+      "scope": "project",
+      "platforms": [
+        "windows",
+        "macos",
+        "linux"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill release-notes-writer --agent codex --scope project",
+      "targetPath": ".agents/skills/release-notes-writer",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22+",
+          "details": "无需 npm 依赖或 Agent 登录；使用技能仍需对应客户端。",
+          "check": "git --version\nnode --version"
+        }
+      ],
+      "steps": [
+        {
+          "title": "审查并安装",
+          "description": "克隆一次，审查 examples/release-notes-writer 整目录后运行第二行；已有克隆时跳过第一行。"
+        }
+      ],
+      "verify": {
+        "description": "检查 .agents/skills/release-notes-writer/SKILL.md 和全部附属文件，再重开客户端查看技能。"
+      },
+      "update": {
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
+      },
+      "uninstall": {
+        "description": "仅删除 .agents/skills/release-notes-writer，保留其他技能。"
+      },
+      "securityNote": "整目录复制，不执行其中脚本；拒绝软链接、凭据文件和已有目标，安装不代表已由 Agent 验证。",
+      "evidenceUrl": "https://developers.openai.com/codex/skills"
+    },
+    {
+      "id": "codex-user",
+      "type": "cli",
+      "label": "Codex · 当前用户",
+      "summary": "Git + Node.js 22+；在目标项目根执行，源码仓库只需克隆一次。",
+      "client": "codex",
+      "scope": "user",
+      "platforms": [
+        "windows",
+        "macos",
+        "linux"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill release-notes-writer --agent codex --scope user",
+      "targetPath": "~/.agents/skills/release-notes-writer",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22+",
+          "details": "无需 npm 依赖或 Agent 登录；使用技能仍需对应客户端。",
+          "check": "git --version\nnode --version"
+        }
+      ],
+      "steps": [
+        {
+          "title": "审查并安装",
+          "description": "克隆一次，审查 examples/release-notes-writer 整目录后运行第二行；已有克隆时跳过第一行。"
+        }
+      ],
+      "verify": {
+        "description": "检查 ~/.agents/skills/release-notes-writer/SKILL.md 和全部附属文件，再重开客户端查看技能。"
+      },
+      "update": {
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
+      },
+      "uninstall": {
+        "description": "仅删除 ~/.agents/skills/release-notes-writer，保留其他技能。"
+      },
+      "securityNote": "整目录复制，不执行其中脚本；拒绝软链接、凭据文件和已有目标，安装不代表已由 Agent 验证。",
+      "evidenceUrl": "https://developers.openai.com/codex/skills"
+    },
+    {
+      "id": "cursor-project",
+      "type": "cli",
+      "label": "Cursor · 当前项目",
+      "summary": "Git + Node.js 22+；在目标项目根执行，源码仓库只需克隆一次。",
+      "client": "cursor",
+      "scope": "project",
+      "platforms": [
+        "windows",
+        "macos",
+        "linux"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill release-notes-writer --agent cursor --scope project",
+      "targetPath": ".cursor/skills/release-notes-writer",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22+",
+          "details": "无需 npm 依赖或 Agent 登录；使用技能仍需对应客户端。",
+          "check": "git --version\nnode --version"
+        }
+      ],
+      "steps": [
+        {
+          "title": "审查并安装",
+          "description": "克隆一次，审查 examples/release-notes-writer 整目录后运行第二行；已有克隆时跳过第一行。"
+        }
+      ],
+      "verify": {
+        "description": "检查 .cursor/skills/release-notes-writer/SKILL.md 和全部附属文件，再重开客户端查看技能。"
+      },
+      "update": {
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
+      },
+      "uninstall": {
+        "description": "仅删除 .cursor/skills/release-notes-writer，保留其他技能。"
+      },
+      "securityNote": "整目录复制，不执行其中脚本；拒绝软链接、凭据文件和已有目标，安装不代表已由 Agent 验证。",
+      "evidenceUrl": "https://cursor.com/docs/context/skills"
+    },
+    {
+      "id": "cursor-user",
+      "type": "cli",
+      "label": "Cursor · 当前用户",
+      "summary": "Git + Node.js 22+；在目标项目根执行，源码仓库只需克隆一次。",
+      "client": "cursor",
+      "scope": "user",
+      "platforms": [
+        "windows",
+        "macos",
+        "linux"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill release-notes-writer --agent cursor --scope user",
+      "targetPath": "~/.cursor/skills/release-notes-writer",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22+",
+          "details": "无需 npm 依赖或 Agent 登录；使用技能仍需对应客户端。",
+          "check": "git --version\nnode --version"
+        }
+      ],
+      "steps": [
+        {
+          "title": "审查并安装",
+          "description": "克隆一次，审查 examples/release-notes-writer 整目录后运行第二行；已有克隆时跳过第一行。"
+        }
+      ],
+      "verify": {
+        "description": "检查 ~/.cursor/skills/release-notes-writer/SKILL.md 和全部附属文件，再重开客户端查看技能。"
+      },
+      "update": {
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
+      },
+      "uninstall": {
+        "description": "仅删除 ~/.cursor/skills/release-notes-writer，保留其他技能。"
+      },
+      "securityNote": "整目录复制，不执行其中脚本；拒绝软链接、凭据文件和已有目标，安装不代表已由 Agent 验证。",
+      "evidenceUrl": "https://cursor.com/docs/context/skills"
+    },
+    {
+      "id": "opencode-project",
+      "type": "cli",
+      "label": "OpenCode · 当前项目",
+      "summary": "Git + Node.js 22+；在目标项目根执行，源码仓库只需克隆一次。",
+      "client": "opencode",
+      "scope": "project",
+      "platforms": [
+        "windows",
+        "macos",
+        "linux"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill release-notes-writer --agent opencode --scope project",
+      "targetPath": ".opencode/skills/release-notes-writer",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22+",
+          "details": "无需 npm 依赖或 Agent 登录；使用技能仍需对应客户端。",
+          "check": "git --version\nnode --version"
+        }
+      ],
+      "steps": [
+        {
+          "title": "审查并安装",
+          "description": "克隆一次，审查 examples/release-notes-writer 整目录后运行第二行；已有克隆时跳过第一行。"
+        }
+      ],
+      "verify": {
+        "description": "检查 .opencode/skills/release-notes-writer/SKILL.md 和全部附属文件，再重开客户端查看技能。"
+      },
+      "update": {
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
+      },
+      "uninstall": {
+        "description": "仅删除 .opencode/skills/release-notes-writer，保留其他技能。"
+      },
+      "securityNote": "整目录复制，不执行其中脚本；拒绝软链接、凭据文件和已有目标，安装不代表已由 Agent 验证。",
+      "evidenceUrl": "https://opencode.ai/docs/skills/"
+    },
+    {
+      "id": "opencode-user",
+      "type": "cli",
+      "label": "OpenCode · 当前用户",
+      "summary": "Git + Node.js 22+；在目标项目根执行，源码仓库只需克隆一次。",
+      "client": "opencode",
+      "scope": "user",
+      "platforms": [
+        "windows",
+        "macos",
+        "linux"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill release-notes-writer --agent opencode --scope user",
+      "targetPath": "${XDG_CONFIG_HOME:-~/.config}/opencode/skills/release-notes-writer",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22+",
+          "details": "无需 npm 依赖或 Agent 登录；使用技能仍需对应客户端。",
+          "check": "git --version\nnode --version"
+        }
+      ],
+      "steps": [
+        {
+          "title": "审查并安装",
+          "description": "克隆一次，审查 examples/release-notes-writer 整目录后运行第二行；已有克隆时跳过第一行。"
+        }
+      ],
+      "verify": {
+        "description": "检查 ${XDG_CONFIG_HOME:-~/.config}/opencode/skills/release-notes-writer/SKILL.md 和全部附属文件，再重开客户端查看技能。"
+      },
+      "update": {
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
+      },
+      "uninstall": {
+        "description": "仅删除 ${XDG_CONFIG_HOME:-~/.config}/opencode/skills/release-notes-writer，保留其他技能。"
+      },
+      "securityNote": "整目录复制，不执行其中脚本；拒绝软链接、凭据文件和已有目标，安装不代表已由 Agent 验证。",
+      "evidenceUrl": "https://opencode.ai/docs/skills/"
+    },
+    {
+      "id": "github-copilot-project",
+      "type": "cli",
+      "label": "GitHub Copilot（VS Code） · 当前项目",
+      "summary": "Git + Node.js 22+；在目标项目根执行，源码仓库只需克隆一次。",
+      "client": "github-copilot",
+      "scope": "project",
+      "platforms": [
+        "windows",
+        "macos",
+        "linux"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill release-notes-writer --agent github-copilot --scope project",
+      "targetPath": ".github/skills/release-notes-writer",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22+",
+          "details": "无需 npm 依赖或 Agent 登录；使用技能仍需对应客户端。",
+          "check": "git --version\nnode --version"
+        }
+      ],
+      "steps": [
+        {
+          "title": "审查并安装",
+          "description": "克隆一次，审查 examples/release-notes-writer 整目录后运行第二行；已有克隆时跳过第一行。"
+        }
+      ],
+      "verify": {
+        "description": "检查 .github/skills/release-notes-writer/SKILL.md 和全部附属文件，再重开客户端查看技能。"
+      },
+      "update": {
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
+      },
+      "uninstall": {
+        "description": "仅删除 .github/skills/release-notes-writer，保留其他技能。"
+      },
+      "securityNote": "整目录复制，不执行其中脚本；拒绝软链接、凭据文件和已有目标，安装不代表已由 Agent 验证。",
       "evidenceUrl": "https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/add-skills"
     },
     {
-      "id": "copilot-cli-url",
+      "id": "github-copilot-user",
       "type": "cli",
-      "label": "添加到 GitHub Copilot CLI",
-      "summary": "从公开的原始 SKILL.md 地址直接添加到 Copilot CLI 个人技能目录。",
-      "client": "github-copilot-cli",
+      "label": "GitHub Copilot（VS Code） · 当前用户",
+      "summary": "Git + Node.js 22+；在目标项目根执行，源码仓库只需克隆一次。",
+      "client": "github-copilot",
       "scope": "user",
-      "platforms": ["windows", "macos", "linux"],
-      "officialStatus": "official",
-      "command": "copilot skill add https://raw.githubusercontent.com/THU-MEM/SkillMarket/main/examples/release-notes-writer/SKILL.md",
+      "platforms": [
+        "windows",
+        "macos",
+        "linux"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill release-notes-writer --agent github-copilot --scope user",
+      "targetPath": "~/.copilot/skills/release-notes-writer",
       "prerequisites": [
         {
-          "name": "GitHub Copilot CLI",
-          "details": "需要已安装 Copilot CLI，并拥有有效的 GitHub Copilot 订阅。",
-          "check": "copilot --version"
+          "name": "Git + Node.js 22+",
+          "details": "无需 npm 依赖或 Agent 登录；使用技能仍需对应客户端。",
+          "check": "git --version\nnode --version"
         }
       ],
       "steps": [
         {
-          "title": "添加远程技能",
-          "description": "使用官方 skill add 命令读取并保存原始技能文件。",
-          "command": "copilot skill add https://raw.githubusercontent.com/THU-MEM/SkillMarket/main/examples/release-notes-writer/SKILL.md"
-        },
-        {
-          "title": "重新加载技能",
-          "description": "让当前 Copilot CLI 会话发现刚刚安装的技能。",
-          "command": "/skills reload"
+          "title": "审查并安装",
+          "description": "克隆一次，审查 examples/release-notes-writer 整目录后运行第二行；已有克隆时跳过第一行。"
         }
       ],
       "verify": {
-        "description": "在 Copilot CLI 中列出技能。",
-        "command": "/skills list"
+        "description": "检查 ~/.copilot/skills/release-notes-writer/SKILL.md 和全部附属文件，再重开客户端查看技能。"
+      },
+      "update": {
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
       },
       "uninstall": {
-        "description": "在 Copilot CLI 中移除对应技能目录。",
-        "command": "/skills remove release-notes-writer"
+        "description": "仅删除 ~/.copilot/skills/release-notes-writer，保留其他技能。"
       },
-      "securityNote": "通过 URL 安装前请打开原始文件，确认其指令和工具调用符合预期。",
+      "securityNote": "整目录复制，不执行其中脚本；拒绝软链接、凭据文件和已有目标，安装不代表已由 Agent 验证。",
+      "evidenceUrl": "https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/add-skills"
+    },
+    {
+      "id": "github-copilot-cli-project",
+      "type": "cli",
+      "label": "GitHub Copilot CLI · 当前项目",
+      "summary": "Git + Node.js 22+；在目标项目根执行，源码仓库只需克隆一次。",
+      "client": "github-copilot-cli",
+      "scope": "project",
+      "platforms": [
+        "windows",
+        "macos",
+        "linux"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill release-notes-writer --agent github-copilot-cli --scope project",
+      "targetPath": ".github/skills/release-notes-writer",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22+",
+          "details": "无需 npm 依赖或 Agent 登录；使用技能仍需对应客户端。",
+          "check": "git --version\nnode --version"
+        }
+      ],
+      "steps": [
+        {
+          "title": "审查并安装",
+          "description": "克隆一次，审查 examples/release-notes-writer 整目录后运行第二行；已有克隆时跳过第一行。"
+        }
+      ],
+      "verify": {
+        "description": "检查 .github/skills/release-notes-writer/SKILL.md 和全部附属文件，再重开客户端查看技能。"
+      },
+      "update": {
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
+      },
+      "uninstall": {
+        "description": "仅删除 .github/skills/release-notes-writer，保留其他技能。"
+      },
+      "securityNote": "整目录复制，不执行其中脚本；拒绝软链接、凭据文件和已有目标，安装不代表已由 Agent 验证。",
       "evidenceUrl": "https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/add-skills"
     },
     {
-      "id": "manual-claude-project",
-      "type": "manual",
-      "label": "手动安装到 Claude Code 项目",
-      "summary": "将经过审查的 SKILL.md 放入当前项目的 Claude Code 技能目录，不运行安装脚本。",
-      "client": "claude-code",
-      "scope": "project",
-      "platforms": ["windows", "macos", "linux"],
+      "id": "github-copilot-cli-user",
+      "type": "cli",
+      "label": "GitHub Copilot CLI · 当前用户",
+      "summary": "Git + Node.js 22+；在目标项目根执行，源码仓库只需克隆一次。",
+      "client": "github-copilot-cli",
+      "scope": "user",
+      "platforms": [
+        "windows",
+        "macos",
+        "linux"
+      ],
       "officialStatus": "maintainer",
-      "targetPath": ".claude/skills/release-notes-writer/SKILL.md",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill release-notes-writer --agent github-copilot-cli --scope user",
+      "targetPath": "~/.copilot/skills/release-notes-writer",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22+",
+          "details": "无需 npm 依赖或 Agent 登录；使用技能仍需对应客户端。",
+          "check": "git --version\nnode --version"
+        }
+      ],
       "steps": [
         {
-          "title": "查看原始文件",
-          "description": "打开 SkillMarket 源码中的 SKILL.md，确认内容与许可证。"
-        },
-        {
-          "title": "创建技能目录",
-          "description": "在目标项目根目录创建 .claude/skills/release-notes-writer。"
-        },
-        {
-          "title": "复制技能",
-          "description": "将 SKILL.md 复制到目标目录，并重新启动或开启 Claude Code 会话。"
+          "title": "审查并安装",
+          "description": "克隆一次，审查 examples/release-notes-writer 整目录后运行第二行；已有克隆时跳过第一行。"
         }
       ],
       "verify": {
-        "description": "确认 .claude/skills/release-notes-writer/SKILL.md 存在并可被 Claude Code 发现。"
+        "description": "检查 ~/.copilot/skills/release-notes-writer/SKILL.md 和全部附属文件，再重开客户端查看技能。"
       },
       "update": {
-        "description": "重新审查并替换本地 SKILL.md。"
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
       },
       "uninstall": {
-        "description": "删除 .claude/skills/release-notes-writer 目录。"
+        "description": "仅删除 ~/.copilot/skills/release-notes-writer，保留其他技能。"
       },
-      "securityNote": "手动安装降低了安装器风险，但技能内容仍可能影响模型行为，必须先审查原始指令。",
-      "evidenceUrl": "https://github.com/anthropics/claude-code/tree/main/plugins/plugin-dev/skills/plugin-structure"
+      "securityNote": "整目录复制，不执行其中脚本；拒绝软链接、凭据文件和已有目标，安装不代表已由 Agent 验证。",
+      "evidenceUrl": "https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/add-skills"
+    },
+    {
+      "id": "hermes-user",
+      "type": "cli",
+      "label": "Hermes · 当前用户",
+      "summary": "Git + Node.js 22+；在目标项目根执行，源码仓库只需克隆一次。",
+      "client": "hermes",
+      "scope": "user",
+      "platforms": [
+        "windows",
+        "macos",
+        "linux"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": false,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill release-notes-writer --agent hermes --scope user",
+      "targetPath": "${HERMES_HOME:-~/.hermes}/skills/release-notes-writer",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22+",
+          "details": "无需 npm 依赖或 Agent 登录；使用技能仍需对应客户端。",
+          "check": "git --version\nnode --version"
+        }
+      ],
+      "steps": [
+        {
+          "title": "审查并安装",
+          "description": "克隆一次，审查 examples/release-notes-writer 整目录后运行第二行；已有克隆时跳过第一行。"
+        }
+      ],
+      "verify": {
+        "description": "检查 ${HERMES_HOME:-~/.hermes}/skills/release-notes-writer/SKILL.md 和全部附属文件，再重开客户端查看技能。"
+      },
+      "update": {
+        "description": "先备份此技能目录，更新并审查克隆源码，移走旧目录后重跑第二行；不自动覆盖。"
+      },
+      "uninstall": {
+        "description": "仅删除 ${HERMES_HOME:-~/.hermes}/skills/release-notes-writer，保留其他技能。"
+      },
+      "securityNote": "整目录复制，不执行其中脚本；拒绝软链接、凭据文件和已有目标，安装不代表已由 Agent 验证。 只使用当前 HERMES_HOME（未设时 ~/.hermes），不解析 sticky profile。",
+      "evidenceUrl": "https://hermes-agent.nousresearch.com/docs/user-guide/features/skills"
     }
   ],
   "usage": {

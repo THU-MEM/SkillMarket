@@ -2,7 +2,7 @@
   "id": "issue-triage-guide",
   "type": "agent",
   "name": "Issue 分诊智能体",
-  "description": "一个协助维护者整理新 Issue 的示例智能体，能够提炼问题、指出缺失的复现信息，并建议一致的项目标签。",
+  "description": "提炼 Issue 问题、补齐复现信息并建议一致标签。",
   "author": {
     "name": "SkillMarket 示例实验室",
     "url": "https://github.com/THU-MEM/SkillMarket"
