@@ -1,5 +1,6 @@
 import type { EntryType, Installation, RegistryEntry } from '../types'
 export const tagLabels: Record<string, string> = {
+  'open-source': '开源贡献', 'multi-agent': '多智能体', '3d': '三维', video: '视频',
   'cloud-storage': '云存储', files: '文件管理', automation: '自动化',
   accessibility: '无障碍', architecture: '架构', community: '社区', 'code-review': '代码审查',
   'decision-making': '决策', dependencies: '依赖管理', 'developer-tools': '开发工具', documentation: '文档',
@@ -19,5 +20,5 @@ export function platformMethods(methods: Installation[], platform: Platform) {
 }
 export const clientLabels: Record<string, string> = {
   'github-copilot': 'GitHub Copilot', 'github-copilot-cli': 'Copilot CLI', 'claude-code': 'Claude Code',
-  codex: 'Codex', cursor: 'Cursor', opencode: 'OpenCode', hermes: 'Hermes', universal: '通用 / 手动',
+  codex: 'Codex', cursor: 'Cursor', opencode: 'OpenCode', hermes: 'Hermes', universal: '通用 / npx',
 }

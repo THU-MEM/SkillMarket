@@ -14,6 +14,13 @@
 
 ## 安装技能
 
+### AI Quick Learn 技能
+
+- **Open Source Contributor**：从问题筛选、复现和修复到经授权发布真实 PR；支持多 Agent 或串行执行。
+- **3D Video**：从真实代码架构生成连续运镜的三维场景；默认静音，Azure 旁白为可选功能。
+
+两项均保留 [KAIWU-AI/AI-quick-learn](https://github.com/KAIWU-AI/AI-quick-learn) 上游来源。请在各自详情页选择客户端，复制固定版本的 npx 命令；不要将它们的 ID 直接套入下面的本站安装器。3D Video 自有代码为 MIT，素材另受 GSAP Standard、OFL、CC0 等许可约束。
+
 ### 通用 npx
 
 需要 Git 与 Node.js 22.20+，运行后选择 Agent 和安装范围：

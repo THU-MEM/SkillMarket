@@ -89,11 +89,22 @@ function parse(args) {
   } else if (!slug.test(options['--skill'] || '') || !Object.hasOwn(clients, options['--agent']) || !['project', 'user'].includes(options['--scope'])) throw Error('Use --skill ID --agent CLIENT --scope project|user (or --list)')
   return options
 }
+function isFirstParty(entry, id) {
+  return slug.test(id) && entry.type === 'skill' && entry.id === id && entry.source?.primaryFile === `examples/${id}/SKILL.md` && entry.source?.sourceUrl === `https://github.com/THU-MEM/SkillMarket/blob/main/examples/${id}/SKILL.md`
+}
 async function main() {
   if (Number(process.versions.node.split('.')[0]) < 22) throw Error('Node.js >=22 required')
   const o = parse(process.argv.slice(2))
   if (o['--list']) {
-    console.log(JSON.stringify({ skills: (await fs.readdir(path.join(repo, 'registry/skills'))).filter(x => x.endsWith('.json')).map(x => x.slice(0, -5)).sort(), clients: Object.keys(clients) }))
+    const directory = path.join(repo, 'registry/skills'), skills = []
+    await safePath(directory)
+    for (const file of await fs.readdir(directory, { withFileTypes: true })) {
+      if (!file.isFile() || !file.name.endsWith('.json')) continue
+      const id = file.name.slice(0, -5)
+      const entry = JSON.parse(await fs.readFile(path.join(directory, file.name), 'utf8'))
+      if (isFirstParty(entry, id)) skills.push(id)
+    }
+    console.log(JSON.stringify({ skills: skills.sort(), clients: Object.keys(clients) }))
     return
   }
   const id = o['--skill'], client = o['--agent'], scope = o['--scope']
@@ -113,7 +124,7 @@ async function main() {
   const recordInfo = await fs.lstat(record)
   if (!recordInfo.isFile() || recordInfo.isSymbolicLink()) throw Error('Invalid registry file')
   const entry = JSON.parse(await fs.readFile(record, 'utf8'))
-  if (entry.type !== 'skill' || entry.id !== id || entry.source?.primaryFile !== `examples/${id}/SKILL.md` || entry.source?.sourceUrl !== `https://github.com/THU-MEM/SkillMarket/blob/main/examples/${id}/SKILL.md`) throw Error('Only registered first-party examples/<ID>/SKILL.md sources are supported')
+  if (!isFirstParty(entry, id)) throw Error('Only registered first-party examples/<ID>/SKILL.md sources are supported; use the upstream installation command on the skill detail page')
   const source = path.join(repo, 'examples', id)
   const content = await snapshot(source)
   const target = path.join(root, id)

@@ -34,8 +34,8 @@ test('public branding uses the Chinese market name without the organization subt
   assert.match(index, /<title>清工技能市场/)
 })
 
-test('skill pages offer copyable npx installation separately from client-specific methods', async () => {
-  for (const entry of registry.filter(e => e.type === 'skill')) {
+test('first-party skill pages offer copyable npx installation separately from client-specific methods', async () => {
+  for (const entry of registry.filter(e => e.type === 'skill' && e.source.primaryFile === `examples/${e.id}/SKILL.md`)) {
     const source = await readFile(`${root}${entry.source.primaryFile}`, 'utf8')
     assert.ok(source.split('\n').includes(`name: ${entry.id}`), 'npx --skill must match SKILL.md frontmatter')
     const html = render(`#/item/${entry.id}`)
@@ -59,6 +59,17 @@ test('cloud setup exposes token type, acquisition and private configuration befo
   assert.ok(html.includes('https://cloud.tsinghua.edu.cn'))
   assert.ok(html.includes('docs/TSINGHUA_CLOUD_SETUP.md'))
   assert.ok(!render('#/item/accessibility-audit').includes('获取与配置 Token'))
+})
+
+test('upstream skills are listed but never routed through the first-party npx command', () => {
+  for (const id of ['open-source-contributor', '3d-video']) {
+    const html = render(`#/item/${id}`)
+    assert.ok(!html.includes('404'), `${id} must be published`)
+    assert.ok(html.includes('npx skills@1.7.0 add https://github.com/KAIWU-AI/AI-quick-learn/tree/'))
+    assert.ok(html.includes(`--skill ${id} --copy`))
+    assert.ok(!html.includes(`npx skills@1.7.0 add THU-MEM/SkillMarket --skill ${id}`))
+    assert.ok(!html.includes('class="npx-install"'), 'no duplicate first-party npx block')
+  }
 })
 
 test('catalog presents each real entry once, with direct search and no marketing footer', () => {

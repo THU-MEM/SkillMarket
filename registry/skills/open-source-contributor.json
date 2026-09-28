@@ -1,0 +1,668 @@
+{
+  "id": "open-source-contributor",
+  "type": "skill",
+  "name": "Open Source Contributor",
+  "description": "筛选开源贡献机会，完成问题复现、最小修复、独立验证与真实 PR；支持多 Agent 分工。",
+  "author": {
+    "name": "Bryan Nathan",
+    "url": "https://github.com/KAIWU-AI"
+  },
+  "source": {
+    "primaryFile": "skills/open-source-contributor/SKILL.md",
+    "sourceUrl": "https://github.com/KAIWU-AI/AI-quick-learn/blob/bc9ce375cb3f767c5b904a8d65459a787ac737fc/skills/open-source-contributor/SKILL.md",
+    "rawUrl": "https://raw.githubusercontent.com/KAIWU-AI/AI-quick-learn/bc9ce375cb3f767c5b904a8d65459a787ac737fc/skills/open-source-contributor/SKILL.md"
+  },
+  "repository": "https://github.com/KAIWU-AI/AI-quick-learn/tree/bc9ce375cb3f767c5b904a8d65459a787ac737fc/skills/open-source-contributor",
+  "tags": [
+    "open-source",
+    "github",
+    "multi-agent"
+  ],
+  "version": "0.7.2",
+  "license": "MIT",
+  "updatedAt": "2026-09-28",
+  "isExample": false,
+  "featured": true,
+  "installations": [
+    {
+      "type": "cli",
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ],
+      "officialStatus": "community",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22.20+",
+          "details": "npx 运行第三方 skills CLI 1.7.0，仅安装完整技能目录，不执行技能中的业务脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "Python 3.9+ 与 GitHub CLI",
+          "details": "辅助脚本使用 Python 标准库；贡献任务另需 gh 与 GitHub 访问。公开写入必须获得用户授权。",
+          "check": "gh --version"
+        },
+        {
+          "name": "宿主 Agent",
+          "details": "支持原生子 Agent 时可并行，不支持时串行；安装不会赋予工具、账号或发布权限。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "审查后安装",
+          "description": "命令固定到上游源码提交，复制完整技能目录。npx 可能覆盖同名目标，请先备份；不使用本站两行目录安装器。"
+        },
+        {
+          "title": "准备运行环境",
+          "description": "在实际技能目录运行 Python 辅助脚本，先检查环境；GitHub 身份验证和公开写入授权单独配置。"
+        }
+      ],
+      "verify": {
+        "description": "核对 SKILL.md、references/、scripts/ 和 tests/。在技能目录运行 python3 -m unittest discover -s tests -v；Windows 用 py -3。离线测试不证明已获得 GitHub 发布权限。"
+      },
+      "update": {
+        "description": "当前命令固定上游版本，不自动追踪 main。先审查上游新版本并备份安装目录，再使用新版本对应命令；不要对所有技能批量更新。"
+      },
+      "uninstall": {
+        "description": "按安装器实际输出的目标路径，仅移除本技能目录，不删除父目录、其它技能或用户工程。"
+      },
+      "securityNote": "第三方安装器会下载源码并可能覆盖同名技能；固定客户端命令的 --yes 跳过确认，请先检查范围并备份。安装不等于运行授权，不携带凭据、不自动执行云服务或公开写入。",
+      "evidenceUrl": "https://github.com/vercel-labs/skills/tree/7407f3893ad4dceab546ac002c3ef806e4000c73",
+      "id": "npx-interactive",
+      "label": "通用 npx · 安装时选择",
+      "summary": "从上游固定版本安装，按终端提示选择 Agent 与安装范围；不会替你准备运行凭据。",
+      "client": "universal",
+      "scope": "interactive",
+      "recommended": true,
+      "command": "npx skills@1.7.0 add https://github.com/KAIWU-AI/AI-quick-learn/tree/bc9ce375cb3f767c5b904a8d65459a787ac737fc/skills/open-source-contributor --skill open-source-contributor --copy"
+    },
+    {
+      "type": "cli",
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ],
+      "officialStatus": "community",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22.20+",
+          "details": "npx 运行第三方 skills CLI 1.7.0，仅安装完整技能目录，不执行技能中的业务脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "Python 3.9+ 与 GitHub CLI",
+          "details": "辅助脚本使用 Python 标准库；贡献任务另需 gh 与 GitHub 访问。公开写入必须获得用户授权。",
+          "check": "gh --version"
+        },
+        {
+          "name": "宿主 Agent",
+          "details": "支持原生子 Agent 时可并行，不支持时串行；安装不会赋予工具、账号或发布权限。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "审查后安装",
+          "description": "命令固定到上游源码提交，复制完整技能目录。npx 可能覆盖同名目标，请先备份；不使用本站两行目录安装器。"
+        },
+        {
+          "title": "准备运行环境",
+          "description": "在实际技能目录运行 Python 辅助脚本，先检查环境；GitHub 身份验证和公开写入授权单独配置。"
+        }
+      ],
+      "verify": {
+        "description": "核对 SKILL.md、references/、scripts/ 和 tests/。在技能目录运行 python3 -m unittest discover -s tests -v；Windows 用 py -3。离线测试不证明已获得 GitHub 发布权限。"
+      },
+      "update": {
+        "description": "当前命令固定上游版本，不自动追踪 main。先审查上游新版本并备份安装目录，再使用新版本对应命令；不要对所有技能批量更新。"
+      },
+      "uninstall": {
+        "description": "按安装器实际输出的目标路径，仅移除本技能目录，不删除父目录、其它技能或用户工程。"
+      },
+      "securityNote": "第三方安装器会下载源码并可能覆盖同名技能；固定客户端命令的 --yes 跳过确认，请先检查范围并备份。安装不等于运行授权，不携带凭据、不自动执行云服务或公开写入。",
+      "evidenceUrl": "https://github.com/vercel-labs/skills/tree/7407f3893ad4dceab546ac002c3ef806e4000c73",
+      "id": "npx-claude-code-project",
+      "label": "Claude Code · 当前项目",
+      "summary": "将上游完整技能复制到所选范围。此命令跳过安装确认，可能覆盖同名技能；请先备份，目标以安装输出为准。",
+      "client": "claude-code",
+      "scope": "project",
+      "recommended": false,
+      "command": "npx skills@1.7.0 add https://github.com/KAIWU-AI/AI-quick-learn/tree/bc9ce375cb3f767c5b904a8d65459a787ac737fc/skills/open-source-contributor --skill open-source-contributor --copy --agent claude-code --yes"
+    },
+    {
+      "type": "cli",
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ],
+      "officialStatus": "community",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22.20+",
+          "details": "npx 运行第三方 skills CLI 1.7.0，仅安装完整技能目录，不执行技能中的业务脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "Python 3.9+ 与 GitHub CLI",
+          "details": "辅助脚本使用 Python 标准库；贡献任务另需 gh 与 GitHub 访问。公开写入必须获得用户授权。",
+          "check": "gh --version"
+        },
+        {
+          "name": "宿主 Agent",
+          "details": "支持原生子 Agent 时可并行，不支持时串行；安装不会赋予工具、账号或发布权限。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "审查后安装",
+          "description": "命令固定到上游源码提交，复制完整技能目录。npx 可能覆盖同名目标，请先备份；不使用本站两行目录安装器。"
+        },
+        {
+          "title": "准备运行环境",
+          "description": "在实际技能目录运行 Python 辅助脚本，先检查环境；GitHub 身份验证和公开写入授权单独配置。"
+        }
+      ],
+      "verify": {
+        "description": "核对 SKILL.md、references/、scripts/ 和 tests/。在技能目录运行 python3 -m unittest discover -s tests -v；Windows 用 py -3。离线测试不证明已获得 GitHub 发布权限。"
+      },
+      "update": {
+        "description": "当前命令固定上游版本，不自动追踪 main。先审查上游新版本并备份安装目录，再使用新版本对应命令；不要对所有技能批量更新。"
+      },
+      "uninstall": {
+        "description": "按安装器实际输出的目标路径，仅移除本技能目录，不删除父目录、其它技能或用户工程。"
+      },
+      "securityNote": "第三方安装器会下载源码并可能覆盖同名技能；固定客户端命令的 --yes 跳过确认，请先检查范围并备份。安装不等于运行授权，不携带凭据、不自动执行云服务或公开写入。",
+      "evidenceUrl": "https://github.com/vercel-labs/skills/tree/7407f3893ad4dceab546ac002c3ef806e4000c73",
+      "id": "npx-claude-code-user",
+      "label": "Claude Code · 当前用户",
+      "summary": "将上游完整技能复制到所选范围。此命令跳过安装确认，可能覆盖同名技能；请先备份，目标以安装输出为准。",
+      "client": "claude-code",
+      "scope": "user",
+      "recommended": false,
+      "command": "npx skills@1.7.0 add https://github.com/KAIWU-AI/AI-quick-learn/tree/bc9ce375cb3f767c5b904a8d65459a787ac737fc/skills/open-source-contributor --skill open-source-contributor --copy --agent claude-code --yes --global"
+    },
+    {
+      "type": "cli",
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ],
+      "officialStatus": "community",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22.20+",
+          "details": "npx 运行第三方 skills CLI 1.7.0，仅安装完整技能目录，不执行技能中的业务脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "Python 3.9+ 与 GitHub CLI",
+          "details": "辅助脚本使用 Python 标准库；贡献任务另需 gh 与 GitHub 访问。公开写入必须获得用户授权。",
+          "check": "gh --version"
+        },
+        {
+          "name": "宿主 Agent",
+          "details": "支持原生子 Agent 时可并行，不支持时串行；安装不会赋予工具、账号或发布权限。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "审查后安装",
+          "description": "命令固定到上游源码提交，复制完整技能目录。npx 可能覆盖同名目标，请先备份；不使用本站两行目录安装器。"
+        },
+        {
+          "title": "准备运行环境",
+          "description": "在实际技能目录运行 Python 辅助脚本，先检查环境；GitHub 身份验证和公开写入授权单独配置。"
+        }
+      ],
+      "verify": {
+        "description": "核对 SKILL.md、references/、scripts/ 和 tests/。在技能目录运行 python3 -m unittest discover -s tests -v；Windows 用 py -3。离线测试不证明已获得 GitHub 发布权限。"
+      },
+      "update": {
+        "description": "当前命令固定上游版本，不自动追踪 main。先审查上游新版本并备份安装目录，再使用新版本对应命令；不要对所有技能批量更新。"
+      },
+      "uninstall": {
+        "description": "按安装器实际输出的目标路径，仅移除本技能目录，不删除父目录、其它技能或用户工程。"
+      },
+      "securityNote": "第三方安装器会下载源码并可能覆盖同名技能；固定客户端命令的 --yes 跳过确认，请先检查范围并备份。安装不等于运行授权，不携带凭据、不自动执行云服务或公开写入。",
+      "evidenceUrl": "https://github.com/vercel-labs/skills/tree/7407f3893ad4dceab546ac002c3ef806e4000c73",
+      "id": "npx-codex-project",
+      "label": "Codex · 当前项目",
+      "summary": "将上游完整技能复制到所选范围。此命令跳过安装确认，可能覆盖同名技能；请先备份，目标以安装输出为准。",
+      "client": "codex",
+      "scope": "project",
+      "recommended": false,
+      "command": "npx skills@1.7.0 add https://github.com/KAIWU-AI/AI-quick-learn/tree/bc9ce375cb3f767c5b904a8d65459a787ac737fc/skills/open-source-contributor --skill open-source-contributor --copy --agent codex --yes"
+    },
+    {
+      "type": "cli",
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ],
+      "officialStatus": "community",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22.20+",
+          "details": "npx 运行第三方 skills CLI 1.7.0，仅安装完整技能目录，不执行技能中的业务脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "Python 3.9+ 与 GitHub CLI",
+          "details": "辅助脚本使用 Python 标准库；贡献任务另需 gh 与 GitHub 访问。公开写入必须获得用户授权。",
+          "check": "gh --version"
+        },
+        {
+          "name": "宿主 Agent",
+          "details": "支持原生子 Agent 时可并行，不支持时串行；安装不会赋予工具、账号或发布权限。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "审查后安装",
+          "description": "命令固定到上游源码提交，复制完整技能目录。npx 可能覆盖同名目标，请先备份；不使用本站两行目录安装器。"
+        },
+        {
+          "title": "准备运行环境",
+          "description": "在实际技能目录运行 Python 辅助脚本，先检查环境；GitHub 身份验证和公开写入授权单独配置。"
+        }
+      ],
+      "verify": {
+        "description": "核对 SKILL.md、references/、scripts/ 和 tests/。在技能目录运行 python3 -m unittest discover -s tests -v；Windows 用 py -3。离线测试不证明已获得 GitHub 发布权限。"
+      },
+      "update": {
+        "description": "当前命令固定上游版本，不自动追踪 main。先审查上游新版本并备份安装目录，再使用新版本对应命令；不要对所有技能批量更新。"
+      },
+      "uninstall": {
+        "description": "按安装器实际输出的目标路径，仅移除本技能目录，不删除父目录、其它技能或用户工程。"
+      },
+      "securityNote": "第三方安装器会下载源码并可能覆盖同名技能；固定客户端命令的 --yes 跳过确认，请先检查范围并备份。安装不等于运行授权，不携带凭据、不自动执行云服务或公开写入。",
+      "evidenceUrl": "https://github.com/vercel-labs/skills/tree/7407f3893ad4dceab546ac002c3ef806e4000c73",
+      "id": "npx-codex-user",
+      "label": "Codex · 当前用户",
+      "summary": "将上游完整技能复制到所选范围。此命令跳过安装确认，可能覆盖同名技能；请先备份，目标以安装输出为准。",
+      "client": "codex",
+      "scope": "user",
+      "recommended": false,
+      "command": "npx skills@1.7.0 add https://github.com/KAIWU-AI/AI-quick-learn/tree/bc9ce375cb3f767c5b904a8d65459a787ac737fc/skills/open-source-contributor --skill open-source-contributor --copy --agent codex --yes --global"
+    },
+    {
+      "type": "cli",
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ],
+      "officialStatus": "community",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22.20+",
+          "details": "npx 运行第三方 skills CLI 1.7.0，仅安装完整技能目录，不执行技能中的业务脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "Python 3.9+ 与 GitHub CLI",
+          "details": "辅助脚本使用 Python 标准库；贡献任务另需 gh 与 GitHub 访问。公开写入必须获得用户授权。",
+          "check": "gh --version"
+        },
+        {
+          "name": "宿主 Agent",
+          "details": "支持原生子 Agent 时可并行，不支持时串行；安装不会赋予工具、账号或发布权限。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "审查后安装",
+          "description": "命令固定到上游源码提交，复制完整技能目录。npx 可能覆盖同名目标，请先备份；不使用本站两行目录安装器。"
+        },
+        {
+          "title": "准备运行环境",
+          "description": "在实际技能目录运行 Python 辅助脚本，先检查环境；GitHub 身份验证和公开写入授权单独配置。"
+        }
+      ],
+      "verify": {
+        "description": "核对 SKILL.md、references/、scripts/ 和 tests/。在技能目录运行 python3 -m unittest discover -s tests -v；Windows 用 py -3。离线测试不证明已获得 GitHub 发布权限。"
+      },
+      "update": {
+        "description": "当前命令固定上游版本，不自动追踪 main。先审查上游新版本并备份安装目录，再使用新版本对应命令；不要对所有技能批量更新。"
+      },
+      "uninstall": {
+        "description": "按安装器实际输出的目标路径，仅移除本技能目录，不删除父目录、其它技能或用户工程。"
+      },
+      "securityNote": "第三方安装器会下载源码并可能覆盖同名技能；固定客户端命令的 --yes 跳过确认，请先检查范围并备份。安装不等于运行授权，不携带凭据、不自动执行云服务或公开写入。",
+      "evidenceUrl": "https://github.com/vercel-labs/skills/tree/7407f3893ad4dceab546ac002c3ef806e4000c73",
+      "id": "npx-cursor-project",
+      "label": "Cursor · 当前项目",
+      "summary": "将上游完整技能复制到所选范围。此命令跳过安装确认，可能覆盖同名技能；请先备份，目标以安装输出为准。",
+      "client": "cursor",
+      "scope": "project",
+      "recommended": false,
+      "command": "npx skills@1.7.0 add https://github.com/KAIWU-AI/AI-quick-learn/tree/bc9ce375cb3f767c5b904a8d65459a787ac737fc/skills/open-source-contributor --skill open-source-contributor --copy --agent cursor --yes"
+    },
+    {
+      "type": "cli",
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ],
+      "officialStatus": "community",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22.20+",
+          "details": "npx 运行第三方 skills CLI 1.7.0，仅安装完整技能目录，不执行技能中的业务脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "Python 3.9+ 与 GitHub CLI",
+          "details": "辅助脚本使用 Python 标准库；贡献任务另需 gh 与 GitHub 访问。公开写入必须获得用户授权。",
+          "check": "gh --version"
+        },
+        {
+          "name": "宿主 Agent",
+          "details": "支持原生子 Agent 时可并行，不支持时串行；安装不会赋予工具、账号或发布权限。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "审查后安装",
+          "description": "命令固定到上游源码提交，复制完整技能目录。npx 可能覆盖同名目标，请先备份；不使用本站两行目录安装器。"
+        },
+        {
+          "title": "准备运行环境",
+          "description": "在实际技能目录运行 Python 辅助脚本，先检查环境；GitHub 身份验证和公开写入授权单独配置。"
+        }
+      ],
+      "verify": {
+        "description": "核对 SKILL.md、references/、scripts/ 和 tests/。在技能目录运行 python3 -m unittest discover -s tests -v；Windows 用 py -3。离线测试不证明已获得 GitHub 发布权限。"
+      },
+      "update": {
+        "description": "当前命令固定上游版本，不自动追踪 main。先审查上游新版本并备份安装目录，再使用新版本对应命令；不要对所有技能批量更新。"
+      },
+      "uninstall": {
+        "description": "按安装器实际输出的目标路径，仅移除本技能目录，不删除父目录、其它技能或用户工程。"
+      },
+      "securityNote": "第三方安装器会下载源码并可能覆盖同名技能；固定客户端命令的 --yes 跳过确认，请先检查范围并备份。安装不等于运行授权，不携带凭据、不自动执行云服务或公开写入。",
+      "evidenceUrl": "https://github.com/vercel-labs/skills/tree/7407f3893ad4dceab546ac002c3ef806e4000c73",
+      "id": "npx-cursor-user",
+      "label": "Cursor · 当前用户",
+      "summary": "将上游完整技能复制到所选范围。此命令跳过安装确认，可能覆盖同名技能；请先备份，目标以安装输出为准。",
+      "client": "cursor",
+      "scope": "user",
+      "recommended": false,
+      "command": "npx skills@1.7.0 add https://github.com/KAIWU-AI/AI-quick-learn/tree/bc9ce375cb3f767c5b904a8d65459a787ac737fc/skills/open-source-contributor --skill open-source-contributor --copy --agent cursor --yes --global"
+    },
+    {
+      "type": "cli",
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ],
+      "officialStatus": "community",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22.20+",
+          "details": "npx 运行第三方 skills CLI 1.7.0，仅安装完整技能目录，不执行技能中的业务脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "Python 3.9+ 与 GitHub CLI",
+          "details": "辅助脚本使用 Python 标准库；贡献任务另需 gh 与 GitHub 访问。公开写入必须获得用户授权。",
+          "check": "gh --version"
+        },
+        {
+          "name": "宿主 Agent",
+          "details": "支持原生子 Agent 时可并行，不支持时串行；安装不会赋予工具、账号或发布权限。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "审查后安装",
+          "description": "命令固定到上游源码提交，复制完整技能目录。npx 可能覆盖同名目标，请先备份；不使用本站两行目录安装器。"
+        },
+        {
+          "title": "准备运行环境",
+          "description": "在实际技能目录运行 Python 辅助脚本，先检查环境；GitHub 身份验证和公开写入授权单独配置。"
+        }
+      ],
+      "verify": {
+        "description": "核对 SKILL.md、references/、scripts/ 和 tests/。在技能目录运行 python3 -m unittest discover -s tests -v；Windows 用 py -3。离线测试不证明已获得 GitHub 发布权限。"
+      },
+      "update": {
+        "description": "当前命令固定上游版本，不自动追踪 main。先审查上游新版本并备份安装目录，再使用新版本对应命令；不要对所有技能批量更新。"
+      },
+      "uninstall": {
+        "description": "按安装器实际输出的目标路径，仅移除本技能目录，不删除父目录、其它技能或用户工程。"
+      },
+      "securityNote": "第三方安装器会下载源码并可能覆盖同名技能；固定客户端命令的 --yes 跳过确认，请先检查范围并备份。安装不等于运行授权，不携带凭据、不自动执行云服务或公开写入。",
+      "evidenceUrl": "https://github.com/vercel-labs/skills/tree/7407f3893ad4dceab546ac002c3ef806e4000c73",
+      "id": "npx-opencode-project",
+      "label": "OpenCode · 当前项目",
+      "summary": "将上游完整技能复制到所选范围。此命令跳过安装确认，可能覆盖同名技能；请先备份，目标以安装输出为准。",
+      "client": "opencode",
+      "scope": "project",
+      "recommended": false,
+      "command": "npx skills@1.7.0 add https://github.com/KAIWU-AI/AI-quick-learn/tree/bc9ce375cb3f767c5b904a8d65459a787ac737fc/skills/open-source-contributor --skill open-source-contributor --copy --agent opencode --yes"
+    },
+    {
+      "type": "cli",
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ],
+      "officialStatus": "community",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22.20+",
+          "details": "npx 运行第三方 skills CLI 1.7.0，仅安装完整技能目录，不执行技能中的业务脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "Python 3.9+ 与 GitHub CLI",
+          "details": "辅助脚本使用 Python 标准库；贡献任务另需 gh 与 GitHub 访问。公开写入必须获得用户授权。",
+          "check": "gh --version"
+        },
+        {
+          "name": "宿主 Agent",
+          "details": "支持原生子 Agent 时可并行，不支持时串行；安装不会赋予工具、账号或发布权限。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "审查后安装",
+          "description": "命令固定到上游源码提交，复制完整技能目录。npx 可能覆盖同名目标，请先备份；不使用本站两行目录安装器。"
+        },
+        {
+          "title": "准备运行环境",
+          "description": "在实际技能目录运行 Python 辅助脚本，先检查环境；GitHub 身份验证和公开写入授权单独配置。"
+        }
+      ],
+      "verify": {
+        "description": "核对 SKILL.md、references/、scripts/ 和 tests/。在技能目录运行 python3 -m unittest discover -s tests -v；Windows 用 py -3。离线测试不证明已获得 GitHub 发布权限。"
+      },
+      "update": {
+        "description": "当前命令固定上游版本，不自动追踪 main。先审查上游新版本并备份安装目录，再使用新版本对应命令；不要对所有技能批量更新。"
+      },
+      "uninstall": {
+        "description": "按安装器实际输出的目标路径，仅移除本技能目录，不删除父目录、其它技能或用户工程。"
+      },
+      "securityNote": "第三方安装器会下载源码并可能覆盖同名技能；固定客户端命令的 --yes 跳过确认，请先检查范围并备份。安装不等于运行授权，不携带凭据、不自动执行云服务或公开写入。",
+      "evidenceUrl": "https://github.com/vercel-labs/skills/tree/7407f3893ad4dceab546ac002c3ef806e4000c73",
+      "id": "npx-opencode-user",
+      "label": "OpenCode · 当前用户",
+      "summary": "将上游完整技能复制到所选范围。此命令跳过安装确认，可能覆盖同名技能；请先备份，目标以安装输出为准。",
+      "client": "opencode",
+      "scope": "user",
+      "recommended": false,
+      "command": "npx skills@1.7.0 add https://github.com/KAIWU-AI/AI-quick-learn/tree/bc9ce375cb3f767c5b904a8d65459a787ac737fc/skills/open-source-contributor --skill open-source-contributor --copy --agent opencode --yes --global"
+    },
+    {
+      "type": "cli",
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ],
+      "officialStatus": "community",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22.20+",
+          "details": "npx 运行第三方 skills CLI 1.7.0，仅安装完整技能目录，不执行技能中的业务脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "Python 3.9+ 与 GitHub CLI",
+          "details": "辅助脚本使用 Python 标准库；贡献任务另需 gh 与 GitHub 访问。公开写入必须获得用户授权。",
+          "check": "gh --version"
+        },
+        {
+          "name": "宿主 Agent",
+          "details": "支持原生子 Agent 时可并行，不支持时串行；安装不会赋予工具、账号或发布权限。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "审查后安装",
+          "description": "命令固定到上游源码提交，复制完整技能目录。npx 可能覆盖同名目标，请先备份；不使用本站两行目录安装器。"
+        },
+        {
+          "title": "准备运行环境",
+          "description": "在实际技能目录运行 Python 辅助脚本，先检查环境；GitHub 身份验证和公开写入授权单独配置。"
+        }
+      ],
+      "verify": {
+        "description": "核对 SKILL.md、references/、scripts/ 和 tests/。在技能目录运行 python3 -m unittest discover -s tests -v；Windows 用 py -3。离线测试不证明已获得 GitHub 发布权限。"
+      },
+      "update": {
+        "description": "当前命令固定上游版本，不自动追踪 main。先审查上游新版本并备份安装目录，再使用新版本对应命令；不要对所有技能批量更新。"
+      },
+      "uninstall": {
+        "description": "按安装器实际输出的目标路径，仅移除本技能目录，不删除父目录、其它技能或用户工程。"
+      },
+      "securityNote": "第三方安装器会下载源码并可能覆盖同名技能；固定客户端命令的 --yes 跳过确认，请先检查范围并备份。安装不等于运行授权，不携带凭据、不自动执行云服务或公开写入。",
+      "evidenceUrl": "https://github.com/vercel-labs/skills/tree/7407f3893ad4dceab546ac002c3ef806e4000c73",
+      "id": "npx-github-copilot-project",
+      "label": "GitHub Copilot · 当前项目",
+      "summary": "将上游完整技能复制到所选范围。此命令跳过安装确认，可能覆盖同名技能；请先备份，目标以安装输出为准。",
+      "client": "github-copilot",
+      "scope": "project",
+      "recommended": false,
+      "command": "npx skills@1.7.0 add https://github.com/KAIWU-AI/AI-quick-learn/tree/bc9ce375cb3f767c5b904a8d65459a787ac737fc/skills/open-source-contributor --skill open-source-contributor --copy --agent github-copilot --yes"
+    },
+    {
+      "type": "cli",
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ],
+      "officialStatus": "community",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22.20+",
+          "details": "npx 运行第三方 skills CLI 1.7.0，仅安装完整技能目录，不执行技能中的业务脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "Python 3.9+ 与 GitHub CLI",
+          "details": "辅助脚本使用 Python 标准库；贡献任务另需 gh 与 GitHub 访问。公开写入必须获得用户授权。",
+          "check": "gh --version"
+        },
+        {
+          "name": "宿主 Agent",
+          "details": "支持原生子 Agent 时可并行，不支持时串行；安装不会赋予工具、账号或发布权限。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "审查后安装",
+          "description": "命令固定到上游源码提交，复制完整技能目录。npx 可能覆盖同名目标，请先备份；不使用本站两行目录安装器。"
+        },
+        {
+          "title": "准备运行环境",
+          "description": "在实际技能目录运行 Python 辅助脚本，先检查环境；GitHub 身份验证和公开写入授权单独配置。"
+        }
+      ],
+      "verify": {
+        "description": "核对 SKILL.md、references/、scripts/ 和 tests/。在技能目录运行 python3 -m unittest discover -s tests -v；Windows 用 py -3。离线测试不证明已获得 GitHub 发布权限。"
+      },
+      "update": {
+        "description": "当前命令固定上游版本，不自动追踪 main。先审查上游新版本并备份安装目录，再使用新版本对应命令；不要对所有技能批量更新。"
+      },
+      "uninstall": {
+        "description": "按安装器实际输出的目标路径，仅移除本技能目录，不删除父目录、其它技能或用户工程。"
+      },
+      "securityNote": "第三方安装器会下载源码并可能覆盖同名技能；固定客户端命令的 --yes 跳过确认，请先检查范围并备份。安装不等于运行授权，不携带凭据、不自动执行云服务或公开写入。",
+      "evidenceUrl": "https://github.com/vercel-labs/skills/tree/7407f3893ad4dceab546ac002c3ef806e4000c73",
+      "id": "npx-github-copilot-user",
+      "label": "GitHub Copilot · 当前用户",
+      "summary": "将上游完整技能复制到所选范围。此命令跳过安装确认，可能覆盖同名技能；请先备份，目标以安装输出为准。",
+      "client": "github-copilot",
+      "scope": "user",
+      "recommended": false,
+      "command": "npx skills@1.7.0 add https://github.com/KAIWU-AI/AI-quick-learn/tree/bc9ce375cb3f767c5b904a8d65459a787ac737fc/skills/open-source-contributor --skill open-source-contributor --copy --agent github-copilot --yes --global"
+    },
+    {
+      "type": "cli",
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ],
+      "officialStatus": "community",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22.20+",
+          "details": "npx 运行第三方 skills CLI 1.7.0，仅安装完整技能目录，不执行技能中的业务脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "Python 3.9+ 与 GitHub CLI",
+          "details": "辅助脚本使用 Python 标准库；贡献任务另需 gh 与 GitHub 访问。公开写入必须获得用户授权。",
+          "check": "gh --version"
+        },
+        {
+          "name": "宿主 Agent",
+          "details": "支持原生子 Agent 时可并行，不支持时串行；安装不会赋予工具、账号或发布权限。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "审查后安装",
+          "description": "命令固定到上游源码提交，复制完整技能目录。npx 可能覆盖同名目标，请先备份；不使用本站两行目录安装器。"
+        },
+        {
+          "title": "准备运行环境",
+          "description": "在实际技能目录运行 Python 辅助脚本，先检查环境；GitHub 身份验证和公开写入授权单独配置。"
+        }
+      ],
+      "verify": {
+        "description": "核对 SKILL.md、references/、scripts/ 和 tests/。在技能目录运行 python3 -m unittest discover -s tests -v；Windows 用 py -3。离线测试不证明已获得 GitHub 发布权限。"
+      },
+      "update": {
+        "description": "当前命令固定上游版本，不自动追踪 main。先审查上游新版本并备份安装目录，再使用新版本对应命令；不要对所有技能批量更新。"
+      },
+      "uninstall": {
+        "description": "按安装器实际输出的目标路径，仅移除本技能目录，不删除父目录、其它技能或用户工程。"
+      },
+      "securityNote": "第三方安装器会下载源码并可能覆盖同名技能；固定客户端命令的 --yes 跳过确认，请先检查范围并备份。安装不等于运行授权，不携带凭据、不自动执行云服务或公开写入。",
+      "evidenceUrl": "https://github.com/vercel-labs/skills/tree/7407f3893ad4dceab546ac002c3ef806e4000c73",
+      "id": "npx-hermes-user",
+      "label": "Hermes · 当前用户",
+      "summary": "将上游完整技能复制到所选范围。此命令跳过安装确认，可能覆盖同名技能；请先备份，目标以安装输出为准。",
+      "client": "hermes",
+      "scope": "user",
+      "recommended": false,
+      "command": "npx skills@1.7.0 add https://github.com/KAIWU-AI/AI-quick-learn/tree/bc9ce375cb3f767c5b904a8d65459a787ac737fc/skills/open-source-contributor --skill open-source-contributor --copy --agent hermes-agent --yes --global"
+    }
+  ],
+  "usage": {
+    "instructions": "让 Agent 先检查环境并筛选能在本机复现和测试的问题，再完成聚焦修复。支持委派时进行多 Agent 分工，否则明确串行。fork、评论、push 和 PR 需用户授权；公开写入后回读远端。辅助脚本位于安装目录 scripts/contribution_radar.py。",
+    "example": "先检查环境和项目贡献政策，寻找可复现、无人重复处理的问题。完成本地修复及测试；未经我授权不要 fork、评论或提交 PR。"
+  }
+}

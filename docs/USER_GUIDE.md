@@ -18,6 +18,14 @@ npx skills@1.7.0 add THU-MEM/SkillMarket --skill tsinghua-cloud-drive --copy
 
 ## 两行安装
 
+### 上游技能与本站技能的区别
+
+`open-source-contributor` 和 `3d-video` 来自 **KAIWU-AI/AI-quick-learn**，详情页提供固定源码提交的 npx 安装命令，以及 Claude Code、Codex、Cursor、OpenCode、GitHub Copilot、Hermes 的选择。通用选项在终端选择范围；固定客户端命令使用 `--yes` 跳过确认，可能覆盖同名技能，务必先备份。客户端目录与环境覆盖规则按第三方 CLI 执行，以终端实际目标为准，不套用下方本站脚本的路径表。
+
+这两项不由本站目录安装器复制，`--list` 只列出该脚本实际支持的本站技能。Open Source Contributor 运行需 Python、Git、gh 与授权的 GitHub 访问；3D Video 的基础预览与完整渲染依赖不同，先阅读详情页的前置条件与上游 README。安装成功不代表已发布 PR、完成影片或获得云端权限。
+
+### 本站技能
+
 以下为本站维护者脚本，需要 **Git + Node.js 22+**，不是客户端官方命令。
 
 例如将无障碍审查技能安装到当前项目的 Claude Code：

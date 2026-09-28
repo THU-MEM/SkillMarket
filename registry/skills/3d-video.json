@@ -1,0 +1,656 @@
+{
+  "id": "3d-video",
+  "type": "skill",
+  "name": "3D Video",
+  "description": "将真实代码架构与数据流做成连续运镜的 Three.js 三维视频，支持本地预览和可选 Azure 旁白。",
+  "author": {
+    "name": "KAIWU-AI contributors",
+    "url": "https://github.com/KAIWU-AI"
+  },
+  "source": {
+    "primaryFile": "skills/3d-video/SKILL.md",
+    "sourceUrl": "https://github.com/KAIWU-AI/AI-quick-learn/blob/bc9ce375cb3f767c5b904a8d65459a787ac737fc/skills/3d-video/SKILL.md",
+    "rawUrl": "https://raw.githubusercontent.com/KAIWU-AI/AI-quick-learn/bc9ce375cb3f767c5b904a8d65459a787ac737fc/skills/3d-video/SKILL.md"
+  },
+  "repository": "https://github.com/KAIWU-AI/AI-quick-learn/tree/bc9ce375cb3f767c5b904a8d65459a787ac737fc/skills/3d-video",
+  "tags": [
+    "3d",
+    "video",
+    "architecture"
+  ],
+  "version": "1.0.0",
+  "license": "LicenseRef-Mixed",
+  "updatedAt": "2026-09-28",
+  "isExample": false,
+  "featured": true,
+  "installations": [
+    {
+      "type": "cli",
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ],
+      "officialStatus": "community",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22.20+",
+          "details": "npx 运行第三方 skills CLI 1.7.0，仅安装完整技能目录，不执行技能中的业务脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "预览与渲染环境",
+          "details": "预览使用随包冻结的资源；渲染需在技能目录 npm ci，另备 FFmpeg/FFprobe 与 Chrome/Edge/Chromium。"
+        },
+        {
+          "name": "可选旁白与素材许可",
+          "details": "默认静音、无数字人。Azure 旁白须自带环境凭据并授权发送讲解稿；第三方素材按 ASSETS.md 和 assets/licenses/ 使用。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "审查后安装",
+          "description": "命令固定到上游源码提交，复制完整技能目录。npx 可能覆盖同名目标，请先备份；不使用本站两行目录安装器。"
+        },
+        {
+          "title": "准备运行环境",
+          "description": "在实际技能目录按 README 准备检查与渲染依赖；仅 create/build/preview 不需要安装 npm 依赖。"
+        }
+      ],
+      "verify": {
+        "description": "在技能目录运行 npm test，按 README 创建一个新的示例工程并 build。完整 check/inspect/render 另需 npm ci、Chromium 和 FFmpeg；预览通过不代表成片已验证。"
+      },
+      "update": {
+        "description": "当前命令固定上游版本，不自动追踪 main。先审查上游新版本并备份安装目录，再使用新版本对应命令；不要对所有技能批量更新。"
+      },
+      "uninstall": {
+        "description": "按安装器实际输出的目标路径，仅移除本技能目录，不删除父目录、其它技能或用户工程。"
+      },
+      "securityNote": "第三方安装器会下载源码并可能覆盖同名技能；固定客户端命令的 --yes 跳过确认，请先检查范围并备份。安装不等于运行授权，不携带凭据、不自动执行云服务或公开写入。",
+      "evidenceUrl": "https://github.com/vercel-labs/skills/tree/7407f3893ad4dceab546ac002c3ef806e4000c73",
+      "id": "npx-interactive",
+      "label": "通用 npx · 安装时选择",
+      "summary": "从上游固定版本安装，按终端提示选择 Agent 与安装范围；不会替你准备运行凭据。",
+      "client": "universal",
+      "scope": "interactive",
+      "recommended": true,
+      "command": "npx skills@1.7.0 add https://github.com/KAIWU-AI/AI-quick-learn/tree/bc9ce375cb3f767c5b904a8d65459a787ac737fc/skills/3d-video --skill 3d-video --copy"
+    },
+    {
+      "type": "cli",
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ],
+      "officialStatus": "community",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22.20+",
+          "details": "npx 运行第三方 skills CLI 1.7.0，仅安装完整技能目录，不执行技能中的业务脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "预览与渲染环境",
+          "details": "预览使用随包冻结的资源；渲染需在技能目录 npm ci，另备 FFmpeg/FFprobe 与 Chrome/Edge/Chromium。"
+        },
+        {
+          "name": "可选旁白与素材许可",
+          "details": "默认静音、无数字人。Azure 旁白须自带环境凭据并授权发送讲解稿；第三方素材按 ASSETS.md 和 assets/licenses/ 使用。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "审查后安装",
+          "description": "命令固定到上游源码提交，复制完整技能目录。npx 可能覆盖同名目标，请先备份；不使用本站两行目录安装器。"
+        },
+        {
+          "title": "准备运行环境",
+          "description": "在实际技能目录按 README 准备检查与渲染依赖；仅 create/build/preview 不需要安装 npm 依赖。"
+        }
+      ],
+      "verify": {
+        "description": "在技能目录运行 npm test，按 README 创建一个新的示例工程并 build。完整 check/inspect/render 另需 npm ci、Chromium 和 FFmpeg；预览通过不代表成片已验证。"
+      },
+      "update": {
+        "description": "当前命令固定上游版本，不自动追踪 main。先审查上游新版本并备份安装目录，再使用新版本对应命令；不要对所有技能批量更新。"
+      },
+      "uninstall": {
+        "description": "按安装器实际输出的目标路径，仅移除本技能目录，不删除父目录、其它技能或用户工程。"
+      },
+      "securityNote": "第三方安装器会下载源码并可能覆盖同名技能；固定客户端命令的 --yes 跳过确认，请先检查范围并备份。安装不等于运行授权，不携带凭据、不自动执行云服务或公开写入。",
+      "evidenceUrl": "https://github.com/vercel-labs/skills/tree/7407f3893ad4dceab546ac002c3ef806e4000c73",
+      "id": "npx-claude-code-project",
+      "label": "Claude Code · 当前项目",
+      "summary": "将上游完整技能复制到所选范围。此命令跳过安装确认，可能覆盖同名技能；请先备份，目标以安装输出为准。",
+      "client": "claude-code",
+      "scope": "project",
+      "recommended": false,
+      "command": "npx skills@1.7.0 add https://github.com/KAIWU-AI/AI-quick-learn/tree/bc9ce375cb3f767c5b904a8d65459a787ac737fc/skills/3d-video --skill 3d-video --copy --agent claude-code --yes"
+    },
+    {
+      "type": "cli",
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ],
+      "officialStatus": "community",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22.20+",
+          "details": "npx 运行第三方 skills CLI 1.7.0，仅安装完整技能目录，不执行技能中的业务脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "预览与渲染环境",
+          "details": "预览使用随包冻结的资源；渲染需在技能目录 npm ci，另备 FFmpeg/FFprobe 与 Chrome/Edge/Chromium。"
+        },
+        {
+          "name": "可选旁白与素材许可",
+          "details": "默认静音、无数字人。Azure 旁白须自带环境凭据并授权发送讲解稿；第三方素材按 ASSETS.md 和 assets/licenses/ 使用。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "审查后安装",
+          "description": "命令固定到上游源码提交，复制完整技能目录。npx 可能覆盖同名目标，请先备份；不使用本站两行目录安装器。"
+        },
+        {
+          "title": "准备运行环境",
+          "description": "在实际技能目录按 README 准备检查与渲染依赖；仅 create/build/preview 不需要安装 npm 依赖。"
+        }
+      ],
+      "verify": {
+        "description": "在技能目录运行 npm test，按 README 创建一个新的示例工程并 build。完整 check/inspect/render 另需 npm ci、Chromium 和 FFmpeg；预览通过不代表成片已验证。"
+      },
+      "update": {
+        "description": "当前命令固定上游版本，不自动追踪 main。先审查上游新版本并备份安装目录，再使用新版本对应命令；不要对所有技能批量更新。"
+      },
+      "uninstall": {
+        "description": "按安装器实际输出的目标路径，仅移除本技能目录，不删除父目录、其它技能或用户工程。"
+      },
+      "securityNote": "第三方安装器会下载源码并可能覆盖同名技能；固定客户端命令的 --yes 跳过确认，请先检查范围并备份。安装不等于运行授权，不携带凭据、不自动执行云服务或公开写入。",
+      "evidenceUrl": "https://github.com/vercel-labs/skills/tree/7407f3893ad4dceab546ac002c3ef806e4000c73",
+      "id": "npx-claude-code-user",
+      "label": "Claude Code · 当前用户",
+      "summary": "将上游完整技能复制到所选范围。此命令跳过安装确认，可能覆盖同名技能；请先备份，目标以安装输出为准。",
+      "client": "claude-code",
+      "scope": "user",
+      "recommended": false,
+      "command": "npx skills@1.7.0 add https://github.com/KAIWU-AI/AI-quick-learn/tree/bc9ce375cb3f767c5b904a8d65459a787ac737fc/skills/3d-video --skill 3d-video --copy --agent claude-code --yes --global"
+    },
+    {
+      "type": "cli",
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ],
+      "officialStatus": "community",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22.20+",
+          "details": "npx 运行第三方 skills CLI 1.7.0，仅安装完整技能目录，不执行技能中的业务脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "预览与渲染环境",
+          "details": "预览使用随包冻结的资源；渲染需在技能目录 npm ci，另备 FFmpeg/FFprobe 与 Chrome/Edge/Chromium。"
+        },
+        {
+          "name": "可选旁白与素材许可",
+          "details": "默认静音、无数字人。Azure 旁白须自带环境凭据并授权发送讲解稿；第三方素材按 ASSETS.md 和 assets/licenses/ 使用。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "审查后安装",
+          "description": "命令固定到上游源码提交，复制完整技能目录。npx 可能覆盖同名目标，请先备份；不使用本站两行目录安装器。"
+        },
+        {
+          "title": "准备运行环境",
+          "description": "在实际技能目录按 README 准备检查与渲染依赖；仅 create/build/preview 不需要安装 npm 依赖。"
+        }
+      ],
+      "verify": {
+        "description": "在技能目录运行 npm test，按 README 创建一个新的示例工程并 build。完整 check/inspect/render 另需 npm ci、Chromium 和 FFmpeg；预览通过不代表成片已验证。"
+      },
+      "update": {
+        "description": "当前命令固定上游版本，不自动追踪 main。先审查上游新版本并备份安装目录，再使用新版本对应命令；不要对所有技能批量更新。"
+      },
+      "uninstall": {
+        "description": "按安装器实际输出的目标路径，仅移除本技能目录，不删除父目录、其它技能或用户工程。"
+      },
+      "securityNote": "第三方安装器会下载源码并可能覆盖同名技能；固定客户端命令的 --yes 跳过确认，请先检查范围并备份。安装不等于运行授权，不携带凭据、不自动执行云服务或公开写入。",
+      "evidenceUrl": "https://github.com/vercel-labs/skills/tree/7407f3893ad4dceab546ac002c3ef806e4000c73",
+      "id": "npx-codex-project",
+      "label": "Codex · 当前项目",
+      "summary": "将上游完整技能复制到所选范围。此命令跳过安装确认，可能覆盖同名技能；请先备份，目标以安装输出为准。",
+      "client": "codex",
+      "scope": "project",
+      "recommended": false,
+      "command": "npx skills@1.7.0 add https://github.com/KAIWU-AI/AI-quick-learn/tree/bc9ce375cb3f767c5b904a8d65459a787ac737fc/skills/3d-video --skill 3d-video --copy --agent codex --yes"
+    },
+    {
+      "type": "cli",
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ],
+      "officialStatus": "community",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22.20+",
+          "details": "npx 运行第三方 skills CLI 1.7.0，仅安装完整技能目录，不执行技能中的业务脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "预览与渲染环境",
+          "details": "预览使用随包冻结的资源；渲染需在技能目录 npm ci，另备 FFmpeg/FFprobe 与 Chrome/Edge/Chromium。"
+        },
+        {
+          "name": "可选旁白与素材许可",
+          "details": "默认静音、无数字人。Azure 旁白须自带环境凭据并授权发送讲解稿；第三方素材按 ASSETS.md 和 assets/licenses/ 使用。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "审查后安装",
+          "description": "命令固定到上游源码提交，复制完整技能目录。npx 可能覆盖同名目标，请先备份；不使用本站两行目录安装器。"
+        },
+        {
+          "title": "准备运行环境",
+          "description": "在实际技能目录按 README 准备检查与渲染依赖；仅 create/build/preview 不需要安装 npm 依赖。"
+        }
+      ],
+      "verify": {
+        "description": "在技能目录运行 npm test，按 README 创建一个新的示例工程并 build。完整 check/inspect/render 另需 npm ci、Chromium 和 FFmpeg；预览通过不代表成片已验证。"
+      },
+      "update": {
+        "description": "当前命令固定上游版本，不自动追踪 main。先审查上游新版本并备份安装目录，再使用新版本对应命令；不要对所有技能批量更新。"
+      },
+      "uninstall": {
+        "description": "按安装器实际输出的目标路径，仅移除本技能目录，不删除父目录、其它技能或用户工程。"
+      },
+      "securityNote": "第三方安装器会下载源码并可能覆盖同名技能；固定客户端命令的 --yes 跳过确认，请先检查范围并备份。安装不等于运行授权，不携带凭据、不自动执行云服务或公开写入。",
+      "evidenceUrl": "https://github.com/vercel-labs/skills/tree/7407f3893ad4dceab546ac002c3ef806e4000c73",
+      "id": "npx-codex-user",
+      "label": "Codex · 当前用户",
+      "summary": "将上游完整技能复制到所选范围。此命令跳过安装确认，可能覆盖同名技能；请先备份，目标以安装输出为准。",
+      "client": "codex",
+      "scope": "user",
+      "recommended": false,
+      "command": "npx skills@1.7.0 add https://github.com/KAIWU-AI/AI-quick-learn/tree/bc9ce375cb3f767c5b904a8d65459a787ac737fc/skills/3d-video --skill 3d-video --copy --agent codex --yes --global"
+    },
+    {
+      "type": "cli",
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ],
+      "officialStatus": "community",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22.20+",
+          "details": "npx 运行第三方 skills CLI 1.7.0，仅安装完整技能目录，不执行技能中的业务脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "预览与渲染环境",
+          "details": "预览使用随包冻结的资源；渲染需在技能目录 npm ci，另备 FFmpeg/FFprobe 与 Chrome/Edge/Chromium。"
+        },
+        {
+          "name": "可选旁白与素材许可",
+          "details": "默认静音、无数字人。Azure 旁白须自带环境凭据并授权发送讲解稿；第三方素材按 ASSETS.md 和 assets/licenses/ 使用。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "审查后安装",
+          "description": "命令固定到上游源码提交，复制完整技能目录。npx 可能覆盖同名目标，请先备份；不使用本站两行目录安装器。"
+        },
+        {
+          "title": "准备运行环境",
+          "description": "在实际技能目录按 README 准备检查与渲染依赖；仅 create/build/preview 不需要安装 npm 依赖。"
+        }
+      ],
+      "verify": {
+        "description": "在技能目录运行 npm test，按 README 创建一个新的示例工程并 build。完整 check/inspect/render 另需 npm ci、Chromium 和 FFmpeg；预览通过不代表成片已验证。"
+      },
+      "update": {
+        "description": "当前命令固定上游版本，不自动追踪 main。先审查上游新版本并备份安装目录，再使用新版本对应命令；不要对所有技能批量更新。"
+      },
+      "uninstall": {
+        "description": "按安装器实际输出的目标路径，仅移除本技能目录，不删除父目录、其它技能或用户工程。"
+      },
+      "securityNote": "第三方安装器会下载源码并可能覆盖同名技能；固定客户端命令的 --yes 跳过确认，请先检查范围并备份。安装不等于运行授权，不携带凭据、不自动执行云服务或公开写入。",
+      "evidenceUrl": "https://github.com/vercel-labs/skills/tree/7407f3893ad4dceab546ac002c3ef806e4000c73",
+      "id": "npx-cursor-project",
+      "label": "Cursor · 当前项目",
+      "summary": "将上游完整技能复制到所选范围。此命令跳过安装确认，可能覆盖同名技能；请先备份，目标以安装输出为准。",
+      "client": "cursor",
+      "scope": "project",
+      "recommended": false,
+      "command": "npx skills@1.7.0 add https://github.com/KAIWU-AI/AI-quick-learn/tree/bc9ce375cb3f767c5b904a8d65459a787ac737fc/skills/3d-video --skill 3d-video --copy --agent cursor --yes"
+    },
+    {
+      "type": "cli",
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ],
+      "officialStatus": "community",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22.20+",
+          "details": "npx 运行第三方 skills CLI 1.7.0，仅安装完整技能目录，不执行技能中的业务脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "预览与渲染环境",
+          "details": "预览使用随包冻结的资源；渲染需在技能目录 npm ci，另备 FFmpeg/FFprobe 与 Chrome/Edge/Chromium。"
+        },
+        {
+          "name": "可选旁白与素材许可",
+          "details": "默认静音、无数字人。Azure 旁白须自带环境凭据并授权发送讲解稿；第三方素材按 ASSETS.md 和 assets/licenses/ 使用。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "审查后安装",
+          "description": "命令固定到上游源码提交，复制完整技能目录。npx 可能覆盖同名目标，请先备份；不使用本站两行目录安装器。"
+        },
+        {
+          "title": "准备运行环境",
+          "description": "在实际技能目录按 README 准备检查与渲染依赖；仅 create/build/preview 不需要安装 npm 依赖。"
+        }
+      ],
+      "verify": {
+        "description": "在技能目录运行 npm test，按 README 创建一个新的示例工程并 build。完整 check/inspect/render 另需 npm ci、Chromium 和 FFmpeg；预览通过不代表成片已验证。"
+      },
+      "update": {
+        "description": "当前命令固定上游版本，不自动追踪 main。先审查上游新版本并备份安装目录，再使用新版本对应命令；不要对所有技能批量更新。"
+      },
+      "uninstall": {
+        "description": "按安装器实际输出的目标路径，仅移除本技能目录，不删除父目录、其它技能或用户工程。"
+      },
+      "securityNote": "第三方安装器会下载源码并可能覆盖同名技能；固定客户端命令的 --yes 跳过确认，请先检查范围并备份。安装不等于运行授权，不携带凭据、不自动执行云服务或公开写入。",
+      "evidenceUrl": "https://github.com/vercel-labs/skills/tree/7407f3893ad4dceab546ac002c3ef806e4000c73",
+      "id": "npx-cursor-user",
+      "label": "Cursor · 当前用户",
+      "summary": "将上游完整技能复制到所选范围。此命令跳过安装确认，可能覆盖同名技能；请先备份，目标以安装输出为准。",
+      "client": "cursor",
+      "scope": "user",
+      "recommended": false,
+      "command": "npx skills@1.7.0 add https://github.com/KAIWU-AI/AI-quick-learn/tree/bc9ce375cb3f767c5b904a8d65459a787ac737fc/skills/3d-video --skill 3d-video --copy --agent cursor --yes --global"
+    },
+    {
+      "type": "cli",
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ],
+      "officialStatus": "community",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22.20+",
+          "details": "npx 运行第三方 skills CLI 1.7.0，仅安装完整技能目录，不执行技能中的业务脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "预览与渲染环境",
+          "details": "预览使用随包冻结的资源；渲染需在技能目录 npm ci，另备 FFmpeg/FFprobe 与 Chrome/Edge/Chromium。"
+        },
+        {
+          "name": "可选旁白与素材许可",
+          "details": "默认静音、无数字人。Azure 旁白须自带环境凭据并授权发送讲解稿；第三方素材按 ASSETS.md 和 assets/licenses/ 使用。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "审查后安装",
+          "description": "命令固定到上游源码提交，复制完整技能目录。npx 可能覆盖同名目标，请先备份；不使用本站两行目录安装器。"
+        },
+        {
+          "title": "准备运行环境",
+          "description": "在实际技能目录按 README 准备检查与渲染依赖；仅 create/build/preview 不需要安装 npm 依赖。"
+        }
+      ],
+      "verify": {
+        "description": "在技能目录运行 npm test，按 README 创建一个新的示例工程并 build。完整 check/inspect/render 另需 npm ci、Chromium 和 FFmpeg；预览通过不代表成片已验证。"
+      },
+      "update": {
+        "description": "当前命令固定上游版本，不自动追踪 main。先审查上游新版本并备份安装目录，再使用新版本对应命令；不要对所有技能批量更新。"
+      },
+      "uninstall": {
+        "description": "按安装器实际输出的目标路径，仅移除本技能目录，不删除父目录、其它技能或用户工程。"
+      },
+      "securityNote": "第三方安装器会下载源码并可能覆盖同名技能；固定客户端命令的 --yes 跳过确认，请先检查范围并备份。安装不等于运行授权，不携带凭据、不自动执行云服务或公开写入。",
+      "evidenceUrl": "https://github.com/vercel-labs/skills/tree/7407f3893ad4dceab546ac002c3ef806e4000c73",
+      "id": "npx-opencode-project",
+      "label": "OpenCode · 当前项目",
+      "summary": "将上游完整技能复制到所选范围。此命令跳过安装确认，可能覆盖同名技能；请先备份，目标以安装输出为准。",
+      "client": "opencode",
+      "scope": "project",
+      "recommended": false,
+      "command": "npx skills@1.7.0 add https://github.com/KAIWU-AI/AI-quick-learn/tree/bc9ce375cb3f767c5b904a8d65459a787ac737fc/skills/3d-video --skill 3d-video --copy --agent opencode --yes"
+    },
+    {
+      "type": "cli",
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ],
+      "officialStatus": "community",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22.20+",
+          "details": "npx 运行第三方 skills CLI 1.7.0，仅安装完整技能目录，不执行技能中的业务脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "预览与渲染环境",
+          "details": "预览使用随包冻结的资源；渲染需在技能目录 npm ci，另备 FFmpeg/FFprobe 与 Chrome/Edge/Chromium。"
+        },
+        {
+          "name": "可选旁白与素材许可",
+          "details": "默认静音、无数字人。Azure 旁白须自带环境凭据并授权发送讲解稿；第三方素材按 ASSETS.md 和 assets/licenses/ 使用。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "审查后安装",
+          "description": "命令固定到上游源码提交，复制完整技能目录。npx 可能覆盖同名目标，请先备份；不使用本站两行目录安装器。"
+        },
+        {
+          "title": "准备运行环境",
+          "description": "在实际技能目录按 README 准备检查与渲染依赖；仅 create/build/preview 不需要安装 npm 依赖。"
+        }
+      ],
+      "verify": {
+        "description": "在技能目录运行 npm test，按 README 创建一个新的示例工程并 build。完整 check/inspect/render 另需 npm ci、Chromium 和 FFmpeg；预览通过不代表成片已验证。"
+      },
+      "update": {
+        "description": "当前命令固定上游版本，不自动追踪 main。先审查上游新版本并备份安装目录，再使用新版本对应命令；不要对所有技能批量更新。"
+      },
+      "uninstall": {
+        "description": "按安装器实际输出的目标路径，仅移除本技能目录，不删除父目录、其它技能或用户工程。"
+      },
+      "securityNote": "第三方安装器会下载源码并可能覆盖同名技能；固定客户端命令的 --yes 跳过确认，请先检查范围并备份。安装不等于运行授权，不携带凭据、不自动执行云服务或公开写入。",
+      "evidenceUrl": "https://github.com/vercel-labs/skills/tree/7407f3893ad4dceab546ac002c3ef806e4000c73",
+      "id": "npx-opencode-user",
+      "label": "OpenCode · 当前用户",
+      "summary": "将上游完整技能复制到所选范围。此命令跳过安装确认，可能覆盖同名技能；请先备份，目标以安装输出为准。",
+      "client": "opencode",
+      "scope": "user",
+      "recommended": false,
+      "command": "npx skills@1.7.0 add https://github.com/KAIWU-AI/AI-quick-learn/tree/bc9ce375cb3f767c5b904a8d65459a787ac737fc/skills/3d-video --skill 3d-video --copy --agent opencode --yes --global"
+    },
+    {
+      "type": "cli",
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ],
+      "officialStatus": "community",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22.20+",
+          "details": "npx 运行第三方 skills CLI 1.7.0，仅安装完整技能目录，不执行技能中的业务脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "预览与渲染环境",
+          "details": "预览使用随包冻结的资源；渲染需在技能目录 npm ci，另备 FFmpeg/FFprobe 与 Chrome/Edge/Chromium。"
+        },
+        {
+          "name": "可选旁白与素材许可",
+          "details": "默认静音、无数字人。Azure 旁白须自带环境凭据并授权发送讲解稿；第三方素材按 ASSETS.md 和 assets/licenses/ 使用。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "审查后安装",
+          "description": "命令固定到上游源码提交，复制完整技能目录。npx 可能覆盖同名目标，请先备份；不使用本站两行目录安装器。"
+        },
+        {
+          "title": "准备运行环境",
+          "description": "在实际技能目录按 README 准备检查与渲染依赖；仅 create/build/preview 不需要安装 npm 依赖。"
+        }
+      ],
+      "verify": {
+        "description": "在技能目录运行 npm test，按 README 创建一个新的示例工程并 build。完整 check/inspect/render 另需 npm ci、Chromium 和 FFmpeg；预览通过不代表成片已验证。"
+      },
+      "update": {
+        "description": "当前命令固定上游版本，不自动追踪 main。先审查上游新版本并备份安装目录，再使用新版本对应命令；不要对所有技能批量更新。"
+      },
+      "uninstall": {
+        "description": "按安装器实际输出的目标路径，仅移除本技能目录，不删除父目录、其它技能或用户工程。"
+      },
+      "securityNote": "第三方安装器会下载源码并可能覆盖同名技能；固定客户端命令的 --yes 跳过确认，请先检查范围并备份。安装不等于运行授权，不携带凭据、不自动执行云服务或公开写入。",
+      "evidenceUrl": "https://github.com/vercel-labs/skills/tree/7407f3893ad4dceab546ac002c3ef806e4000c73",
+      "id": "npx-github-copilot-project",
+      "label": "GitHub Copilot · 当前项目",
+      "summary": "将上游完整技能复制到所选范围。此命令跳过安装确认，可能覆盖同名技能；请先备份，目标以安装输出为准。",
+      "client": "github-copilot",
+      "scope": "project",
+      "recommended": false,
+      "command": "npx skills@1.7.0 add https://github.com/KAIWU-AI/AI-quick-learn/tree/bc9ce375cb3f767c5b904a8d65459a787ac737fc/skills/3d-video --skill 3d-video --copy --agent github-copilot --yes"
+    },
+    {
+      "type": "cli",
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ],
+      "officialStatus": "community",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22.20+",
+          "details": "npx 运行第三方 skills CLI 1.7.0，仅安装完整技能目录，不执行技能中的业务脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "预览与渲染环境",
+          "details": "预览使用随包冻结的资源；渲染需在技能目录 npm ci，另备 FFmpeg/FFprobe 与 Chrome/Edge/Chromium。"
+        },
+        {
+          "name": "可选旁白与素材许可",
+          "details": "默认静音、无数字人。Azure 旁白须自带环境凭据并授权发送讲解稿；第三方素材按 ASSETS.md 和 assets/licenses/ 使用。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "审查后安装",
+          "description": "命令固定到上游源码提交，复制完整技能目录。npx 可能覆盖同名目标，请先备份；不使用本站两行目录安装器。"
+        },
+        {
+          "title": "准备运行环境",
+          "description": "在实际技能目录按 README 准备检查与渲染依赖；仅 create/build/preview 不需要安装 npm 依赖。"
+        }
+      ],
+      "verify": {
+        "description": "在技能目录运行 npm test，按 README 创建一个新的示例工程并 build。完整 check/inspect/render 另需 npm ci、Chromium 和 FFmpeg；预览通过不代表成片已验证。"
+      },
+      "update": {
+        "description": "当前命令固定上游版本，不自动追踪 main。先审查上游新版本并备份安装目录，再使用新版本对应命令；不要对所有技能批量更新。"
+      },
+      "uninstall": {
+        "description": "按安装器实际输出的目标路径，仅移除本技能目录，不删除父目录、其它技能或用户工程。"
+      },
+      "securityNote": "第三方安装器会下载源码并可能覆盖同名技能；固定客户端命令的 --yes 跳过确认，请先检查范围并备份。安装不等于运行授权，不携带凭据、不自动执行云服务或公开写入。",
+      "evidenceUrl": "https://github.com/vercel-labs/skills/tree/7407f3893ad4dceab546ac002c3ef806e4000c73",
+      "id": "npx-github-copilot-user",
+      "label": "GitHub Copilot · 当前用户",
+      "summary": "将上游完整技能复制到所选范围。此命令跳过安装确认，可能覆盖同名技能；请先备份，目标以安装输出为准。",
+      "client": "github-copilot",
+      "scope": "user",
+      "recommended": false,
+      "command": "npx skills@1.7.0 add https://github.com/KAIWU-AI/AI-quick-learn/tree/bc9ce375cb3f767c5b904a8d65459a787ac737fc/skills/3d-video --skill 3d-video --copy --agent github-copilot --yes --global"
+    },
+    {
+      "type": "cli",
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ],
+      "officialStatus": "community",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22.20+",
+          "details": "npx 运行第三方 skills CLI 1.7.0，仅安装完整技能目录，不执行技能中的业务脚本。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "预览与渲染环境",
+          "details": "预览使用随包冻结的资源；渲染需在技能目录 npm ci，另备 FFmpeg/FFprobe 与 Chrome/Edge/Chromium。"
+        },
+        {
+          "name": "可选旁白与素材许可",
+          "details": "默认静音、无数字人。Azure 旁白须自带环境凭据并授权发送讲解稿；第三方素材按 ASSETS.md 和 assets/licenses/ 使用。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "审查后安装",
+          "description": "命令固定到上游源码提交，复制完整技能目录。npx 可能覆盖同名目标，请先备份；不使用本站两行目录安装器。"
+        },
+        {
+          "title": "准备运行环境",
+          "description": "在实际技能目录按 README 准备检查与渲染依赖；仅 create/build/preview 不需要安装 npm 依赖。"
+        }
+      ],
+      "verify": {
+        "description": "在技能目录运行 npm test，按 README 创建一个新的示例工程并 build。完整 check/inspect/render 另需 npm ci、Chromium 和 FFmpeg；预览通过不代表成片已验证。"
+      },
+      "update": {
+        "description": "当前命令固定上游版本，不自动追踪 main。先审查上游新版本并备份安装目录，再使用新版本对应命令；不要对所有技能批量更新。"
+      },
+      "uninstall": {
+        "description": "按安装器实际输出的目标路径，仅移除本技能目录，不删除父目录、其它技能或用户工程。"
+      },
+      "securityNote": "第三方安装器会下载源码并可能覆盖同名技能；固定客户端命令的 --yes 跳过确认，请先检查范围并备份。安装不等于运行授权，不携带凭据、不自动执行云服务或公开写入。",
+      "evidenceUrl": "https://github.com/vercel-labs/skills/tree/7407f3893ad4dceab546ac002c3ef806e4000c73",
+      "id": "npx-hermes-user",
+      "label": "Hermes · 当前用户",
+      "summary": "将上游完整技能复制到所选范围。此命令跳过安装确认，可能覆盖同名技能；请先备份，目标以安装输出为准。",
+      "client": "hermes",
+      "scope": "user",
+      "recommended": false,
+      "command": "npx skills@1.7.0 add https://github.com/KAIWU-AI/AI-quick-learn/tree/bc9ce375cb3f767c5b904a8d65459a787ac737fc/skills/3d-video --skill 3d-video --copy --agent hermes-agent --yes --global"
+    }
+  ],
+  "usage": {
+    "instructions": "让 Agent 阅读真实源码，整理组件、证据和连续数据流，再创建新的 architecture.json 工程。预览后经用户确认才渲染；默认静音、无数字人。预览无需额外 npm 依赖，完整检查与渲染先在技能目录 npm ci；Chrome、FFmpeg 需另外准备。",
+    "example": "读取这个项目的真实代码，用 3—12 个关键组件解释一次请求的完整流转。制作连续运镜的三维场景，先给我本地预览，暂不配音、不渲染成片。"
+  }
+}
