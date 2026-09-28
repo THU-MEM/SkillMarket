@@ -1,0 +1,656 @@
+{
+  "id": "piano-go",
+  "type": "skill",
+  "name": "Piano Go",
+  "description": "用自然语言创作钢琴曲与鼓点编曲，在本地播放器试听；可选哼唱转谱，并在确认后通过 PR 发布作品。",
+  "author": {
+    "name": "PianoGo contributors",
+    "url": "https://github.com/hydraxman/PianoGo"
+  },
+  "source": {
+    "primaryFile": "skills/piano-go/SKILL.md",
+    "sourceUrl": "https://github.com/hydraxman/PianoGo/blob/e3bf01bdd3bef6ec83b967410cca7370951a6848/skills/piano-go/SKILL.md",
+    "rawUrl": "https://raw.githubusercontent.com/hydraxman/PianoGo/e3bf01bdd3bef6ec83b967410cca7370951a6848/skills/piano-go/SKILL.md"
+  },
+  "repository": "https://github.com/hydraxman/PianoGo/tree/e3bf01bdd3bef6ec83b967410cca7370951a6848/skills/piano-go",
+  "tags": [
+    "music",
+    "piano",
+    "composition"
+  ],
+  "version": "1.7.0",
+  "license": "LicenseRef-Mixed",
+  "updatedAt": "2026-09-28",
+  "isExample": false,
+  "featured": true,
+  "installations": [
+    {
+      "type": "cli",
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ],
+      "officialStatus": "community",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22.20+",
+          "details": "安装使用 skills CLI 1.7.0；本地播放器基于 Node 内置模块，无需 npm install，也不需要额外的模型 API Key。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "支持音频的本地浏览器",
+          "details": "播放器默认仅监听 127.0.0.1:4317；首次播放需用户点击曲目解锁音频。远程 Agent 需自行确保用户能访问播放器。"
+        },
+        {
+          "name": "可选：哼唱与作品发布",
+          "details": "哼唱需 Python 3.12/3.13 和独立环境 bumusic==0.2.1；发布需 GitHub CLI、本人账号授权和作品许可确认。基础作曲播放不需要这些依赖。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "安装前备份曲库",
+          "description": "命令固定上游版本并复制完整技能。npx 可能覆盖同名目录；已有用户请先把 songs/ 和自定义文件备份到技能目录外。"
+        },
+        {
+          "title": "启动播放器",
+          "description": "进入实际安装的 piano-go 目录，执行 node scripts/start-player.mjs；在浏览器点击任一曲目解锁音频，再让 Agent 创作并播放。"
+        }
+      ],
+      "verify": {
+        "description": "在技能目录执行 node scripts/validate-arrangement.mjs examples/gentle-c-major.json，确认 ok:true；再执行 node scripts/play-arrangement.mjs examples/gentle-c-major.json，检查曲库新增与浏览器播放。校验成功不等于已听过作品。"
+      },
+      "update": {
+        "description": "先把 songs/ 中的原创作品与自定义文件备份到技能目录外，再审查新上游版本并安装。npx 可能覆盖同名目录，不能依赖它保留曲库；当前固定命令不会自动追踪 main。"
+      },
+      "uninstall": {
+        "description": "先导出或备份 songs/ 中的作品，再仅移除实际安装的 piano-go 目录，不删除其他技能或用户工程。"
+      },
+      "securityNote": "npx 可能覆盖同名目录；--yes 跳过确认，安装和更新前须备份 songs/。播放器仅限本机；录音、依赖下载及 GitHub 发布分别授权。原创代码 Apache-2.0，钢琴采样 CC BY 3.0、鼓采样和内置曲目 CC BY 4.0，月光参考谱含 CC BY-SA 2.5 条款；保留相应素材许可与来源说明。",
+      "evidenceUrl": "https://github.com/vercel-labs/skills/tree/7407f3893ad4dceab546ac002c3ef806e4000c73",
+      "id": "npx-interactive",
+      "label": "通用 npx · 安装时选择",
+      "summary": "从固定上游版本复制完整技能，已有安装先备份 songs/；安装本身不启动播放器、录音或发布作品。",
+      "client": "universal",
+      "scope": "interactive",
+      "recommended": true,
+      "command": "npx skills@1.7.0 add https://github.com/hydraxman/PianoGo/tree/e3bf01bdd3bef6ec83b967410cca7370951a6848/skills/piano-go --skill piano-go --copy"
+    },
+    {
+      "type": "cli",
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ],
+      "officialStatus": "community",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22.20+",
+          "details": "安装使用 skills CLI 1.7.0；本地播放器基于 Node 内置模块，无需 npm install，也不需要额外的模型 API Key。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "支持音频的本地浏览器",
+          "details": "播放器默认仅监听 127.0.0.1:4317；首次播放需用户点击曲目解锁音频。远程 Agent 需自行确保用户能访问播放器。"
+        },
+        {
+          "name": "可选：哼唱与作品发布",
+          "details": "哼唱需 Python 3.12/3.13 和独立环境 bumusic==0.2.1；发布需 GitHub CLI、本人账号授权和作品许可确认。基础作曲播放不需要这些依赖。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "安装前备份曲库",
+          "description": "命令固定上游版本并复制完整技能。npx 可能覆盖同名目录；已有用户请先把 songs/ 和自定义文件备份到技能目录外。"
+        },
+        {
+          "title": "启动播放器",
+          "description": "进入实际安装的 piano-go 目录，执行 node scripts/start-player.mjs；在浏览器点击任一曲目解锁音频，再让 Agent 创作并播放。"
+        }
+      ],
+      "verify": {
+        "description": "在技能目录执行 node scripts/validate-arrangement.mjs examples/gentle-c-major.json，确认 ok:true；再执行 node scripts/play-arrangement.mjs examples/gentle-c-major.json，检查曲库新增与浏览器播放。校验成功不等于已听过作品。"
+      },
+      "update": {
+        "description": "先把 songs/ 中的原创作品与自定义文件备份到技能目录外，再审查新上游版本并安装。npx 可能覆盖同名目录，不能依赖它保留曲库；当前固定命令不会自动追踪 main。"
+      },
+      "uninstall": {
+        "description": "先导出或备份 songs/ 中的作品，再仅移除实际安装的 piano-go 目录，不删除其他技能或用户工程。"
+      },
+      "securityNote": "npx 可能覆盖同名目录；--yes 跳过确认，安装和更新前须备份 songs/。播放器仅限本机；录音、依赖下载及 GitHub 发布分别授权。原创代码 Apache-2.0，钢琴采样 CC BY 3.0、鼓采样和内置曲目 CC BY 4.0，月光参考谱含 CC BY-SA 2.5 条款；保留相应素材许可与来源说明。",
+      "evidenceUrl": "https://github.com/vercel-labs/skills/tree/7407f3893ad4dceab546ac002c3ef806e4000c73",
+      "id": "npx-claude-code-project",
+      "label": "Claude Code · 当前项目",
+      "summary": "从固定上游版本复制完整技能，已有安装先备份 songs/；安装本身不启动播放器、录音或发布作品。",
+      "client": "claude-code",
+      "scope": "project",
+      "recommended": false,
+      "command": "npx skills@1.7.0 add https://github.com/hydraxman/PianoGo/tree/e3bf01bdd3bef6ec83b967410cca7370951a6848/skills/piano-go --skill piano-go --copy --agent claude-code --yes"
+    },
+    {
+      "type": "cli",
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ],
+      "officialStatus": "community",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22.20+",
+          "details": "安装使用 skills CLI 1.7.0；本地播放器基于 Node 内置模块，无需 npm install，也不需要额外的模型 API Key。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "支持音频的本地浏览器",
+          "details": "播放器默认仅监听 127.0.0.1:4317；首次播放需用户点击曲目解锁音频。远程 Agent 需自行确保用户能访问播放器。"
+        },
+        {
+          "name": "可选：哼唱与作品发布",
+          "details": "哼唱需 Python 3.12/3.13 和独立环境 bumusic==0.2.1；发布需 GitHub CLI、本人账号授权和作品许可确认。基础作曲播放不需要这些依赖。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "安装前备份曲库",
+          "description": "命令固定上游版本并复制完整技能。npx 可能覆盖同名目录；已有用户请先把 songs/ 和自定义文件备份到技能目录外。"
+        },
+        {
+          "title": "启动播放器",
+          "description": "进入实际安装的 piano-go 目录，执行 node scripts/start-player.mjs；在浏览器点击任一曲目解锁音频，再让 Agent 创作并播放。"
+        }
+      ],
+      "verify": {
+        "description": "在技能目录执行 node scripts/validate-arrangement.mjs examples/gentle-c-major.json，确认 ok:true；再执行 node scripts/play-arrangement.mjs examples/gentle-c-major.json，检查曲库新增与浏览器播放。校验成功不等于已听过作品。"
+      },
+      "update": {
+        "description": "先把 songs/ 中的原创作品与自定义文件备份到技能目录外，再审查新上游版本并安装。npx 可能覆盖同名目录，不能依赖它保留曲库；当前固定命令不会自动追踪 main。"
+      },
+      "uninstall": {
+        "description": "先导出或备份 songs/ 中的作品，再仅移除实际安装的 piano-go 目录，不删除其他技能或用户工程。"
+      },
+      "securityNote": "npx 可能覆盖同名目录；--yes 跳过确认，安装和更新前须备份 songs/。播放器仅限本机；录音、依赖下载及 GitHub 发布分别授权。原创代码 Apache-2.0，钢琴采样 CC BY 3.0、鼓采样和内置曲目 CC BY 4.0，月光参考谱含 CC BY-SA 2.5 条款；保留相应素材许可与来源说明。",
+      "evidenceUrl": "https://github.com/vercel-labs/skills/tree/7407f3893ad4dceab546ac002c3ef806e4000c73",
+      "id": "npx-claude-code-user",
+      "label": "Claude Code · 当前用户",
+      "summary": "从固定上游版本复制完整技能，已有安装先备份 songs/；安装本身不启动播放器、录音或发布作品。",
+      "client": "claude-code",
+      "scope": "user",
+      "recommended": false,
+      "command": "npx skills@1.7.0 add https://github.com/hydraxman/PianoGo/tree/e3bf01bdd3bef6ec83b967410cca7370951a6848/skills/piano-go --skill piano-go --copy --agent claude-code --yes --global"
+    },
+    {
+      "type": "cli",
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ],
+      "officialStatus": "community",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22.20+",
+          "details": "安装使用 skills CLI 1.7.0；本地播放器基于 Node 内置模块，无需 npm install，也不需要额外的模型 API Key。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "支持音频的本地浏览器",
+          "details": "播放器默认仅监听 127.0.0.1:4317；首次播放需用户点击曲目解锁音频。远程 Agent 需自行确保用户能访问播放器。"
+        },
+        {
+          "name": "可选：哼唱与作品发布",
+          "details": "哼唱需 Python 3.12/3.13 和独立环境 bumusic==0.2.1；发布需 GitHub CLI、本人账号授权和作品许可确认。基础作曲播放不需要这些依赖。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "安装前备份曲库",
+          "description": "命令固定上游版本并复制完整技能。npx 可能覆盖同名目录；已有用户请先把 songs/ 和自定义文件备份到技能目录外。"
+        },
+        {
+          "title": "启动播放器",
+          "description": "进入实际安装的 piano-go 目录，执行 node scripts/start-player.mjs；在浏览器点击任一曲目解锁音频，再让 Agent 创作并播放。"
+        }
+      ],
+      "verify": {
+        "description": "在技能目录执行 node scripts/validate-arrangement.mjs examples/gentle-c-major.json，确认 ok:true；再执行 node scripts/play-arrangement.mjs examples/gentle-c-major.json，检查曲库新增与浏览器播放。校验成功不等于已听过作品。"
+      },
+      "update": {
+        "description": "先把 songs/ 中的原创作品与自定义文件备份到技能目录外，再审查新上游版本并安装。npx 可能覆盖同名目录，不能依赖它保留曲库；当前固定命令不会自动追踪 main。"
+      },
+      "uninstall": {
+        "description": "先导出或备份 songs/ 中的作品，再仅移除实际安装的 piano-go 目录，不删除其他技能或用户工程。"
+      },
+      "securityNote": "npx 可能覆盖同名目录；--yes 跳过确认，安装和更新前须备份 songs/。播放器仅限本机；录音、依赖下载及 GitHub 发布分别授权。原创代码 Apache-2.0，钢琴采样 CC BY 3.0、鼓采样和内置曲目 CC BY 4.0，月光参考谱含 CC BY-SA 2.5 条款；保留相应素材许可与来源说明。",
+      "evidenceUrl": "https://github.com/vercel-labs/skills/tree/7407f3893ad4dceab546ac002c3ef806e4000c73",
+      "id": "npx-codex-project",
+      "label": "Codex · 当前项目",
+      "summary": "从固定上游版本复制完整技能，已有安装先备份 songs/；安装本身不启动播放器、录音或发布作品。",
+      "client": "codex",
+      "scope": "project",
+      "recommended": false,
+      "command": "npx skills@1.7.0 add https://github.com/hydraxman/PianoGo/tree/e3bf01bdd3bef6ec83b967410cca7370951a6848/skills/piano-go --skill piano-go --copy --agent codex --yes"
+    },
+    {
+      "type": "cli",
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ],
+      "officialStatus": "community",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22.20+",
+          "details": "安装使用 skills CLI 1.7.0；本地播放器基于 Node 内置模块，无需 npm install，也不需要额外的模型 API Key。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "支持音频的本地浏览器",
+          "details": "播放器默认仅监听 127.0.0.1:4317；首次播放需用户点击曲目解锁音频。远程 Agent 需自行确保用户能访问播放器。"
+        },
+        {
+          "name": "可选：哼唱与作品发布",
+          "details": "哼唱需 Python 3.12/3.13 和独立环境 bumusic==0.2.1；发布需 GitHub CLI、本人账号授权和作品许可确认。基础作曲播放不需要这些依赖。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "安装前备份曲库",
+          "description": "命令固定上游版本并复制完整技能。npx 可能覆盖同名目录；已有用户请先把 songs/ 和自定义文件备份到技能目录外。"
+        },
+        {
+          "title": "启动播放器",
+          "description": "进入实际安装的 piano-go 目录，执行 node scripts/start-player.mjs；在浏览器点击任一曲目解锁音频，再让 Agent 创作并播放。"
+        }
+      ],
+      "verify": {
+        "description": "在技能目录执行 node scripts/validate-arrangement.mjs examples/gentle-c-major.json，确认 ok:true；再执行 node scripts/play-arrangement.mjs examples/gentle-c-major.json，检查曲库新增与浏览器播放。校验成功不等于已听过作品。"
+      },
+      "update": {
+        "description": "先把 songs/ 中的原创作品与自定义文件备份到技能目录外，再审查新上游版本并安装。npx 可能覆盖同名目录，不能依赖它保留曲库；当前固定命令不会自动追踪 main。"
+      },
+      "uninstall": {
+        "description": "先导出或备份 songs/ 中的作品，再仅移除实际安装的 piano-go 目录，不删除其他技能或用户工程。"
+      },
+      "securityNote": "npx 可能覆盖同名目录；--yes 跳过确认，安装和更新前须备份 songs/。播放器仅限本机；录音、依赖下载及 GitHub 发布分别授权。原创代码 Apache-2.0，钢琴采样 CC BY 3.0、鼓采样和内置曲目 CC BY 4.0，月光参考谱含 CC BY-SA 2.5 条款；保留相应素材许可与来源说明。",
+      "evidenceUrl": "https://github.com/vercel-labs/skills/tree/7407f3893ad4dceab546ac002c3ef806e4000c73",
+      "id": "npx-codex-user",
+      "label": "Codex · 当前用户",
+      "summary": "从固定上游版本复制完整技能，已有安装先备份 songs/；安装本身不启动播放器、录音或发布作品。",
+      "client": "codex",
+      "scope": "user",
+      "recommended": false,
+      "command": "npx skills@1.7.0 add https://github.com/hydraxman/PianoGo/tree/e3bf01bdd3bef6ec83b967410cca7370951a6848/skills/piano-go --skill piano-go --copy --agent codex --yes --global"
+    },
+    {
+      "type": "cli",
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ],
+      "officialStatus": "community",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22.20+",
+          "details": "安装使用 skills CLI 1.7.0；本地播放器基于 Node 内置模块，无需 npm install，也不需要额外的模型 API Key。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "支持音频的本地浏览器",
+          "details": "播放器默认仅监听 127.0.0.1:4317；首次播放需用户点击曲目解锁音频。远程 Agent 需自行确保用户能访问播放器。"
+        },
+        {
+          "name": "可选：哼唱与作品发布",
+          "details": "哼唱需 Python 3.12/3.13 和独立环境 bumusic==0.2.1；发布需 GitHub CLI、本人账号授权和作品许可确认。基础作曲播放不需要这些依赖。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "安装前备份曲库",
+          "description": "命令固定上游版本并复制完整技能。npx 可能覆盖同名目录；已有用户请先把 songs/ 和自定义文件备份到技能目录外。"
+        },
+        {
+          "title": "启动播放器",
+          "description": "进入实际安装的 piano-go 目录，执行 node scripts/start-player.mjs；在浏览器点击任一曲目解锁音频，再让 Agent 创作并播放。"
+        }
+      ],
+      "verify": {
+        "description": "在技能目录执行 node scripts/validate-arrangement.mjs examples/gentle-c-major.json，确认 ok:true；再执行 node scripts/play-arrangement.mjs examples/gentle-c-major.json，检查曲库新增与浏览器播放。校验成功不等于已听过作品。"
+      },
+      "update": {
+        "description": "先把 songs/ 中的原创作品与自定义文件备份到技能目录外，再审查新上游版本并安装。npx 可能覆盖同名目录，不能依赖它保留曲库；当前固定命令不会自动追踪 main。"
+      },
+      "uninstall": {
+        "description": "先导出或备份 songs/ 中的作品，再仅移除实际安装的 piano-go 目录，不删除其他技能或用户工程。"
+      },
+      "securityNote": "npx 可能覆盖同名目录；--yes 跳过确认，安装和更新前须备份 songs/。播放器仅限本机；录音、依赖下载及 GitHub 发布分别授权。原创代码 Apache-2.0，钢琴采样 CC BY 3.0、鼓采样和内置曲目 CC BY 4.0，月光参考谱含 CC BY-SA 2.5 条款；保留相应素材许可与来源说明。",
+      "evidenceUrl": "https://github.com/vercel-labs/skills/tree/7407f3893ad4dceab546ac002c3ef806e4000c73",
+      "id": "npx-cursor-project",
+      "label": "Cursor · 当前项目",
+      "summary": "从固定上游版本复制完整技能，已有安装先备份 songs/；安装本身不启动播放器、录音或发布作品。",
+      "client": "cursor",
+      "scope": "project",
+      "recommended": false,
+      "command": "npx skills@1.7.0 add https://github.com/hydraxman/PianoGo/tree/e3bf01bdd3bef6ec83b967410cca7370951a6848/skills/piano-go --skill piano-go --copy --agent cursor --yes"
+    },
+    {
+      "type": "cli",
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ],
+      "officialStatus": "community",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22.20+",
+          "details": "安装使用 skills CLI 1.7.0；本地播放器基于 Node 内置模块，无需 npm install，也不需要额外的模型 API Key。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "支持音频的本地浏览器",
+          "details": "播放器默认仅监听 127.0.0.1:4317；首次播放需用户点击曲目解锁音频。远程 Agent 需自行确保用户能访问播放器。"
+        },
+        {
+          "name": "可选：哼唱与作品发布",
+          "details": "哼唱需 Python 3.12/3.13 和独立环境 bumusic==0.2.1；发布需 GitHub CLI、本人账号授权和作品许可确认。基础作曲播放不需要这些依赖。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "安装前备份曲库",
+          "description": "命令固定上游版本并复制完整技能。npx 可能覆盖同名目录；已有用户请先把 songs/ 和自定义文件备份到技能目录外。"
+        },
+        {
+          "title": "启动播放器",
+          "description": "进入实际安装的 piano-go 目录，执行 node scripts/start-player.mjs；在浏览器点击任一曲目解锁音频，再让 Agent 创作并播放。"
+        }
+      ],
+      "verify": {
+        "description": "在技能目录执行 node scripts/validate-arrangement.mjs examples/gentle-c-major.json，确认 ok:true；再执行 node scripts/play-arrangement.mjs examples/gentle-c-major.json，检查曲库新增与浏览器播放。校验成功不等于已听过作品。"
+      },
+      "update": {
+        "description": "先把 songs/ 中的原创作品与自定义文件备份到技能目录外，再审查新上游版本并安装。npx 可能覆盖同名目录，不能依赖它保留曲库；当前固定命令不会自动追踪 main。"
+      },
+      "uninstall": {
+        "description": "先导出或备份 songs/ 中的作品，再仅移除实际安装的 piano-go 目录，不删除其他技能或用户工程。"
+      },
+      "securityNote": "npx 可能覆盖同名目录；--yes 跳过确认，安装和更新前须备份 songs/。播放器仅限本机；录音、依赖下载及 GitHub 发布分别授权。原创代码 Apache-2.0，钢琴采样 CC BY 3.0、鼓采样和内置曲目 CC BY 4.0，月光参考谱含 CC BY-SA 2.5 条款；保留相应素材许可与来源说明。",
+      "evidenceUrl": "https://github.com/vercel-labs/skills/tree/7407f3893ad4dceab546ac002c3ef806e4000c73",
+      "id": "npx-cursor-user",
+      "label": "Cursor · 当前用户",
+      "summary": "从固定上游版本复制完整技能，已有安装先备份 songs/；安装本身不启动播放器、录音或发布作品。",
+      "client": "cursor",
+      "scope": "user",
+      "recommended": false,
+      "command": "npx skills@1.7.0 add https://github.com/hydraxman/PianoGo/tree/e3bf01bdd3bef6ec83b967410cca7370951a6848/skills/piano-go --skill piano-go --copy --agent cursor --yes --global"
+    },
+    {
+      "type": "cli",
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ],
+      "officialStatus": "community",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22.20+",
+          "details": "安装使用 skills CLI 1.7.0；本地播放器基于 Node 内置模块，无需 npm install，也不需要额外的模型 API Key。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "支持音频的本地浏览器",
+          "details": "播放器默认仅监听 127.0.0.1:4317；首次播放需用户点击曲目解锁音频。远程 Agent 需自行确保用户能访问播放器。"
+        },
+        {
+          "name": "可选：哼唱与作品发布",
+          "details": "哼唱需 Python 3.12/3.13 和独立环境 bumusic==0.2.1；发布需 GitHub CLI、本人账号授权和作品许可确认。基础作曲播放不需要这些依赖。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "安装前备份曲库",
+          "description": "命令固定上游版本并复制完整技能。npx 可能覆盖同名目录；已有用户请先把 songs/ 和自定义文件备份到技能目录外。"
+        },
+        {
+          "title": "启动播放器",
+          "description": "进入实际安装的 piano-go 目录，执行 node scripts/start-player.mjs；在浏览器点击任一曲目解锁音频，再让 Agent 创作并播放。"
+        }
+      ],
+      "verify": {
+        "description": "在技能目录执行 node scripts/validate-arrangement.mjs examples/gentle-c-major.json，确认 ok:true；再执行 node scripts/play-arrangement.mjs examples/gentle-c-major.json，检查曲库新增与浏览器播放。校验成功不等于已听过作品。"
+      },
+      "update": {
+        "description": "先把 songs/ 中的原创作品与自定义文件备份到技能目录外，再审查新上游版本并安装。npx 可能覆盖同名目录，不能依赖它保留曲库；当前固定命令不会自动追踪 main。"
+      },
+      "uninstall": {
+        "description": "先导出或备份 songs/ 中的作品，再仅移除实际安装的 piano-go 目录，不删除其他技能或用户工程。"
+      },
+      "securityNote": "npx 可能覆盖同名目录；--yes 跳过确认，安装和更新前须备份 songs/。播放器仅限本机；录音、依赖下载及 GitHub 发布分别授权。原创代码 Apache-2.0，钢琴采样 CC BY 3.0、鼓采样和内置曲目 CC BY 4.0，月光参考谱含 CC BY-SA 2.5 条款；保留相应素材许可与来源说明。",
+      "evidenceUrl": "https://github.com/vercel-labs/skills/tree/7407f3893ad4dceab546ac002c3ef806e4000c73",
+      "id": "npx-opencode-project",
+      "label": "OpenCode · 当前项目",
+      "summary": "从固定上游版本复制完整技能，已有安装先备份 songs/；安装本身不启动播放器、录音或发布作品。",
+      "client": "opencode",
+      "scope": "project",
+      "recommended": false,
+      "command": "npx skills@1.7.0 add https://github.com/hydraxman/PianoGo/tree/e3bf01bdd3bef6ec83b967410cca7370951a6848/skills/piano-go --skill piano-go --copy --agent opencode --yes"
+    },
+    {
+      "type": "cli",
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ],
+      "officialStatus": "community",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22.20+",
+          "details": "安装使用 skills CLI 1.7.0；本地播放器基于 Node 内置模块，无需 npm install，也不需要额外的模型 API Key。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "支持音频的本地浏览器",
+          "details": "播放器默认仅监听 127.0.0.1:4317；首次播放需用户点击曲目解锁音频。远程 Agent 需自行确保用户能访问播放器。"
+        },
+        {
+          "name": "可选：哼唱与作品发布",
+          "details": "哼唱需 Python 3.12/3.13 和独立环境 bumusic==0.2.1；发布需 GitHub CLI、本人账号授权和作品许可确认。基础作曲播放不需要这些依赖。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "安装前备份曲库",
+          "description": "命令固定上游版本并复制完整技能。npx 可能覆盖同名目录；已有用户请先把 songs/ 和自定义文件备份到技能目录外。"
+        },
+        {
+          "title": "启动播放器",
+          "description": "进入实际安装的 piano-go 目录，执行 node scripts/start-player.mjs；在浏览器点击任一曲目解锁音频，再让 Agent 创作并播放。"
+        }
+      ],
+      "verify": {
+        "description": "在技能目录执行 node scripts/validate-arrangement.mjs examples/gentle-c-major.json，确认 ok:true；再执行 node scripts/play-arrangement.mjs examples/gentle-c-major.json，检查曲库新增与浏览器播放。校验成功不等于已听过作品。"
+      },
+      "update": {
+        "description": "先把 songs/ 中的原创作品与自定义文件备份到技能目录外，再审查新上游版本并安装。npx 可能覆盖同名目录，不能依赖它保留曲库；当前固定命令不会自动追踪 main。"
+      },
+      "uninstall": {
+        "description": "先导出或备份 songs/ 中的作品，再仅移除实际安装的 piano-go 目录，不删除其他技能或用户工程。"
+      },
+      "securityNote": "npx 可能覆盖同名目录；--yes 跳过确认，安装和更新前须备份 songs/。播放器仅限本机；录音、依赖下载及 GitHub 发布分别授权。原创代码 Apache-2.0，钢琴采样 CC BY 3.0、鼓采样和内置曲目 CC BY 4.0，月光参考谱含 CC BY-SA 2.5 条款；保留相应素材许可与来源说明。",
+      "evidenceUrl": "https://github.com/vercel-labs/skills/tree/7407f3893ad4dceab546ac002c3ef806e4000c73",
+      "id": "npx-opencode-user",
+      "label": "OpenCode · 当前用户",
+      "summary": "从固定上游版本复制完整技能，已有安装先备份 songs/；安装本身不启动播放器、录音或发布作品。",
+      "client": "opencode",
+      "scope": "user",
+      "recommended": false,
+      "command": "npx skills@1.7.0 add https://github.com/hydraxman/PianoGo/tree/e3bf01bdd3bef6ec83b967410cca7370951a6848/skills/piano-go --skill piano-go --copy --agent opencode --yes --global"
+    },
+    {
+      "type": "cli",
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ],
+      "officialStatus": "community",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22.20+",
+          "details": "安装使用 skills CLI 1.7.0；本地播放器基于 Node 内置模块，无需 npm install，也不需要额外的模型 API Key。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "支持音频的本地浏览器",
+          "details": "播放器默认仅监听 127.0.0.1:4317；首次播放需用户点击曲目解锁音频。远程 Agent 需自行确保用户能访问播放器。"
+        },
+        {
+          "name": "可选：哼唱与作品发布",
+          "details": "哼唱需 Python 3.12/3.13 和独立环境 bumusic==0.2.1；发布需 GitHub CLI、本人账号授权和作品许可确认。基础作曲播放不需要这些依赖。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "安装前备份曲库",
+          "description": "命令固定上游版本并复制完整技能。npx 可能覆盖同名目录；已有用户请先把 songs/ 和自定义文件备份到技能目录外。"
+        },
+        {
+          "title": "启动播放器",
+          "description": "进入实际安装的 piano-go 目录，执行 node scripts/start-player.mjs；在浏览器点击任一曲目解锁音频，再让 Agent 创作并播放。"
+        }
+      ],
+      "verify": {
+        "description": "在技能目录执行 node scripts/validate-arrangement.mjs examples/gentle-c-major.json，确认 ok:true；再执行 node scripts/play-arrangement.mjs examples/gentle-c-major.json，检查曲库新增与浏览器播放。校验成功不等于已听过作品。"
+      },
+      "update": {
+        "description": "先把 songs/ 中的原创作品与自定义文件备份到技能目录外，再审查新上游版本并安装。npx 可能覆盖同名目录，不能依赖它保留曲库；当前固定命令不会自动追踪 main。"
+      },
+      "uninstall": {
+        "description": "先导出或备份 songs/ 中的作品，再仅移除实际安装的 piano-go 目录，不删除其他技能或用户工程。"
+      },
+      "securityNote": "npx 可能覆盖同名目录；--yes 跳过确认，安装和更新前须备份 songs/。播放器仅限本机；录音、依赖下载及 GitHub 发布分别授权。原创代码 Apache-2.0，钢琴采样 CC BY 3.0、鼓采样和内置曲目 CC BY 4.0，月光参考谱含 CC BY-SA 2.5 条款；保留相应素材许可与来源说明。",
+      "evidenceUrl": "https://github.com/vercel-labs/skills/tree/7407f3893ad4dceab546ac002c3ef806e4000c73",
+      "id": "npx-github-copilot-project",
+      "label": "GitHub Copilot · 当前项目",
+      "summary": "从固定上游版本复制完整技能，已有安装先备份 songs/；安装本身不启动播放器、录音或发布作品。",
+      "client": "github-copilot",
+      "scope": "project",
+      "recommended": false,
+      "command": "npx skills@1.7.0 add https://github.com/hydraxman/PianoGo/tree/e3bf01bdd3bef6ec83b967410cca7370951a6848/skills/piano-go --skill piano-go --copy --agent github-copilot --yes"
+    },
+    {
+      "type": "cli",
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ],
+      "officialStatus": "community",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22.20+",
+          "details": "安装使用 skills CLI 1.7.0；本地播放器基于 Node 内置模块，无需 npm install，也不需要额外的模型 API Key。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "支持音频的本地浏览器",
+          "details": "播放器默认仅监听 127.0.0.1:4317；首次播放需用户点击曲目解锁音频。远程 Agent 需自行确保用户能访问播放器。"
+        },
+        {
+          "name": "可选：哼唱与作品发布",
+          "details": "哼唱需 Python 3.12/3.13 和独立环境 bumusic==0.2.1；发布需 GitHub CLI、本人账号授权和作品许可确认。基础作曲播放不需要这些依赖。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "安装前备份曲库",
+          "description": "命令固定上游版本并复制完整技能。npx 可能覆盖同名目录；已有用户请先把 songs/ 和自定义文件备份到技能目录外。"
+        },
+        {
+          "title": "启动播放器",
+          "description": "进入实际安装的 piano-go 目录，执行 node scripts/start-player.mjs；在浏览器点击任一曲目解锁音频，再让 Agent 创作并播放。"
+        }
+      ],
+      "verify": {
+        "description": "在技能目录执行 node scripts/validate-arrangement.mjs examples/gentle-c-major.json，确认 ok:true；再执行 node scripts/play-arrangement.mjs examples/gentle-c-major.json，检查曲库新增与浏览器播放。校验成功不等于已听过作品。"
+      },
+      "update": {
+        "description": "先把 songs/ 中的原创作品与自定义文件备份到技能目录外，再审查新上游版本并安装。npx 可能覆盖同名目录，不能依赖它保留曲库；当前固定命令不会自动追踪 main。"
+      },
+      "uninstall": {
+        "description": "先导出或备份 songs/ 中的作品，再仅移除实际安装的 piano-go 目录，不删除其他技能或用户工程。"
+      },
+      "securityNote": "npx 可能覆盖同名目录；--yes 跳过确认，安装和更新前须备份 songs/。播放器仅限本机；录音、依赖下载及 GitHub 发布分别授权。原创代码 Apache-2.0，钢琴采样 CC BY 3.0、鼓采样和内置曲目 CC BY 4.0，月光参考谱含 CC BY-SA 2.5 条款；保留相应素材许可与来源说明。",
+      "evidenceUrl": "https://github.com/vercel-labs/skills/tree/7407f3893ad4dceab546ac002c3ef806e4000c73",
+      "id": "npx-github-copilot-user",
+      "label": "GitHub Copilot · 当前用户",
+      "summary": "从固定上游版本复制完整技能，已有安装先备份 songs/；安装本身不启动播放器、录音或发布作品。",
+      "client": "github-copilot",
+      "scope": "user",
+      "recommended": false,
+      "command": "npx skills@1.7.0 add https://github.com/hydraxman/PianoGo/tree/e3bf01bdd3bef6ec83b967410cca7370951a6848/skills/piano-go --skill piano-go --copy --agent github-copilot --yes --global"
+    },
+    {
+      "type": "cli",
+      "platforms": [
+        "macos",
+        "windows",
+        "linux"
+      ],
+      "officialStatus": "community",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22.20+",
+          "details": "安装使用 skills CLI 1.7.0；本地播放器基于 Node 内置模块，无需 npm install，也不需要额外的模型 API Key。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "支持音频的本地浏览器",
+          "details": "播放器默认仅监听 127.0.0.1:4317；首次播放需用户点击曲目解锁音频。远程 Agent 需自行确保用户能访问播放器。"
+        },
+        {
+          "name": "可选：哼唱与作品发布",
+          "details": "哼唱需 Python 3.12/3.13 和独立环境 bumusic==0.2.1；发布需 GitHub CLI、本人账号授权和作品许可确认。基础作曲播放不需要这些依赖。"
+        }
+      ],
+      "steps": [
+        {
+          "title": "安装前备份曲库",
+          "description": "命令固定上游版本并复制完整技能。npx 可能覆盖同名目录；已有用户请先把 songs/ 和自定义文件备份到技能目录外。"
+        },
+        {
+          "title": "启动播放器",
+          "description": "进入实际安装的 piano-go 目录，执行 node scripts/start-player.mjs；在浏览器点击任一曲目解锁音频，再让 Agent 创作并播放。"
+        }
+      ],
+      "verify": {
+        "description": "在技能目录执行 node scripts/validate-arrangement.mjs examples/gentle-c-major.json，确认 ok:true；再执行 node scripts/play-arrangement.mjs examples/gentle-c-major.json，检查曲库新增与浏览器播放。校验成功不等于已听过作品。"
+      },
+      "update": {
+        "description": "先把 songs/ 中的原创作品与自定义文件备份到技能目录外，再审查新上游版本并安装。npx 可能覆盖同名目录，不能依赖它保留曲库；当前固定命令不会自动追踪 main。"
+      },
+      "uninstall": {
+        "description": "先导出或备份 songs/ 中的作品，再仅移除实际安装的 piano-go 目录，不删除其他技能或用户工程。"
+      },
+      "securityNote": "npx 可能覆盖同名目录；--yes 跳过确认，安装和更新前须备份 songs/。播放器仅限本机；录音、依赖下载及 GitHub 发布分别授权。原创代码 Apache-2.0，钢琴采样 CC BY 3.0、鼓采样和内置曲目 CC BY 4.0，月光参考谱含 CC BY-SA 2.5 条款；保留相应素材许可与来源说明。",
+      "evidenceUrl": "https://github.com/vercel-labs/skills/tree/7407f3893ad4dceab546ac002c3ef806e4000c73",
+      "id": "npx-hermes-user",
+      "label": "Hermes · 当前用户",
+      "summary": "从固定上游版本复制完整技能，已有安装先备份 songs/；安装本身不启动播放器、录音或发布作品。",
+      "client": "hermes",
+      "scope": "user",
+      "recommended": false,
+      "command": "npx skills@1.7.0 add https://github.com/hydraxman/PianoGo/tree/e3bf01bdd3bef6ec83b967410cca7370951a6848/skills/piano-go --skill piano-go --copy --agent hermes-agent --yes --global"
+    }
+  ],
+  "usage": {
+    "instructions": "显式调用 /piano-go，或让 Agent 读取安装目录 SKILL.md 后按流程作曲。进入安装目录运行 node scripts/start-player.mjs；默认打开 http://127.0.0.1:4317，首次点击曲目解锁音频。示例：node scripts/validate-arrangement.mjs examples/gentle-c-major.json，再执行 node scripts/play-arrangement.mjs examples/gentle-c-major.json。新作品保存在 songs/，更新或卸载前务必备份。可选哼唱需 Python 3.12/3.13 与 bumusic==0.2.1，录音确认后才作曲。/piano-go publish 会进入独立发布流程，须本人 GitHub 授权和作品许可确认；PR 合并及 Pages 部署后才算上线。",
+    "example": "/piano-go 创作一段约 30 秒的温暖钢琴曲，C 大调，旋律清晰，先安静展开再回落；启动本地播放器试听，不录音、不安装额外依赖、不发布到 GitHub。"
+  }
+}

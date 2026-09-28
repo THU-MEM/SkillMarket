@@ -7,15 +7,20 @@ import { fileURLToPath } from 'node:url'
 import { spawnSync } from 'node:child_process'
 
 const repo = fileURLToPath(new URL('../', import.meta.url))
-const ids = ['open-source-contributor', '3d-video']
+const upstreamRepos = {
+  'open-source-contributor': 'KAIWU-AI/AI-quick-learn',
+  '3d-video': 'KAIWU-AI/AI-quick-learn',
+  'piano-go': 'hydraxman/PianoGo',
+}
+const ids = Object.keys(upstreamRepos)
 for (const id of ids) {
   test(`${id} uses pinned upstream sources and explicit installer semantics`, async () => {
     const e = JSON.parse(await fs.readFile(path.join(repo, 'registry/skills', `${id}.json`)))
     assert.equal(e.isExample, false)
     assert.equal(e.source.primaryFile, `skills/${id}/SKILL.md`)
-    const match = e.source.sourceUrl.match(new RegExp(`^https://github.com/KAIWU-AI/AI-quick-learn/blob/([0-9a-f]{40})/skills/${id}/SKILL.md$`))
+    const match = e.source.sourceUrl.match(new RegExp(`^https://github.com/${upstreamRepos[id]}/blob/([0-9a-f]{40})/skills/${id}/SKILL.md$`))
     assert.ok(match)
-    const source = `https://github.com/KAIWU-AI/AI-quick-learn/tree/${match[1]}/skills/${id}`
+    const source = `https://github.com/${upstreamRepos[id]}/tree/${match[1]}/skills/${id}`
     assert.equal(e.repository, source)
     assert.equal(e.installations.length, 12)
     const interactive = e.installations.find(m => m.client === 'universal')
@@ -33,6 +38,12 @@ for (const id of ids) {
         assert.equal(m.command, `${interactive.command} --agent ${agent} --yes${m.scope === 'user' ? ' --global' : ''}`)
         if (m.client === 'hermes') assert.equal(m.scope, 'user')
       }
+    }
+    if (id === 'piano-go') {
+      assert.equal(e.license, 'LicenseRef-Mixed')
+      assert.match(e.usage.instructions, /songs\//)
+      assert.match(JSON.stringify(e), /Python 3.12/)
+      assert.match(JSON.stringify(e), /无需 npm install/)
     }
     if (id === '3d-video') {
       assert.equal(e.license, 'LicenseRef-Mixed')

@@ -62,10 +62,10 @@ test('cloud setup exposes token type, acquisition and private configuration befo
 })
 
 test('upstream skills are listed but never routed through the first-party npx command', () => {
-  for (const id of ['open-source-contributor', '3d-video']) {
+  for (const [id, upstream] of [['open-source-contributor', 'KAIWU-AI/AI-quick-learn'], ['3d-video', 'KAIWU-AI/AI-quick-learn'], ['piano-go', 'hydraxman/PianoGo']]) {
     const html = render(`#/item/${id}`)
     assert.ok(!html.includes('404'), `${id} must be published`)
-    assert.ok(html.includes('npx skills@1.7.0 add https://github.com/KAIWU-AI/AI-quick-learn/tree/'))
+    assert.ok(html.includes(`npx skills@1.7.0 add https://github.com/${upstream}/tree/`))
     assert.ok(html.includes(`--skill ${id} --copy`))
     assert.ok(!html.includes(`npx skills@1.7.0 add THU-MEM/SkillMarket --skill ${id}`))
     assert.ok(!html.includes('class="npx-install"'), 'no duplicate first-party npx block')

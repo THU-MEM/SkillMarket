@@ -22,7 +22,9 @@ npx skills@1.7.0 add THU-MEM/SkillMarket --skill tsinghua-cloud-drive --copy
 
 `open-source-contributor` 和 `3d-video` 来自 **KAIWU-AI/AI-quick-learn**，详情页提供固定源码提交的 npx 安装命令，以及 Claude Code、Codex、Cursor、OpenCode、GitHub Copilot、Hermes 的选择。通用选项在终端选择范围；固定客户端命令使用 `--yes` 跳过确认，可能覆盖同名技能，务必先备份。客户端目录与环境覆盖规则按第三方 CLI 执行，以终端实际目标为准，不套用下方本站脚本的路径表。
 
-这两项不由本站目录安装器复制，`--list` 只列出该脚本实际支持的本站技能。Open Source Contributor 运行需 Python、Git、gh 与授权的 GitHub 访问；3D Video 的基础预览与完整渲染依赖不同，先阅读详情页的前置条件与上游 README。安装成功不代表已发布 PR、完成影片或获得云端权限。
+`piano-go` 来自 **hydraxman/PianoGo**，采用相同的固定版本 npx 安装方式。基础播放器无需 npm install；哼唱转谱需 Python 3.12/3.13 与独立 BuMusic 环境，发布作品另需授权。更新／卸载前先备份 `songs/`；自有代码 Apache-2.0，采样与示例曲另有 CC BY 许可，月光参考谱另含 CC BY-SA 2.5 条款。
+
+这些上游技能不由本站目录安装器复制，`--list` 只列出该脚本实际支持的本站技能。Open Source Contributor 运行需 Python、Git、gh 与授权的 GitHub 访问；3D Video 的基础预览与完整渲染依赖不同，先阅读详情页的前置条件与上游 README。安装成功不代表已发布 PR、完成影片或获得云端权限。
 
 ### 本站技能
 
