@@ -1,4 +1,4 @@
-# SkillMarket
+# 清工技能市场
 
 发现、安装和分享 Skills、Agents 与 Prompts。
 
@@ -13,6 +13,18 @@
 - 顶部展示目录实际数量及历史采样，不代表安装量、下载量或活跃量。
 
 ## 安装技能
+
+### 通用 npx
+
+需要 Git 与 Node.js 22.20+，运行后选择 Agent 和安装范围：
+
+```sh
+npx skills@1.7.0 add THU-MEM/SkillMarket --skill tsinghua-cloud-drive --copy
+```
+
+这是 Vercel Labs 的第三方安装器，可能覆盖已有同名技能，请先备份。安装不包含 Python 依赖和云盘凭据；清华云盘须自带 **Repo-Token 与 Repo ID**，见[获取与配置指引](docs/TSINGHUA_CLOUD_SETUP.md)。
+
+### 本站目录安装器
 
 需要 Git 与 Node.js 22+。在目标项目根目录执行：
 

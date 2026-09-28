@@ -1,6 +1,6 @@
-# Contributing to SkillMarket
+# Contributing to 清工技能市场
 
-Thank you for helping build an open, useful registry. SkillMarket is maintained as files in
+Thank you for helping build an open, useful registry. 清工技能市场 is maintained as files in
 Git: there is no account system or private database. A listing is published when its pull
 request is reviewed and merged into `main`.
 
@@ -137,7 +137,7 @@ An agent requires a `setup` object:
 }
 ```
 
-Explain permissions and external requirements explicitly. Do not imply that SkillMarket hosts
+Explain permissions and external requirements explicitly. Do not imply that 清工技能市场 hosts
 or runs the agent.
 
 ### Prompt

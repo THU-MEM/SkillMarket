@@ -1,8 +1,24 @@
 # 安装与使用
 
-先准备 **Git + Node.js 22 或更新版本**，在**目标项目根目录**打开终端。网站只提供目录和说明；安装器是仓库维护者脚本，不是客户端官方命令。
+在**目标项目根目录**打开终端。网站只提供目录和说明，不会托管运行技能。以下两种安装器的参数、目录规则与覆盖行为不同，不要混用。
+
+## 通用 npx 安装
+
+准备 **Git + Node.js 22.20 或更新版本**。以清华云盘为例，运行后在终端选择 Agent 与范围：
+
+```sh
+npx skills@1.7.0 add THU-MEM/SkillMarket --skill tsinghua-cloud-drive --copy
+```
+
+- 使用 Vercel Labs 的第三方 `skills` CLI；`--copy` 复制完整技能目录。可能覆盖已有同名技能，先备份并检查最终目标路径，不要把本站安装器的“不覆盖”保证套用到它。
+- 其他技能将 `--skill` 改为 `accessibility-audit` 或 `release-notes-writer`。仅查看可发现技能：`npx skills@1.7.0 add THU-MEM/SkillMarket --list`。
+- 它在终端选择 Agent 和范围，不读取网页上的选择器。也可显式添加 `--agent claude-code`；`--global` 表示用户级，不加则默认当前项目。保留确认提示，避免无意覆盖。
+- Hermes 在该 CLI 中的名字是 `hermes-agent`，与本站脚本的 `hermes` 不同；使用 `--agent hermes-agent --global`，非默认环境先设置正确的 `HERMES_HOME`。其它 Agent 支持范围以 [skills CLI 文档](https://github.com/vercel-labs/skills/tree/7407f3893ad4dceab546ac002c3ef806e4000c73) 为准。
+- 安装只是文件复制。Python 依赖、Token、客户端配置仍需另行准备。此方式无需先手动克隆 `.skillmarket-install`；安装依赖时使用它实际输出的技能目录。
 
 ## 两行安装
+
+以下为本站维护者脚本，需要 **Git + Node.js 22+**，不是客户端官方命令。
 
 例如将无障碍审查技能安装到当前项目的 Claude Code：
 
@@ -33,7 +49,7 @@ python3 -m pip install -r .skillmarket-install/examples/tsinghua-cloud-drive/req
 
 Windows 使用 `py -3` 替代 `python3`；建议在虚拟环境中运行。网站详情会按平台显示对应命令。
 
-在 Agent 运行环境设置自己的 `TSINGHUA_CLOUD_TOKEN` 和 `TSINGHUA_CLOUD_REPO_ID`，或通过 `--config` 指定包外私密 JSON；不要把凭据放进技能目录或公开仓库。先用 `--help` 检查运行环境，再用 `list /` 做只读验证。完整规则见 [SKILL.md](../examples/tsinghua-cloud-drive/SKILL.md)。
+在 Agent 运行环境设置自己的 `TSINGHUA_CLOUD_TOKEN` 和 `TSINGHUA_CLOUD_REPO_ID`，或通过 `--config` 指定包外私密 JSON；不要把凭据放进技能目录或公开仓库。**需要资料库 Repo-Token，不是账户 Token**：官方文档入口为资料库菜单 → 高级 → API Token，清华定制界面未登录复核。获取 Token、查找 Repo ID、配置及只读验证见 [清华云盘配置指南](TSINGHUA_CLOUD_SETUP.md)。完整命令见 [SKILL.md](../examples/tsinghua-cloud-drive/SKILL.md)。
 
 ### 安装目录
 
@@ -63,7 +79,7 @@ node .skillmarket-install/scripts/install-skill.mjs --skill accessibility-audit 
 - **更新**：备份已安装的单个技能目录；运行 `git -C .skillmarket-install pull --ff-only` 后审查源码；将旧技能目录移到技能发现目录外，再重跑对应第二行。已有目标一律拒绝，不提供 `--force`。
 - **卸载**：仅删除输出 `target` 所指的单个技能目录，不删除父级 `skills` 或其他技能。
 
-## 安全边界
+## 本站目录安装器的安全边界
 
 仅安装 `registry/skills` 登记的本仓库 `examples/<ID>/`，保留脚本、引用、资源与空目录；拒绝软链接、特殊文件、路径穿越、凭据文件、依赖安装目录与缓存。不读取本机凭据。先暂存全部文件，再独占创建新目标，最后发布 `SKILL.md`；普通失败会清理本次目录。断电或强制终止可能留下未完成目录，核对后手动移走，不自动删旧文件。
 

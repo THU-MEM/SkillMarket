@@ -12,6 +12,10 @@ version: 2.0.0
 
 将本文件夹放入 Agent 的 skills 目录，用 `terminal` 执行 `python3 -m pip install -r <skill目录>/requirements.txt`。
 
+**先取得资料库凭据**：登录清华云盘，在“我的资料库”中打开目标资料库的操作菜单，寻找“高级 → API Token”，创建专用于该资料库的 Repo-Token；仅查询/下载选只读，需要上传/修改才选读写。此路径依据 Seafile 官方文档，清华定制界面未登录复核。不要用账户 Token 或统一身份认证密码。Repo ID 取同一资料库地址 `/library/<repo_id>/…` 中的 ID，不是分享链接标识。没有入口时联系资料库所有者或管理员。
+
+[完整配置与排错指南](https://github.com/THU-MEM/SkillMarket/blob/main/docs/TSINGHUA_CLOUD_SETUP.md) · [Token 官方说明](https://seafile-api.readme.io/reference/authentication)
+
 凭据只从运行环境或包外配置获取，不写入技能、脚本或日志：
 - 环境变量：`TSINGHUA_CLOUD_TOKEN` 和 `TSINGHUA_CLOUD_REPO_ID`，两者必须同时设置。
 - 或全局 `--config /私密路径/credentials.json`；JSON字段为 `base_url`、`repo_id`、`api_token`。

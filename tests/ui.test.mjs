@@ -25,6 +25,42 @@ context.exports = context.module.exports
 vm.runInNewContext(result.outputFiles[0].text, context)
 const render = (hash) => { context.window.location.hash = hash; return context.module.exports.render() }
 
+test('public branding uses the Chinese market name without the organization subtitle', async () => {
+  const html = render('#/')
+  assert.match(html, /aria-label="清工技能市场 首页"/)
+  assert.match(html, />清工技能市场<\/span>/)
+  assert.doesNotMatch(html.replace(/<[^>]+>/g, ''), /THU[–-]MEM|SkillMarket/)
+  const index = await readFile(`${root}index.html`, 'utf8')
+  assert.match(index, /<title>清工技能市场/)
+})
+
+test('skill pages offer copyable npx installation separately from client-specific methods', async () => {
+  for (const entry of registry.filter(e => e.type === 'skill')) {
+    const source = await readFile(`${root}${entry.source.primaryFile}`, 'utf8')
+    assert.ok(source.split('\n').includes(`name: ${entry.id}`), 'npx --skill must match SKILL.md frontmatter')
+    const html = render(`#/item/${entry.id}`)
+    assert.ok(html.includes('通用 npx 安装'), entry.id)
+    assert.ok(new RegExp(`npx skills(?:@[0-9.]+)? add THU-MEM/SkillMarket --skill ${entry.id}(?: --copy)?`).test(html), entry.id)
+    assert.ok(html.includes('第三方安装器'))
+    assert.ok(html.includes('覆盖'))
+    assert.ok(html.includes('aria-label="复制 npx 安装命令"'))
+  }
+  assert.ok(render('#/guides').includes('npx skills'))
+  for (const entry of registry.filter(e => e.type !== 'skill')) {
+    assert.ok(!render(`#/item/${entry.id}`).includes('通用 npx 安装'))
+  }
+})
+
+test('cloud setup exposes token type, acquisition and private configuration before usage', () => {
+  const html = render('#/item/tsinghua-cloud-drive')
+  for (const text of ['获取与配置 Token', 'API Token', 'Repo-Token', 'TSINGHUA_CLOUD_TOKEN', 'TSINGHUA_CLOUD_REPO_ID', 'list /']) {
+    assert.ok(html.includes(text), text)
+  }
+  assert.ok(html.includes('https://cloud.tsinghua.edu.cn'))
+  assert.ok(html.includes('docs/TSINGHUA_CLOUD_SETUP.md'))
+  assert.ok(!render('#/item/accessibility-audit').includes('获取与配置 Token'))
+})
+
 test('catalog presents each real entry once, with direct search and no marketing footer', () => {
   const html = render('#/')
   for (const entry of registry) assert.equal(html.split(`href=\"#/item/${entry.id}\"`).length - 1, 1)

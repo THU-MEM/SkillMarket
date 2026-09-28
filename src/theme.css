@@ -6,10 +6,16 @@ body {background:inherit;color:var(--ink)}
 .header-inner {min-height:80px}
 .brand {color:var(--ink);font-size:1.22rem;gap:10px}
 .brand-mark {width:40px;height:40px;background:#6510ad;color:white;border-radius:13px}
-.brand small {font-size:.57rem;color:var(--muted)}
+.brand {white-space:nowrap}
 .site-header nav {gap:22px}
 .site-header nav a.publish-button {background:#6510ad;color:white;border-radius:12px;padding:0 19px;gap:6px}
 .theme-toggle {color:var(--muted);min-width:44px;border-radius:12px}
+.npx-install {margin:0 0 22px;padding:10px 14px;background:var(--soft);border:1px solid var(--line);border-radius:12px}
+.npx-install summary,.cloud-setup summary {min-height:44px;display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;color:var(--purple);font-size:13px}
+.npx-install p {font-size:12px;line-height:1.8;color:var(--muted)}
+.cloud-setup {scroll-margin-top:20px}.cloud-setup-steps {padding-left:22px;list-style:decimal}.cloud-setup-steps>li {margin-bottom:20px;padding-left:4px}.cloud-setup h3 {font-size:14px;color:var(--ink);margin-bottom:8px}.cloud-setup code {overflow-wrap:anywhere}.cloud-setup>.inline-link {margin-right:20px}
+.token-route {display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:12px 0;color:var(--purple)}.token-route span:not([aria-hidden]),.token-route strong {padding:6px 10px;background:var(--soft);border-radius:7px;font-size:12px}
+.npx-guide {margin-top:28px;border-top:1px solid var(--line);padding-top:24px}
 .catalog-page {padding-block:36px 70px}
 .page-heading {border:0;padding:0;margin-bottom:30px;align-items:center}
 .page-heading h1 {font-size:30px;font-weight:650;letter-spacing:-.03em;margin-bottom:10px}
