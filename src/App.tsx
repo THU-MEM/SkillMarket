@@ -10,10 +10,10 @@ import type { Platform, Sort } from './components/catalog'
 import { catalogHash, readCatalogState } from './components/catalogState'
 import type { CatalogState } from './components/catalogState'
 import CatalogOverview from './components/CatalogOverview'
+import SubmitPage from './components/SubmitPage'
 import type { EntryType, Installation, InstallScope, RegistryEntry, SkillEntry } from './types'
 
 const REPO = 'https://github.com/THU-MEM/SkillMarket'
-const CONTRIBUTING = `${REPO}/blob/main/CONTRIBUTING.md`
 const typeLabels: Record<EntryType, string> = { skill: '技能', agent: '智能体', prompt: '提示词' }
 const scopeLabels: Record<InstallScope, string> = { project: '当前项目', user: '当前用户', interactive: '安装时选择' }
 const platformLabels: Record<Platform, string> = { macos: 'macOS', windows: 'Windows', linux: 'Linux', web: 'Web' }
@@ -218,9 +218,6 @@ function GuidesPage() {
   const [client, setClient] = useState('github-copilot')
   const skills = entries.filter((e): e is SkillEntry => e.type === 'skill' && e.installations.some(m => m.client === client))
   return <main id="main-content" className="shell document-page"><div className="page-heading"><div><span className="eyebrow">GET STARTED</span><h1>安装指南</h1><p>选客户端，打开技能，复制对应的安装命令。</p></div></div><div className="guide-layout"><nav className="client-nav" aria-label="客户端指南">{Object.entries(clientLabels).filter(([id]) => entries.some(e => e.type === 'skill' && e.installations.some(m => m.client === id))).map(([id, name]) => <button key={id} aria-pressed={client === id} onClick={() => setClient(id)}>{name}<Icon name="arrow" size={16} /></button>)}</nav><article className="guide-content"><h2>{clientLabels[client]}</h2><p>项目级仅用于当前项目；用户级供个人多个项目复用。仅展示该技能明确支持的范围。</p><div className="guide-skill-list">{skills.map(entry => <a key={entry.id} href={`#/item/${entry.id}?client=${encodeURIComponent(client)}`}><Icon name="skill" /><span>{entry.name}</span><Icon name="arrow" /></a>)}{!skills.length && <p>当前目录暂无此客户端的安装说明。</p>}</div><ol className="guide-steps"><li><strong>选择环境</strong><p>在详情中选择客户端、范围与操作系统，再选择安装方式。</p></li><li><strong>审查并安装</strong><p>阅读主文件及前置条件，复制完整命令。对话窗口命令不要粘贴到终端。</p></li><li><strong>验证与维护</strong><p>展开验证、更新与卸载，按所选安装方式的说明操作。</p></li></ol><a className="inline-link" href={`${REPO}/blob/main/docs/USER_GUIDE.md`}>仓库安装文档<Icon name="external" size={16} /></a></article></div><section className="guide-content npx-guide"><h2>通用 npx 安装</h2><p>需要 Git 与 Node.js 22.20+。以清华云盘为例，按终端提示选择 Agent 和范围：</p><Command value="npx skills@1.7.0 add THU-MEM/SkillMarket --skill tsinghua-cloud-drive --copy" label="复制 npx 安装命令" /><p>这是第三方安装器，可能覆盖已有同名技能；先审查源码并备份。各技能详情页也提供对应命令。云盘运行仍需另配 Python 依赖和自己的 Token。</p></section></main>
-}
-function SubmitPage() {
-  return <main id="main-content" className="shell document-page"><div className="page-heading"><div><span className="eyebrow">CONTRIBUTE</span><h1>发布到目录</h1><p>添加元数据，通过 Pull Request 共同审阅。</p></div></div><div className="submit-layout"><ol className="guide-steps"><li><strong>阅读贡献指南</strong><p>确认必填字段、源码路径与安装说明。</p><a className="inline-link" href={CONTRIBUTING}>CONTRIBUTING.md<Icon name="external" size={16} /></a></li><li><strong>创建条目</strong><p>选择内容类型，使用唯一的 kebab-case ID。</p><div className="publish-links">{(Object.keys(typeLabels) as EntryType[]).map(type => <a className="button" key={type} href={`${REPO}/new/main/registry/${type}s?filename=your-${type}.json`}><Icon name={type} />{typeLabels[type]}<Icon name="external" size={15} /></a>)}</div></li><li><strong>校验并提交 PR</strong><p>按照贡献指南运行检查，说明用途与来源，等待审阅。</p></li></ol></div></main>
 }
 export default function App() {
   const route = useRoute()

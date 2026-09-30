@@ -15,7 +15,7 @@ for (const folder of ['skills', 'agents', 'prompts']) {
 const result = await build({
   stdin: { contents: `import React from 'react'; import {renderToStaticMarkup} from 'react-dom/server'; import App from './src/App'; export { default as SkipLink } from './src/components/SkipLink'; export { filterEntries, platformMethods, clientLabels } from './src/components/catalog'; export function render(){return renderToStaticMarkup(React.createElement(App))}`,
     resolveDir: root, loader: 'tsx' },
-  bundle: true, platform: 'node', format: 'cjs', write: false, jsx: 'automatic',
+  bundle: true, platform: 'node', format: 'cjs', write: false, jsx: 'automatic', loader: { '.css': 'empty' },
   plugins: [{ name: 'real-registry', setup(builder) {
     builder.onLoad({ filter: /\/src\/registry\.ts$/ }, () => ({ contents: `export const entries=${JSON.stringify(registry)};export const entryById=new Map(entries.map(e=>[e.id,e]));export const tags=[...new Set(entries.flatMap(e=>e.tags))].sort();`, loader: 'js' }))
   } }],
@@ -168,6 +168,15 @@ test('keyboard skip action prevents hash routing and focuses current main conten
   // React Aria correctly treats a present document as a real browser DOM.
   delete context.document
   assert.match(render('#/'), /class="skip-link"/)
+})
+
+test('publish starts with file intake or an agent prompt rather than blank JSON editors', () => {
+  const html = render('#/submit')
+  for (const text of ['拖入 ZIP 或文件夹', '选择 ZIP', '选择文件夹', '交给 Coding Agent', '复制发布指令', '仅在浏览器本地处理', 'GitHub']) assert.ok(html.includes(text), text)
+  assert.match(html, /type="file"[^>]+accept="\.zip/)
+  assert.match(html, /webkitdirectory/)
+  assert.ok(!html.includes('/new/main/registry/'))
+  assert.ok(!html.includes('type="password"'))
 })
 
 test('malformed URI renders a safe not-found page instead of crashing', () => {

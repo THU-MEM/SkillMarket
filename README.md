@@ -60,9 +60,14 @@ npm run check   # 目录校验、测试、Lint、类型检查与生产构建
 
 ## 发布
 
-在 `registry/skills`、`registry/agents` 或 `registry/prompts` 添加 JSON，运行检查后提交 Pull Request。格式见[贡献指南](CONTRIBUTING.md)与[Schema](registry/registry.schema.json)。
+打开[发布页](https://thu-mem.github.io/SkillMarket/#/submit)，选一种方式即可，**不需要手写 JSON，也不需要安装向导**：
 
-`main` 更新后，GitHub Actions 通过完整检查再部署到 GitHub Pages。生产路径为 `/SkillMarket/`，页面使用 hash 路由。
+- **ZIP / 文件夹：** 拖入或选择 ZIP，或选择／拖入一个资源文件夹；核对名称、入口、文件与排除列表，人工检查并勾选确认后下载整理包。再打开 GitHub 发布申请，**手动附加下载的 ZIP**，补充简单介绍、作者、来源和许可证后提交 Issue，由维护者审核并整理成 PR。
+- **交给 Coding Agent：** 复制发布页的中文指令，连同明确指定的 ZIP、文件夹或公开源码链接交给 Agent。它应安全检查材料、保留真实来源与许可，生成目录 JSON，运行 `npm ci` 和 `npm run check`，按授权提交 PR；不直接推送 `main`，不编造缺失信息。
+
+文件选择、预览和重新打包只在浏览器本地完成，不执行包内脚本，不自动上传或创建 Issue；刷新会清空当前包。只有在 GitHub 手动附加时才会上传，申请与附件是公开材料。排除敏感文件名只是基础检查，不保证内容无秘密；请自行审阅，本站不要求 Token。
+
+准备文件、使用说明、更新已有条目、常见问题及可折叠的字段参考，见[贡献指南](CONTRIBUTING.md)；机器校验规则见 [Schema](registry/registry.schema.json)。**提交申请不等于上线：PR 审核合并到 `main` 后，GitHub Actions 通过检查并成功部署 GitHub Pages，条目才会显示。** 生产路径为 `/SkillMarket/`，页面使用 hash 路由。
 
 ## 许可证
 
