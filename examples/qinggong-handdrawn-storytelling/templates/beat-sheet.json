@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "timeBasis": "Replace nulls only with measured narration/dialogue times",
+  "audioPriority": ["narrator", "dialogue", "sfx", "music"],
+  "beats": [
+    {"id":"opening","meaning":"建立主题","focus":"主题与徽章","voice":null,"visual":"短开场音乐后主题定格，主讲入场时降低音乐","music":"gentle rhythmic opening, licensed","start":null,"end":null},
+    {"id":"sales-gap","meaning":"销量与加单不一致","focus":"销量20与计划300的反差","voice":"narrator","visual":"两个数字先后出现，小人转为疑惑","start":null,"end":null},
+    {"id":"shop-line","meaning":"表达信息差","focus":"店主","voice":"shop-stock-or-authorized","spokenText":"怎么一下订这么多？","visual":"店主前倾，摊手，短气泡；其他对象停在次要层","start":null,"end":null},
+    {"id":"factory-line","meaning":"展示向上游加码","focus":"工厂角色","voice":"factory-stock-or-authorized","spokenText":"那我得多备一点货！","visual":"角色朝前喊话，指向新增箱子；不提高音量制造吵闹","start":null,"end":null},
+    {"id":"whip","meaning":"小波动被放大","focus":"真实移动的鞭梢","voice":"narrator","visual":"连续波沿鞭身传递，末端有大幅坐标变化","sfx":"peak-aligned restrained swish","start":null,"end":null},
+    {"id":"reflection","meaning":"订单不等于消费","focus":"同一张供应链关系图","voice":"narrator","visual":"局部收束，保留真实思考停顿","music":"quiet Chinese instrumental bed, speech carve","start":null,"end":null}
+  ],
+  "notFinalTiming": true,
+  "banned": ["page-by-page reset", "unrelated particles", "constant bouncing", "metadata on screen", "music louder than quiet speech"]
+}

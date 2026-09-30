@@ -1,0 +1,8 @@
+node_modules/
+projects/
+evidence/
+storyboard.html
+build-manifest.json
+assets/catalog/
+*.mp4
+.env*

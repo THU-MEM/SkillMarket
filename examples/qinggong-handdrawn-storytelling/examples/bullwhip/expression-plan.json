@@ -1,0 +1,427 @@
+{
+  "voice": "zh-CN-YunxiNeural",
+  "emphasis": "Not used: voice-specific emphasis support not confirmed; mild phrase prosody instead.",
+  "mechanicalPostSpeedup": false,
+  "clips": {
+    "intro": [
+      {
+        "style": "cheerful",
+        "rate": "-2%",
+        "pitch": "+1%",
+        "degree": 0.5,
+        "focus": [
+          "把知识讲明白",
+          "牛鞭效应"
+        ],
+        "reason": "Warm restrained identity and clear topic",
+        "breakMs": 0
+      }
+    ],
+    "s01": [
+      {
+        "style": "chat",
+        "rate": "0%",
+        "pitch": "+1%",
+        "degree": 0.75,
+        "focus": [
+          "只多卖了二十箱",
+          "却准备多做三百箱"
+        ],
+        "reason": "Understated numerical surprise",
+        "breakMs": 150
+      },
+      {
+        "style": "chat",
+        "rate": "-1%",
+        "pitch": "+2%",
+        "degree": 0.8,
+        "focus": [
+          "怎么就开始加班了"
+        ],
+        "reason": "Genuine question, not comic exaggeration",
+        "breakMs": 240
+      },
+      {
+        "style": "narration-relaxed",
+        "rate": "-2%",
+        "pitch": "0%",
+        "degree": 0.75,
+        "focus": [
+          "小波动",
+          "层层放大"
+        ],
+        "reason": "Settle into definition",
+        "breakMs": 0
+      }
+    ],
+    "s02": [
+      {
+        "style": "narration-relaxed",
+        "rate": "-2%",
+        "pitch": "+1%",
+        "degree": 0.8,
+        "focus": [
+          "只晃了一下",
+          "很大的幅度"
+        ],
+        "reason": "Invite visualization of contrast",
+        "breakMs": 180
+      },
+      {
+        "style": "narration-relaxed",
+        "rate": "0%",
+        "pitch": "0%",
+        "degree": 0.8,
+        "focus": [
+          "还算平稳",
+          "忽高忽低"
+        ],
+        "reason": "Connect analogy to orders",
+        "breakMs": 170
+      },
+      {
+        "style": "serious",
+        "rate": "-2%",
+        "pitch": "-1%",
+        "degree": 0.5,
+        "focus": [
+          "不是每条供应链",
+          "真实需求"
+        ],
+        "reason": "Qualify the claim without alarm",
+        "breakMs": 0
+      }
+    ],
+    "s03": [
+      {
+        "style": "narration-relaxed",
+        "rate": "-2%",
+        "pitch": "0%",
+        "degree": 0.8,
+        "focus": [
+          "教学假设",
+          "一百箱",
+          "一百二十箱"
+        ],
+        "reason": "Mark example as hypothetical; clear baselines",
+        "breakMs": 200
+      },
+      {
+        "style": "narration-relaxed",
+        "rate": "-1%",
+        "pitch": "+1%",
+        "degree": 0.8,
+        "focus": [
+          "一百六十箱",
+          "两百四十箱"
+        ],
+        "reason": "Step through two distinct quantities",
+        "breakMs": 200
+      },
+      {
+        "style": "chat",
+        "rate": "-1%",
+        "pitch": "0%",
+        "degree": 0.6,
+        "focus": [
+          "四百箱",
+          "却变了样"
+        ],
+        "reason": "Numerical escalation followed by realization",
+        "breakMs": 0
+      }
+    ],
+    "s04": [
+      {
+        "style": "narration-relaxed",
+        "rate": "-1%",
+        "pitch": "0%",
+        "degree": 0.8,
+        "focus": [
+          "回到一百箱",
+          "还在路上"
+        ],
+        "reason": "Calm demand versus lag contrast",
+        "breakMs": 180
+      },
+      {
+        "style": "serious",
+        "rate": "0%",
+        "pitch": "-1%",
+        "degree": 0.55,
+        "focus": [
+          "一起停订",
+          "一会儿加班",
+          "一会儿停工"
+        ],
+        "reason": "Consequence, measured not dramatic",
+        "breakMs": 200
+      },
+      {
+        "style": "narration-relaxed",
+        "rate": "-2%",
+        "pitch": "0%",
+        "degree": 0.8,
+        "focus": [
+          "不只是卖了多少",
+          "多久才能收到货"
+        ],
+        "reason": "Reflect on information and lead time",
+        "breakMs": 0
+      }
+    ],
+    "s05": [
+      {
+        "style": "narration-relaxed",
+        "rate": "-1%",
+        "pitch": "0%",
+        "degree": 0.8,
+        "focus": [
+          "有四个",
+          "第一",
+          "层层补安全库存"
+        ],
+        "reason": "Open clear enumeration",
+        "breakMs": 180
+      },
+      {
+        "style": "narration-relaxed",
+        "rate": "+1%",
+        "pitch": "+1%",
+        "degree": 0.75,
+        "focus": [
+          "第二",
+          "第三",
+          "提前囤货"
+        ],
+        "reason": "Maintain light enumerative momentum",
+        "breakMs": 190
+      },
+      {
+        "style": "serious",
+        "rate": "-1%",
+        "pitch": "-1%",
+        "degree": 0.5,
+        "focus": [
+          "第四",
+          "把需求报大",
+          "一起失真"
+        ],
+        "reason": "Explain distortion without blaming actors",
+        "breakMs": 0
+      }
+    ],
+    "s06": [
+      {
+        "style": "chat",
+        "rate": "-1%",
+        "pitch": "+1%",
+        "degree": 0.7,
+        "focus": [
+          "怎么减振",
+          "真实销量",
+          "而不只"
+        ],
+        "reason": "Question then practical first answer",
+        "breakMs": 200
+      },
+      {
+        "style": "narration-relaxed",
+        "rate": "0%",
+        "pitch": "0%",
+        "degree": 0.8,
+        "focus": [
+          "路上还有多少",
+          "之一",
+          "约定清楚"
+        ],
+        "reason": "Practical details, carefully qualified option",
+        "breakMs": 170
+      },
+      {
+        "style": "serious",
+        "rate": "-2%",
+        "pitch": "-1%",
+        "degree": 0.45,
+        "focus": [
+          "不是",
+          "真正用上"
+        ],
+        "reason": "Gentle corrective emphasis",
+        "breakMs": 0
+      }
+    ],
+    "s07": [
+      {
+        "style": "narration-relaxed",
+        "rate": "0%",
+        "pitch": "0%",
+        "degree": 0.8,
+        "focus": [
+          "缩短",
+          "提前期"
+        ],
+        "reason": "Direct actionable second measure",
+        "breakMs": 160
+      },
+      {
+        "style": "narration-relaxed",
+        "rate": "-1%",
+        "pitch": "+1%",
+        "degree": 0.8,
+        "focus": [
+          "在成本允许时",
+          "小批量、多批次"
+        ],
+        "reason": "Condition before recommendation",
+        "breakMs": 190
+      },
+      {
+        "style": "serious",
+        "rate": "-1%",
+        "pitch": "-1%",
+        "degree": 0.45,
+        "focus": [
+          "不是禁止促销",
+          "提前共享计划",
+          "长期增长"
+        ],
+        "reason": "Guard against an overbroad conclusion",
+        "breakMs": 0
+      }
+    ],
+    "s08": [
+      {
+        "style": "narration-relaxed",
+        "rate": "0%",
+        "pitch": "+1%",
+        "degree": 0.8,
+        "focus": [
+          "同一份终端销量"
+        ],
+        "reason": "Return to concrete shared example",
+        "breakMs": 180
+      },
+      {
+        "style": "narration-relaxed",
+        "rate": "-3%",
+        "pitch": "0%",
+        "degree": 0.8,
+        "focus": [
+          "一百二十箱",
+          "一百六十箱",
+          "不能混成"
+        ],
+        "reason": "Separate observed sales from purchase orders",
+        "breakMs": 220
+      },
+      {
+        "style": "serious",
+        "rate": "-1%",
+        "pitch": "-1%",
+        "degree": 0.5,
+        "focus": [
+          "持续观察",
+          "不能凭一周"
+        ],
+        "reason": "Measured evaluation caution",
+        "breakMs": 0
+      }
+    ],
+    "s09": [
+      {
+        "style": "chat",
+        "rate": "-2%",
+        "pitch": "+1%",
+        "degree": 0.75,
+        "focus": [
+          "没变",
+          "却翻倍",
+          "马上扩产吗",
+          "想一想"
+        ],
+        "reason": "Invite thought; keep mandatory three-second hold",
+        "breakMs": 3000
+      },
+      {
+        "style": "narration-relaxed",
+        "rate": "-2%",
+        "pitch": "0%",
+        "degree": 0.8,
+        "focus": [
+          "先别急",
+          "真实消费"
+        ],
+        "reason": "Patient answer and evidence checks",
+        "breakMs": 220
+      },
+      {
+        "style": "serious",
+        "rate": "-2%",
+        "pitch": "-1%",
+        "degree": 0.5,
+        "focus": [
+          "也别",
+          "一刀切清零",
+          "不是一回事"
+        ],
+        "reason": "Protect the key negation and safety-stock nuance",
+        "breakMs": 0
+      }
+    ],
+    "s10": [
+      {
+        "style": "serious",
+        "rate": "-2%",
+        "pitch": "-1%",
+        "degree": 0.5,
+        "focus": [
+          "不等于",
+          "不一定"
+        ],
+        "reason": "Restrained paired takeaway",
+        "breakMs": 220
+      },
+      {
+        "style": "narration-relaxed",
+        "rate": "0%",
+        "pitch": "0%",
+        "degree": 0.8,
+        "focus": [
+          "三样东西",
+          "波动对比图",
+          "根因清单",
+          "协同方案"
+        ],
+        "reason": "Useful closing deliverables",
+        "breakMs": 200
+      },
+      {
+        "style": "cheerful",
+        "rate": "-1%",
+        "pitch": "+1%",
+        "degree": 0.45,
+        "focus": [
+          "先问一句",
+          "真的买多了",
+          "鞭子被甩大了"
+        ],
+        "reason": "Slightly brighter reflective final question",
+        "breakMs": 0
+      }
+    ],
+    "outro": [
+      {
+        "style": "cheerful",
+        "rate": "-3%",
+        "pitch": "+1%",
+        "degree": 0.5,
+        "focus": [
+          "见"
+        ],
+        "reason": "Warm understated sign-off",
+        "breakMs": 0
+      }
+    ]
+  }
+}
