@@ -1,0 +1,123 @@
+{
+  "id": "courseware-atom-splitter",
+  "type": "skill",
+  "name": "课件原子知识点拆分",
+  "description": "把课程课件 PDF 拆解为可复用的原子知识点、案例与习题，生成带原文页码证据链的八表知识基座 Excel。",
+  "author": {
+    "name": "杜同学",
+    "url": "https://github.com/dushx666"
+  },
+  "source": {
+    "primaryFile": "examples/courseware-atom-splitter/SKILL.md",
+    "sourceUrl": "https://github.com/THU-MEM/SkillMarket/blob/main/examples/courseware-atom-splitter/SKILL.md",
+    "rawUrl": "https://raw.githubusercontent.com/THU-MEM/SkillMarket/main/examples/courseware-atom-splitter/SKILL.md"
+  },
+  "repository": "https://github.com/THU-MEM/SkillMarket/tree/main/examples/courseware-atom-splitter",
+  "tags": [
+    "courseware",
+    "knowledge-base",
+    "education",
+    "pdf",
+    "excel",
+    "teaching"
+  ],
+  "version": "2.0.0",
+  "license": "Apache-2.0",
+  "updatedAt": "2026-11-04",
+  "isExample": false,
+  "installations": [
+    {
+      "id": "claude-code-project",
+      "type": "cli",
+      "label": "Claude Code · 当前项目（本站安装器）",
+      "summary": "需要 Git 与 Node.js 22+；仓库只需克隆一次。安装器仅复制已登记的整目录，不执行包内脚本。脚本为跨平台 Python 实现，本次仅在 Windows 实机验证。",
+      "client": "claude-code",
+      "scope": "project",
+      "platforms": [
+        "windows",
+        "macos",
+        "linux"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": true,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill courseware-atom-splitter --agent claude-code --scope project",
+      "targetPath": ".claude/skills/courseware-atom-splitter",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22+",
+          "details": "本站安装器只使用 Node.js 标准库，无需 npm install；使用技能还需要 Python 3.10+。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "Python 3.10+ / pymupdf / openpyxl",
+          "details": "运行拆分脚本前安装两个必需依赖；LLM 精修所需的 openai 为可选项，不装也能跑通主链路。",
+          "check": "python --version\npython -m pip show pymupdf openpyxl"
+        }
+      ],
+      "steps": [
+        {
+          "title": "审查源码",
+          "description": "克隆后先阅读 .skillmarket-install/examples/courseware-atom-splitter 下的 SKILL.md、README.md 与 scripts/，确认命令、依赖和边界后再安装。"
+        },
+        {
+          "title": "执行安装",
+          "description": "在目标项目根目录运行第二行命令；已经克隆过仓库时可跳过第一行。安装器会拒绝符号链接、凭据文件与已存在的目标目录。"
+        }
+      ],
+      "verify": {
+        "description": "检查 .claude/skills/courseware-atom-splitter 下 16 个文件齐全（SKILL.md / README.md / 9 个脚本 / 5 份 references），再重启客户端查看技能是否可见。"
+      },
+      "update": {
+        "description": "先备份现有技能目录，更新并审查克隆源码，移走旧目录后重跑安装命令；安装器不会自动覆盖已有目标。"
+      },
+      "uninstall": {
+        "description": "仅删除 .claude/skills/courseware-atom-splitter，保留 .skillmarket-install 与其他技能。"
+      },
+      "securityNote": "安装阶段只克隆公开仓库并整目录复制文件，不执行包内脚本。实际使用技能时由 Agent 运行 Python 脚本读取本地 PDF、写出 xlsx，主链路不联网；仅 --refine 且配置 KB_LLM_API_KEY 时才会调用 OpenAI 兼容接口。请自行审阅 scripts/ 后再交给 Agent 执行。",
+      "evidenceUrl": "https://github.com/THU-MEM/SkillMarket/blob/main/docs/USER_GUIDE.md"
+    },
+    {
+      "id": "manual-universal",
+      "type": "manual",
+      "label": "手动复制目录 · 通用客户端",
+      "summary": "适合不使用本站安装器的 Agent；把审查过的整目录复制到该客户端的项目级 skills 目录，不执行任何安装脚本。",
+      "client": "universal",
+      "scope": "project",
+      "platforms": [
+        "windows",
+        "macos",
+        "linux"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": false,
+      "targetPath": "<客户端项目级 skills 目录>/courseware-atom-splitter",
+      "prerequisites": [
+        {
+          "name": "Git + Node.js 22+",
+          "details": "本站安装器只使用 Node.js 标准库，无需 npm install；使用技能还需要 Python 3.10+。",
+          "check": "git --version\nnode --version"
+        },
+        {
+          "name": "Python 3.10+ / pymupdf / openpyxl",
+          "details": "运行拆分脚本前安装两个必需依赖；LLM 精修所需的 openai 为可选项，不装也能跑通主链路。",
+          "check": "python --version\npython -m pip show pymupdf openpyxl"
+        }
+      ],
+      "steps": [
+        {
+          "title": "复制整目录",
+          "description": "从 https://github.com/THU-MEM/SkillMarket/tree/main/examples/courseware-atom-splitter 取得目录，人工审查后整体复制到客户端的技能目录，保持 SKILL.md 位于该目录根部。"
+        }
+      ],
+      "verify": {
+        "description": "确认新目录下 SKILL.md 与 README.md 可读、scripts/ 与 references/ 齐全，并在客户端中能看到该技能。"
+      },
+      "securityNote": "手动复制不会执行任何脚本，但后续由 Agent 使用技能时会运行包内 Python 脚本；请先审阅脚本与依赖，不要把它指向不可信的 PDF 之外的数据源。",
+      "evidenceUrl": "https://github.com/THU-MEM/SkillMarket/blob/main/examples/courseware-atom-splitter/README.md"
+    }
+  ],
+  "usage": {
+    "instructions": "适用任务：把一门课的课件 PDF（以及可选的作业题、案例材料）整理成可独立检索、统计、复用的结构化知识库，用于课程知识图谱、习题库建设或教学案例沉淀。不适用：扫描件无文本层、课件没有大纲且没有编号小标题时，纯脚本会退化为整章一条，需要人工或大模型精修兜底。所需输入：明确指定一份或若干份课件 PDF 的本地路径、输出 xlsx 路径；如果要回填原文证据，还需提供 <课件来源文件名>.pages.json 转录本。环境需要 Python 3.10+、pymupdf 与 openpyxl。如何发起：在助手中说明「用课件原子知识点拆分处理这些课件」，并给出文件路径与想要的档位（默认八表知识基座，或明确要求基础两页档）。预期结果：一份八表 Excel（原始拆分归档 / 原子知识点 / 知识关系 / 案例与项目 / 案例知识映射 / 教学评价 / 审核与学习证据 / 填写说明），以及 validate_knowledge_base.py 的结构校验结果；中间产物 .atoms.json 与 .pages.json 可用 --keep 保留。限制与边界：脚本会读取本地 PDF 并写出 xlsx，不会上传课件；不配置密钥时不会联网，--refine 才调用可选 LLM。所有 AI 判断均为候选、标注待教师确认，审核盖戳列始终留空，首稿不能冒充精修成果。",
+    "example": "请用课件原子知识点拆分处理 D:/课程/战略管理2024.pdf 与 D:/课程/战略管理-认识战略.pdf，输出到 D:/课程/战略管理知识基座.xlsx，并保留中间产物方便我逐条精修。课程没有 PDF 大纲，请按目录章名与领域关键词给每个知识点标注所属章节，把这些归属标为待教师确认；两份学生作业 zip 只是提交物，请只做素材清点，不要拆成知识点。最后运行结构校验并告诉我八表行数、原文证据回填率和校验结果。"
+  }
+}
