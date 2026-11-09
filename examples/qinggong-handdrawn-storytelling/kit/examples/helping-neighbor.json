@@ -1,0 +1,51 @@
+{
+  "id": "helping-neighbor",
+  "title": "邻里互助",
+  "duration": 20,
+  "chapters": [
+    { "title": "遇到难处", "at": 0 },
+    { "title": "主动帮忙", "at": 5 },
+    { "title": "一起搬", "at": 11 }
+  ],
+  "objects": [
+    { "id": "route", "type": "path", "d": "M 428 824 C 594 880 912 881 1102 806 M 1076 796 L 1102 806 L 1089 830", "x": 0, "y": 0, "color": "#c49a38" },
+    { "id": "neighbor", "type": "asset", "asset": "person", "pose": "think", "x": 160, "y": 380, "scale": 1.4 },
+    { "id": "helper", "type": "asset", "asset": "person", "pose": "talk", "x": 975, "y": 380, "scale": 1.4 },
+    { "id": "box", "type": "asset", "asset": "box", "x": 325, "y": 540, "scale": 0.7 },
+    { "id": "burden", "type": "label", "text": "搬不动", "x": 328, "y": 300, "size": 49 },
+    { "id": "offer", "type": "label", "text": "我来帮", "x": 1143, "y": 300, "size": 49, "color": "#593579" },
+    { "id": "box-label", "type": "label", "text": "重箱", "x": 409, "y": 755, "size": 33 },
+    { "id": "idea", "type": "asset", "asset": "bulb", "x": 612, "y": 212, "scale": 0.9 },
+    { "id": "idea-label", "type": "label", "text": "一起搬", "x": 720, "y": 465, "size": 40 },
+    { "id": "check", "type": "asset", "asset": "check", "x": 1165, "y": 514, "scale": 0.62 },
+    { "id": "takeaway", "type": "label", "text": "一起更轻松", "x": 720, "y": 968, "size": 54, "color": "#593579" },
+    { "id": "fiction", "type": "label", "text": "情境演示", "x": 157, "y": 1023, "size": 25, "color": "#c49a38" },
+    { "id": "hand", "type": "asset", "asset": "drawing-hand", "x": 0, "y": 0, "scale": 1 }
+  ],
+  "actions": [
+    { "type": "write", "target": "fiction", "at": 0, "duration": 0.6 },
+    { "type": "draw", "target": "neighbor", "at": 0.2, "duration": 1.4 },
+    { "type": "draw", "target": "box", "at": 0.9, "duration": 0.8 },
+    { "type": "write", "target": "burden", "at": 1.7, "duration": 0.8 },
+    { "type": "write", "target": "box-label", "at": 2.2, "duration": 0.6 },
+    { "type": "emphasize", "target": "box", "at": 2.9, "duration": 0.8, "amount": 1.08 },
+    { "type": "draw", "target": "helper", "at": 3.3, "duration": 1.2 },
+    { "type": "write", "target": "offer", "at": 4.3, "duration": 0.7 },
+    { "type": "draw", "target": "idea", "at": 5.2, "duration": 0.8 },
+    { "type": "emphasize", "target": "idea", "at": 6.1, "duration": 0.7, "amount": 1.12 },
+    { "type": "write", "target": "idea-label", "at": 6.5, "duration": 0.7 },
+    { "type": "erase", "target": "offer", "at": 7.2, "duration": 0.4 },
+    { "type": "erase", "target": "burden", "at": 7.2, "duration": 0.4 },
+    { "type": "move", "target": "helper", "at": 7.4, "duration": 2.1, "x": -360, "y": 0 },
+    { "type": "hand-draw", "target": "route", "hand": "hand", "at": 8, "duration": 2.5 },
+    { "type": "erase", "target": "box-label", "at": 9.7, "duration": 0.4 },
+    { "type": "move", "target": "neighbor", "at": 10.6, "duration": 1.2, "x": 120, "y": 0 },
+    { "type": "move", "target": "box", "at": 10.6, "duration": 1.2, "x": 235, "y": -55 },
+    { "type": "move", "target": "neighbor", "at": 12, "duration": 3.1, "x": 420, "y": 0 },
+    { "type": "move", "target": "helper", "at": 12, "duration": 3.1, "x": -60, "y": 0 },
+    { "type": "move", "target": "box", "at": 12, "duration": 3.1, "x": 835, "y": -55 },
+    { "type": "draw", "target": "check", "at": 15.2, "duration": 0.7 },
+    { "type": "write", "target": "takeaway", "at": 16, "duration": 1.1 },
+    { "type": "emphasize", "target": "takeaway", "at": 17.2, "duration": 0.8, "amount": 1.04 }
+  ]
+}

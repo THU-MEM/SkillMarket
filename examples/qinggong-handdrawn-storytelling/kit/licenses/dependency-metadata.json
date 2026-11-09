@@ -1,0 +1,26 @@
+{
+  "gsap": {
+    "version": "3.14.2",
+    "license": "Standard 'no charge' license: https://gsap.com/standard-license.",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/greensock/GSAP.git"
+    }
+  },
+  "roughjs": {
+    "version": "4.6.6",
+    "license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/pshihn/rough.git"
+    }
+  },
+  "opentype.js": {
+    "version": "1.3.4",
+    "license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "git://github.com/opentypejs/opentype.js.git"
+    }
+  }
+}

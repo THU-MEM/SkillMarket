@@ -1,0 +1,22 @@
+{
+  "name": "handdrawn-teaching-storyboard",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/assets.test.mjs tests/compile.test.mjs tests/portability.test.mjs tests/schema.test.mjs tests/templates.test.mjs tests/person-poses.test.mjs",
+    "build": "node scripts/build.mjs",
+    "test:browser": "node scripts/browser-test.mjs"
+  },
+  "dependencies": {
+    "roughjs": "4.6.6",
+    "gsap": "3.14.2",
+    "opentype.js": "1.3.4"
+  },
+  "devDependencies": {
+    "puppeteer-core": "24.31.0"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

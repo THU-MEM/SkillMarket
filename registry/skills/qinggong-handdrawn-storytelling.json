@@ -1,0 +1,77 @@
+{
+  "id": "qinggong-handdrawn-storytelling",
+  "type": "skill",
+  "name": "清工手绘故事视频",
+  "description": "连续手绘教学视频的方法与可运行画布：脚本、SSML、12种人物姿态、3D卡牌、动态鞭梢和音效对齐。",
+  "author": {
+    "name": "Bryan Nathan (hydraxman)",
+    "url": "https://github.com/hydraxman"
+  },
+  "source": {
+    "primaryFile": "examples/qinggong-handdrawn-storytelling/SKILL.md",
+    "sourceUrl": "https://github.com/THU-MEM/SkillMarket/blob/main/examples/qinggong-handdrawn-storytelling/SKILL.md",
+    "rawUrl": "https://raw.githubusercontent.com/THU-MEM/SkillMarket/main/examples/qinggong-handdrawn-storytelling/SKILL.md"
+  },
+  "repository": "https://github.com/THU-MEM/SkillMarket/tree/main/examples/qinggong-handdrawn-storytelling",
+  "tags": [
+    "video",
+    "storytelling",
+    "animation",
+    "education",
+    "svg"
+  ],
+  "version": "1.0.0",
+  "license": "Apache-2.0",
+  "updatedAt": "2026-09-30",
+  "isExample": false,
+  "featured": false,
+  "installations": [
+    {
+      "id": "hermes-user-macos",
+      "type": "cli",
+      "label": "Hermes · 当前用户",
+      "summary": "复制完整技能包；Node.js22+构建无Key演示，视频导出另需Chrome、FFmpeg和HyperFrames。只声明macOS实际验证。",
+      "client": "hermes",
+      "scope": "user",
+      "platforms": [
+        "macos"
+      ],
+      "officialStatus": "maintainer",
+      "recommended": true,
+      "command": "git clone --depth 1 --branch main https://github.com/THU-MEM/SkillMarket.git .skillmarket-install\nnode .skillmarket-install/scripts/install-skill.mjs --skill qinggong-handdrawn-storytelling --agent hermes --scope user",
+      "targetPath": "~/.hermes/skills/qinggong-handdrawn-storytelling",
+      "prerequisites": [
+        {
+          "name": "Git、Node.js22+",
+          "details": "运行目录安装器；不会执行技能内脚本。",
+          "check": "git --version\nnode --version"
+        }
+      ],
+      "steps": [
+        {
+          "title": "安装完整目录",
+          "description": "审查源码后执行命令；已有克隆不要重复clone。目标已存在时安装器拒绝覆盖。"
+        },
+        {
+          "title": "运行无Key示例",
+          "description": "进入技能kit目录运行npm ci --ignore-scripts、npm test、npm run build，打开storyboard.html。"
+        }
+      ],
+      "verify": {
+        "description": "确认SKILL.md、references、kit和12个人物SVG齐全；运行kit单测和build，Chrome环境下执行test:browser。"
+      },
+      "update": {
+        "description": "备份自行修改的故事与素材，再移走旧技能并重装；不自动覆盖。"
+      },
+      "uninstall": {
+        "description": "仅移除本技能目录；先备份自建故事。"
+      },
+      "securityNote": "不携带真人声纹、密钥、原参考视频或品牌原素材。主许可只覆盖原创内容，GSAP与字体保留各自许可。TTS需包外凭据及当前用途授权。",
+      "evidenceUrl": "https://hermes-agent.nousresearch.com/docs/user-guide/features/skills/"
+    }
+  ],
+  "usage": {
+    "instructions": "提供主题、受众、知识依据、需要保留的品牌或参考片及合法素材。Agent先写情境/因果/练习脚本，在连续画布中复用角色与对象，以真实旁白时长组织动画；可直接浏览12种人物SVG，构建无Key示例。交付成片和可编辑工程，逐项验证画面和声音；不把字体轮廓称真实笔顺，不把未经许可的真人声音用于新任务。包内原片分析为方法归纳，未分发原片；完整课程生产仍需合法音频和品牌输入。",
+    "example": "请用连续手绘动画解释库存积压：先讲饮品店例子，再画订单传递和在途库存，屏幕少字，人物要有疑惑和讲解姿势。沿用同一画布，卡牌用3D翻转，音乐让位旁白；先出分镜和可编辑演示，不调用付费TTS。"
+  }
+}

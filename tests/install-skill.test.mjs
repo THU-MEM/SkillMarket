@@ -53,7 +53,7 @@ test('list and dry-run do not write; unsupported client/scope and ambiguous flag
   const s = await sandbox(t)
   const list = s.run('--list')
   assert.equal(list.status, 0, list.stderr)
-  assert.deepEqual(JSON.parse(list.stdout).skills, ['accessibility-audit', 'courseware-atom-splitter', 'release-notes-writer', 'tsinghua-cloud-drive'])
+  assert.deepEqual(JSON.parse(list.stdout).skills, ['accessibility-audit', 'courseware-atom-splitter', 'qinggong-handdrawn-storytelling', 'release-notes-writer', 'tsinghua-cloud-drive'])
   const dry = s.run('--skill', 'accessibility-audit', '--agent', 'codex', '--scope', 'project', '--dry-run')
   assert.equal(dry.status, 0, dry.stderr)
   assert.equal(JSON.parse(dry.stdout).dryRun, true)

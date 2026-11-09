@@ -1,0 +1,11 @@
+Hand-drawn People Reserve / 手绘小人备用资源
+Original asset geometry, module, gallery and tests: Copyright 2026 Hand-drawn People Reserve contributors.
+Licensed under the Apache License, Version 2.0. See LICENSE.
+
+Uses the established palette and Rough.js rendering conventions to match the surrounding hand-drawn kit. No brand logos, course cards, fonts, narration or video are included or relicensed.
+
+Third-party dependencies are not bundled:
+- Rough.js 4.6.6: MIT (https://github.com/rough-stuff/rough)
+- Puppeteer Core 24.31.0: Apache-2.0 (https://github.com/puppeteer/puppeteer)
+
+Static SVGs and gallery have no runtime dependency or network requirement.

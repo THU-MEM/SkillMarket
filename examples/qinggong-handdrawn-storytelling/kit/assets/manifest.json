@@ -1,0 +1,26 @@
+[
+  {
+    "asset": "assets/fonts/ZCOOLKuaiLe-Regular.ttf",
+    "sha256": "812a6fc1fe54b6d73a419245c32dfeba8aa33104d5be90d1cf6af082007cb71d"
+  },
+  {
+    "asset": "assets/cards/placeholder.svg",
+    "sha256": "d95d669bce997005aaa526e5a0b61476862b79be2241d9605c1d5e9b5062aa30"
+  },
+  {
+    "asset": "licenses/ZCOOL-OFL.txt",
+    "sha256": "538078469839b4a2e7ad22bef4ebe41681a4e53749bb2a072144024f1d6d703d"
+  },
+  {
+    "asset": "licenses/roughjs-LICENSE",
+    "sha256": "dca9a392272606ac748ac0976a2a1133f14eef841c27beaa51a844d53c56a09d"
+  },
+  {
+    "asset": "licenses/opentype.js-LICENSE",
+    "sha256": "a5b87c9bc191e7f9c06b07bd7cbbed3ed846dfdb50e859484b2c245aa1ab2e61"
+  },
+  {
+    "asset": "licenses/GSAP-STANDARD-LICENSE.txt",
+    "sha256": "79d0a29905e788109d462bf88962e3aade094ae8461508a317ccd1f52152781f"
+  }
+]
